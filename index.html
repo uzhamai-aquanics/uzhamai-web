@@ -47,7 +47,7 @@
     }
     .logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
     .logo-mark {
-      width: 44px; height: 44px; border-radius: 50%;
+      width: 44px; height: 44px; border-radius: 0;
       display: flex; align-items: center; justify-content: center;
       overflow: hidden;
       position: relative;
@@ -55,7 +55,6 @@
     .logo-mark::after {
       content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      animation: shine 3s infinite;
     }
     @keyframes shine { 0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; } }
     .logo-mark img { width: 100%; height: 100%; object-fit: cover; }
@@ -692,9 +691,9 @@
 
     /* RESPONSIVE */
     @media (max-width: 1100px) {
-      #hero { grid-template-columns: 1fr; text-align: center; padding-left: 0; padding: 80px 5% 20px; min-height: auto; }
-      .hero-content { padding: 1rem 0 2rem; display: flex; flex-direction: column; align-items: center; }
-      .hero-right { display: flex; height: 320px; order: -1; margin-bottom: 0.5rem; overflow: visible; }
+      #hero { grid-template-columns: 1fr; text-align: center; padding-left: 0; padding: 40px 5% 0; min-height: auto; display: flex; flex-direction: column; }
+      .hero-content { padding: 0; margin-top: -30px; display: flex; flex-direction: column; align-items: center; }
+      .hero-right { display: flex; height: 260px; order: -1; margin-bottom: -20px; overflow: visible; }
       
       /* Scaling down logo elements for mobile */
       .hero-swim-path { width: 180px; height: 180px; }
@@ -739,7 +738,7 @@
 <!-- NAVBAR -->
 <nav id="navbar">
   <a class="logo" href="#">
-    <div class="logo-mark"><img src="lo1.jpeg" alt="Uzhamai Aquanics Logo"></div>
+    <div class="logo-mark"><img src="lo2.png" alt="Uzhamai Aquanics Logo"></div>
     <div>
       <div class="logo-name">UZHAMAI</div>
       <div class="logo-sub">Aquanics</div>
@@ -827,7 +826,7 @@
       <div class="ring dashed" style="width:420px;height:420px;animation-delay:0.5s;"></div>
       <div class="ring" style="width:220px;height:220px;animation-delay:2s;"></div>
       <div class="hero-swim-path">
-        <img src="lo1.jpeg" alt="Uzhamai Aquanics" class="hero-logo-large">
+        <img src="lo2.png" alt="Uzhamai Aquanics" class="hero-logo-large">
       </div>
       </div>
     </div>
@@ -1112,7 +1111,7 @@
   <div class="fg-grid">
     <div class="fb-brand">
       <div style="display:flex;align-items:center;gap:0.7rem;margin-bottom:0.3rem;">
-        <img src="lo1.jpeg" alt="Logo" style="width:48px; height:48px; border-radius:4px; object-fit:cover;">
+        <img src="lo2.png" alt="Logo" style="width:48px; height:48px; border-radius:0; object-fit:cover;">
         <div>
           <div style="font-family:var(--font-d);font-size:1.5rem;letter-spacing:3px;">UZHAMAI AQUANICS</div>
           <div style="font-size:0.5rem;color:var(--sky);letter-spacing:4px;font-family:var(--font-b);">BIOFLOC FISH FARMING & TRADING · ERODE</div>
@@ -1165,7 +1164,7 @@
   </div>
   <div class="foot-bot">
     <p>© 2025 Uzhamai Aquanics. All rights reserved. Erode, Tamil Nadu.</p>
-    <p>Made with 🌊 for fresh fish lovers</p>
+    <p>Clean Tech. Green Growth. Fresh Harvest</p>
   </div>
 </footer>
 
