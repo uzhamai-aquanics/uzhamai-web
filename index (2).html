@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UZHAMAI AQUANICS — Biofloc Fish Farming & Trading, Erode</title>
+  <link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600;700&family=Big+Shoulders+Display:wght@700;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy:     rgba(240, 249, 255, 0.9);
+      --deep:     rgba(224, 242, 241, 0.85);
+      --ocean:    rgba(224, 247, 250, 0.85);
+      --mid-blue: #e3f2fd;
+      --royal:    #1565c0;
+      --cobalt:   #1976d2;
+      --sky:      #42a5f5;
+      --ice:      #90caf9;
+      --frost:    #bbdefb;
+      --white:    #0d47a1;
+      --pure:     #ffffff;
+      --text-dark: #0d47a1;
+      --gold:     #ffd54f;
+      --text-dim: #1976d2;
+      --card-bg:  rgba(0,0,0,0.03);
+      --card-bd:  rgba(25,118,210,0.12);
+      --font-d: 'Big Shoulders Display', sans-serif;
+      --font-h: 'Philosopher', sans-serif;
+      --font-b: 'Outfit', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--navy); color: var(--white); font-family: var(--font-b); overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--navy); }
+    ::-webkit-scrollbar-thumb { background: var(--cobalt); border-radius: 3px; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 6%; transition: all 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(255,255,255,0.96); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(66,165,245,0.12);
+      padding: 0.9rem 6%;
+    }
+    .logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .logo-mark {
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .logo-mark::after {
+      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      animation: shine 3s infinite;
+    }
+    @keyframes shine { 0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; } }
+    .logo-mark img { width: 100%; height: 100%; object-fit: cover; }
+    .logo-name { font-family: var(--font-d); font-size: 1.5rem; letter-spacing: 3px; color: var(--text-dark); line-height: 1; }
+    .logo-sub { font-size: 0.55rem; letter-spacing: 2px; color: var(--sky); font-family: var(--font-b); font-weight: 600; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+    .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.82rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--sky); }
+    .nav-btn {
+      background: linear-gradient(135deg, var(--cobalt), var(--sky));
+      color: var(--pure) !important; padding: 0.6rem 1.5rem; border-radius: 8px;
+      font-weight: 700 !important; box-shadow: 0 4px 16px rgba(25,118,210,0.35);
+      transition: box-shadow 0.2s, transform 0.2s !important;
+    }
+    .nav-btn:hover { box-shadow: 0 6px 24px rgba(66,165,245,0.5); transform: translateY(-1px); }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; }
+    .hamburger span { width: 26px; height: 2px; background: var(--sky); border-radius: 2px; }
+    .mob-nav {
+      display: none; position: fixed; inset: 0; z-index: 190;
+      background: rgba(255,255,255,0.98); backdrop-filter: blur(12px);
+      flex-direction: column; align-items: center; justify-content: center; gap: 2.8rem;
+    }
+    .mob-nav.open { display: flex; }
+    .mob-nav a { font-family: var(--font-d); font-size: 2.8rem; letter-spacing: 4px; color: var(--text-dark); text-decoration: none; transition: color 0.2s; }
+    .mob-nav a:hover { color: var(--sky); }
+    .mob-close { position: absolute; top: 1.5rem; right: 6%; background: none; border: none; color: var(--text-dim); font-size: 2rem; cursor: pointer; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh; display: grid; grid-template-columns: 55% 45%;
+      align-items: center; padding-left: 6%; position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 50% -20%, rgba(66,165,245,0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(21,101,192,0.08) 0%, transparent 50%),
+        linear-gradient(180deg, #ffffff 0%, var(--navy) 100%);
+      z-index: 0;
+    }
+    
+    /* WATER FLOW ANIMATION */
+    .water-waves {
+      position: absolute; bottom: 0; left: 0; width: 100%; height: 120px;
+      z-index: 1; pointer-events: none; opacity: 0.7;
+    }
+    .waves-svg { width: 100%; height: 100%; }
+    .parallax > use { animation: waveFlow 25s cubic-bezier(.55,.5,.45,.5) infinite; }
+    .parallax > use:nth-child(1) { animation-delay: -2s; animation-duration: 7s; }
+    .parallax > use:nth-child(2) { animation-delay: -3s; animation-duration: 10s; }
+    .parallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 13s; }
+    .parallax > use:nth-child(4) { animation-delay: -5s; animation-duration: 20s; }
+    @keyframes waveFlow {
+      0% { transform: translate3d(-90px,0,0); }
+      100% { transform: translate3d(85px,0,0); }
+    }
+
+    .dot-grid {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(66,165,245,0.2) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(ellipse 55% 75% at 15% 50%, black 20%, transparent 70%);
+    }
+    .bubbles { position: fixed; inset: 0; pointer-events: none; z-index: -1; }
+    .bub {
+      position: absolute; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), rgba(66,165,245,0.15));
+      border: 1px solid rgba(255,255,255,0.3);
+      box-shadow: inset 0 0 10px rgba(255,255,255,0.2);
+      animation: bubUp linear infinite;
+    }
+    @keyframes bubUp {
+      0%   { transform: translateY(105vh) translateX(0) scale(0.3); opacity: 0; }
+      20%  { opacity: 0.6; transform: translateY(80vh) translateX(20px) scale(0.6); }
+      50%  { transform: translateY(50vh) translateX(-20px) scale(0.8); }
+      80%  { opacity: 0.3; transform: translateY(20vh) translateX(15px) scale(1); }
+      100% { transform: translateY(-15vh) translateX(0) scale(1.2); opacity: 0; }
+    }
+    .hero-content { position: relative; z-index: 2; padding: 2.5rem 0 5rem; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: rgba(66,165,245,0.1); border: 1px solid rgba(66,165,245,0.3);
+      border-radius: 50px; padding: 0.45rem 1.1rem;
+      font-size: 0.72rem; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--sky); margin-bottom: 1.8rem;
+      animation: fadeUp 0.7s ease both;
+    }
+    .hero-badge::before { content:''; width:7px; height:7px; border-radius:50%; background:var(--sky); animation:blink 2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+    .hero-h1 {
+      font-family: var(--font-h);
+      font-size: clamp(3.5rem, 7vw, 7rem);
+      line-height: 0.9; letter-spacing: 1px; margin-bottom: 1.2rem;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    .h1-blue  { color: var(--sky); display: block; font-style: italic; }
+    .h1-white { color: var(--text-dark); display: block; font-weight: 700; }
+    .h1-outline { display: block; -webkit-text-stroke: 2px rgba(5,32,53,0.15); color: transparent; }
+    .hero-tagline { font-family: var(--font-h); font-size: clamp(1rem,2vw,1.3rem); font-style: italic; color: var(--cobalt); opacity: 0.8; margin-bottom: 1.4rem; animation: fadeUp 0.7s 0.2s ease both; }
+    .hero-desc { font-size: 0.97rem; color: var(--text-dim); line-height: 1.78; max-width: 480px; margin-bottom: 2.5rem; animation: fadeUp 0.7s 0.3s ease both; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.7s 0.4s ease both; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--royal), var(--sky));
+      color: var(--pure); padding: 0.9rem 2.2rem; border-radius: 10px;
+      font-weight: 700; font-size: 0.88rem; letter-spacing: 1.5px; text-transform: uppercase;
+      text-decoration: none; border: none; cursor: pointer;
+      box-shadow: 0 6px 25px rgba(21,101,192,0.45);
+      transition: transform 0.2s, box-shadow 0.2s; display: inline-block;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 35px rgba(66,165,245,0.45); }
+    .btn-ghost {
+      background: transparent; color: var(--sky);
+      padding: 0.9rem 2.2rem; border-radius: 10px;
+      font-weight: 600; font-size: 0.88rem; letter-spacing: 1.5px; text-transform: uppercase;
+      text-decoration: none; border: 1.5px solid rgba(66,165,245,0.4);
+      transition: all 0.2s; display: inline-block; cursor: pointer;
+    }
+    .btn-ghost:hover { background: rgba(66,165,245,0.1); border-color: var(--sky); }
+    .hero-stats { display: flex; gap: 2.5rem; margin-top: 4rem; animation: fadeUp 0.7s 0.5s ease both; }
+    .sv { border-left: 2px solid rgba(66,165,245,0.3); padding-left: 1rem; }
+
+    /* LARGE HERO LOGO ANIMATION */
+    .hero-swim-path {
+      width: 380px; height: 380px;
+      position: relative; overflow: hidden; border-radius: 60px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-swim-path::after {
+      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      animation: shine 4s infinite 1.5s;
+      pointer-events: none;
+      z-index: 6;
+    }
+    .hero-logo-large {
+      width: 320px; height: 320px;
+      object-fit: contain;
+      border-radius: 40px;
+      animation: logoFloat 6s ease-in-out infinite;
+      z-index: 5;
+    }
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-25px) rotate(2deg); }
+    }
+    
+    /* ENHANCED HERO RIGHT ELEMENTS */
+    .light-rays {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(45deg, rgba(66, 165, 245, 0.05) 0%, transparent 10%, transparent 20%);
+      mask-image: radial-gradient(circle at 50% 50%, black, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+      animation: rayRotate 60s linear infinite;
+    }
+    @keyframes rayRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    .hero-badge-circle {
+      position: absolute;
+      width: 580px; height: 580px;
+      z-index: 2;
+      animation: rotateText 25s linear infinite;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+    @keyframes rotateText { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    .hero-badge-circle svg { width: 100%; height: 100%; fill: var(--sky); font-family: var(--font-d); font-size: 16px; letter-spacing: 6px; text-transform: uppercase; }
+
+    .floating-particles {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .particle {
+      position: absolute; background: var(--sky); border-radius: 50%; opacity: 0.2;
+      animation: floatUp var(--d) ease-in-out infinite;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) translateX(0); opacity: 0; }
+      50% { opacity: 0.3; }
+      100% { transform: translateY(-100px) translateX(20px); opacity: 0; }
+    }
+    
+    .ring.dashed { border-style: dashed; border-width: 2px; opacity: 0.2; }
+
+    /* CURSOR FISH */
+    .swimming-fish {
+      position: fixed; top: 0; left: 0; font-size: 0.6rem;
+      pointer-events: none; z-index: 999; opacity: 0;
+      transition: opacity 0.5s ease;
+      will-change: transform;
+      filter: drop-shadow(0 3px 6px rgba(25,118,210,0.2));
+    }
+    .swimming-fish.active { opacity: 1; }
+
+    .c-trail {
+      position: fixed; pointer-events: none; z-index: 998;
+      background: rgba(66, 165, 245, 0.2);
+      border: 1px solid rgba(66, 165, 245, 0.3);
+      border-radius: 50%;
+      animation: c-bub-out 0.8s ease-out forwards;
+    }
+    @keyframes c-bub-out {
+      0% { transform: scale(0.3) translateY(0); opacity: 0.8; }
+      100% { transform: scale(1.5) translateY(-30px); opacity: 0; }
+    }
+
+    .sn { font-family: var(--font-d); font-size: 2.4rem; letter-spacing: 2px; color: var(--sky); line-height: 1; }
+    .sl { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; margin-top: 0.2rem; }
+    .hero-right {
+      position: relative; height: 100vh;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .hero-right-bg {
+      position: absolute; inset: 0;
+    }
+    .hero-fish-canvas { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; }
+    @keyframes fishDrift { 0%,100%{transform:translateY(0) rotate(-3deg)} 33%{transform:translateY(-20px) rotate(0)} 66%{transform:translateY(10px) rotate(-5deg)} }
+    .ring { position: absolute; border-radius: 50%; border: 1px solid rgba(66,165,245,0.14); animation: ringP 4s ease-in-out infinite; }
+    @keyframes ringP { 0%,100%{transform:scale(1);opacity:0.5} 50%{transform:scale(1.08);opacity:0.15} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+
+    /* STRIP */
+    .strip { background: linear-gradient(90deg, var(--royal) 0%, var(--sky) 50%, var(--royal) 100%); padding: 0.85rem 0; overflow: hidden; }
+    .strip-inner { display: flex; gap: 2.5rem; animation: scroll 22s linear infinite; white-space: nowrap; }
+    .strip-inner span { font-family: var(--font-d); font-size: 0.95rem; letter-spacing: 3px; color: var(--pure); }
+    .strip-inner .dot { opacity: 0.4; }
+    @keyframes scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+    /* COMMON SECTION */
+    section { padding: 7rem 6%; }
+    .s-tag { display: block; font-size: 0.68rem; letter-spacing: 3.5px; text-transform: uppercase; color: var(--sky); margin-bottom: 0.8rem; }
+    .s-title { font-family: var(--font-h); font-size: clamp(2rem,4vw,3.2rem); font-weight: 700; line-height: 1.15; margin-bottom: 1rem; }
+    .s-title em { font-style: italic; color: var(--sky); }
+    .s-desc { color: var(--text-dim); font-size: 0.97rem; line-height: 1.78; }
+    .sec-c { text-align: center; }
+    .sec-c .s-desc { max-width: 600px; margin: 0 auto; }
+
+    /* PRODUCTS */
+    #products { background: var(--deep); }
+    .prod-hd { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 2rem; }
+    .filters { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .fb {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(66,165,245,0.2);
+      color: var(--text-dim); padding: 0.5rem 1.3rem; border-radius: 50px;
+      font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase;
+      cursor: pointer; transition: all 0.2s; font-family: var(--font-b);
+    }
+    .fb.active, .fb:hover { background: rgba(25,118,210,0.2); border-color: var(--cobalt); color: var(--sky); }
+    .prod-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px,1fr)); gap: 1.6rem; }
+    .pc {
+      background: var(--card-bg); border: 1px solid var(--card-bd); border-radius: 18px;
+      overflow: hidden; cursor: pointer;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+    .pc:hover { transform: translateY(-7px); border-color: rgba(66,165,245,0.5); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+    .pi { 
+      height: 185px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      font-size: 5.5rem; 
+      position: relative; 
+      overflow: hidden;
+      background: rgba(25, 118, 210, 0.03);
+    }
+    .pi-img { 
+      width: 100%;
+      height: 100%;
+      object-fit: cover; 
+      position: relative; 
+      z-index: 1; 
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .pc:hover .pi-img { transform: scale(1.1); }
+    .pi-bg { position: absolute; inset: 0; background: linear-gradient(135deg,rgba(21,101,192,0.35),rgba(66,165,245,0.06)); }
+    .pi-em { position: relative; z-index: 1; filter: drop-shadow(0 6px 18px rgba(0,0,0,0.5)); }
+    .pbadge {
+      position: absolute; top: 12px; right: 12px; z-index: 2;
+      padding: 0.22rem 0.65rem; border-radius: 50px;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    }
+    .bf { background: rgba(66,165,245,0.2); color: var(--sky); border: 1px solid rgba(66,165,245,0.4); }
+    .bh { background: rgba(255,213,79,0.18); color: var(--gold); border: 1px solid rgba(255,213,79,0.4); }
+    .bn { background: rgba(67,200,140,0.18); color: #43c88c; border: 1px solid rgba(67,200,140,0.4); }
+    .pinfo { padding: 1.3rem 1.5rem 1.6rem; }
+    .pcat { font-size: 0.63rem; letter-spacing: 2.5px; text-transform: uppercase; color: var(--sky); margin-bottom: 0.35rem; }
+    .pname { font-family: var(--font-h); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .pdesc { font-size: 0.82rem; color: var(--text-dim); line-height: 1.55; margin-bottom: 1.1rem; }
+    .pfoot { display: flex; align-items: center; justify-content: space-between; }
+    .pprice { font-family: var(--font-d); font-size: 1.5rem; color: var(--text-dark); letter-spacing: 1px; }
+    .pprice span { font-size: 0.7rem; color: var(--text-dim); font-family: var(--font-b); }
+    .pbtn {
+      background: linear-gradient(135deg, var(--royal), var(--sky)); border: none;
+      color: var(--pure); padding: 0.5rem 1.1rem; border-radius: 8px;
+      font-size: 0.78rem; font-weight: 700; cursor: pointer;
+      font-family: var(--font-b); transition: opacity 0.2s;
+    }
+    .pbtn:hover { opacity: 0.85; }
+
+    /* FISH BENEFITS */
+    #benefits { background: var(--ocean); position: relative; overflow: hidden; }
+    #benefits::before {
+      content: ''; position: absolute; top: -200px; right: -200px;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(21,101,192,0.16), transparent 70%);
+      pointer-events: none;
+    }
+    .ben-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-bottom: 5rem; }
+    .ben-intro-left .s-desc { margin-top: 1rem; max-width: 480px; }
+    .ben-intro-right {
+      background: linear-gradient(135deg, rgba(21,101,192,0.15), rgba(66,165,245,0.04));
+      border: 1px solid rgba(66,165,245,0.18); border-radius: 24px; padding: 2.8rem;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .ben-intro-right::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--royal), var(--sky));
+    }
+    .ben-fish-big { font-size: 5.5rem; display: block; margin-bottom: 0.5rem; animation: fishDrift 6s ease-in-out infinite; }
+    .ben-intro-right h3 { font-family: var(--font-h); font-size: 1.7rem; margin-bottom: 0.5rem; }
+    .ben-intro-right p { color: var(--text-dim); font-size: 0.9rem; line-height: 1.65; }
+    .omega-pill {
+      display: inline-block; margin-top: 1.2rem;
+      background: rgba(66,165,245,0.15); border: 1px solid rgba(66,165,245,0.3);
+      border-radius: 50px; padding: 0.4rem 1.1rem; font-size: 0.8rem; color: var(--sky); font-weight: 600;
+    }
+    .ben-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    .ben-card {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(66,165,245,0.12);
+      border-radius: 20px; padding: 2rem; position: relative; overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .ben-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cobalt), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .ben-card:hover { transform: translateY(-5px); border-color: rgba(66,165,245,0.35); }
+    .ben-card:hover::before { opacity: 1; }
+    .ben-num { font-family: var(--font-d); font-size: 4.5rem; color: rgba(66,165,245,0.07); position: absolute; top: 0.8rem; right: 1.2rem; line-height: 1; }
+    .ben-icon { font-size: 2.4rem; margin-bottom: 1rem; display: block; }
+    .ben-title { font-family: var(--font-h); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .ben-text { font-size: 0.85rem; color: var(--text-dim); line-height: 1.68; }
+    .ben-pill {
+      display: inline-block; margin-top: 1rem;
+      background: rgba(21,101,192,0.2); border: 1px solid rgba(66,165,245,0.2);
+      border-radius: 6px; padding: 0.25rem 0.75rem;
+      font-size: 0.67rem; color: var(--sky); letter-spacing: 1.5px; text-transform: uppercase;
+    }
+    /* Nutrient bars */
+    .nut-sec { margin-top: 5rem; }
+    .nut-title { font-family: var(--font-h); font-size: 1.8rem; text-align: center; margin-bottom: 2.5rem; }
+    .nut-title em { color: var(--sky); font-style: italic; }
+    .nut-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.4rem; }
+    .nut-item { display: flex; flex-direction: column; gap: 0.5rem; }
+    .nut-top { display: flex; justify-content: space-between; }
+    .nut-nm { font-size: 0.87rem; font-weight: 600; }
+    .nut-vl { font-size: 0.87rem; color: var(--sky); font-weight: 700; }
+    .nut-bar { height: 6px; background: rgba(66,165,245,0.1); border-radius: 3px; overflow: hidden; }
+    .nut-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--royal), var(--sky)); width: 0; transition: width 1.6s ease; }
+    /* Daily facts row */
+    .facts-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.2rem; margin-top: 4rem; }
+    .fact-card {
+      background: linear-gradient(135deg, rgba(21,101,192,0.18), rgba(66,165,245,0.05));
+      border: 1px solid rgba(66,165,245,0.2); border-radius: 16px;
+      padding: 1.5rem; text-align: center;
+    }
+    .fact-icon { font-size: 2rem; display: block; margin-bottom: 0.6rem; }
+    .fact-num { font-family: var(--font-d); font-size: 2rem; color: var(--sky); letter-spacing: 1px; display: block; }
+    .fact-lbl { font-size: 0.75rem; color: var(--text-dim); letter-spacing: 1px; }
+
+    /* ABOUT */
+    #about { background: var(--deep); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+    .about-num-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+    .num-card {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(66,165,245,0.14);
+      border-radius: 16px; padding: 1.6rem; text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .num-card:hover { border-color: rgba(66,165,245,0.4); transform: translateY(-4px); }
+    .num-card .n { font-family: var(--font-d); font-size: 2.8rem; color: var(--sky); letter-spacing: 2px; display: block; }
+    .num-card .l { font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; }
+    .num-card.sp2 { grid-column: span 2; }
+    .about-text p { color: var(--text-dim); font-size: 0.96rem; line-height: 1.8; margin-bottom: 1.1rem; }
+    .about-text p strong { color: var(--white); }
+    .cert-row { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .cert {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: rgba(21,101,192,0.15); border: 1px solid rgba(66,165,245,0.25);
+      border-radius: 10px; padding: 0.5rem 1rem;
+    }
+    .cert span:first-child { font-size: 1rem; }
+    .cert span:last-child { font-size: 0.78rem; font-weight: 600; color: var(--frost); }
+
+    /* FOUNDER SECTION */
+    #founder { background: var(--ocean); }
+    .founder-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; align-items: start; }
+    .founder-image-box { text-align: center; position: sticky; top: 120px; }
+    .founder-img-wrapper {
+      position: relative;
+      max-width: 340px;
+      margin: 0 auto 1.5rem;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 6px solid var(--pure);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    .founder-img-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -150%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transform: skewX(-20deg);
+      animation: imgShine 4s infinite;
+    }
+    .founder-img { 
+      width: 100%; 
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      display: block;
+    }
+    .founder-name { font-family: var(--font-h); font-size: 2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.4rem; }
+    .founder-title { font-size: 0.75rem; color: var(--sky); letter-spacing: 2.5px; font-weight: 600; text-transform: uppercase; opacity: 0.9; }
+    .founder-text h3 { 
+      font-family: var(--font-h); 
+      font-size: 1.6rem; 
+      margin: 2.2rem 0 1rem; 
+      color: var(--sky); 
+      position: relative;
+    }
+    .founder-text h3::after { content: ''; display: block; width: 40px; height: 3px; background: var(--sky); margin-top: 8px; border-radius: 2px; }
+    .founder-text ul { list-style: none; margin-top: 1rem; }
+    .founder-text ul li { margin-bottom: 1.5rem; position: relative; padding-left: 2.2rem; font-size: 0.96rem; color: var(--text-dim); line-height: 1.7; }
+    .founder-text ul li::before { content: '🐠'; position: absolute; left: 0; top: 0; font-size: 1rem; }
+    .founder-text ul li strong { color: var(--text-dark); font-weight: 700; }
+
+    @keyframes imgShine { 0% { left: -150%; } 30% { left: 150%; } 100% { left: 150%; } }
+
+    /* WHY US */
+    #why { background: var(--mid-blue); position: relative; overflow: hidden; }
+    #why::after {
+      content: ''; position: absolute; bottom: -150px; left: -150px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(2,14,31,0.5), transparent 70%);
+    }
+    .why-head { text-align: center; margin-bottom: 4rem; }
+    .why-head .s-desc { max-width: 580px; margin: 0 auto; }
+    .why-cards { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.4rem; position: relative; z-index: 1; }
+    .wc {
+      background: var(--pure); 
+      border: 1px solid rgba(25,118,210,0.1);
+      border-radius: 20px; padding: 2rem 1.6rem; text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    }
+    .wc:hover { transform: translateY(-6px); box-shadow: 0 15px 40px rgba(25,118,210,0.12); }
+    .wc-ico { font-size: 2.8rem; display: block; margin-bottom: 1.1rem; }
+    .wc-title { font-family: var(--font-h); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .wc-text { font-size: 0.83rem; color: var(--text-dim); line-height: 1.6; }
+
+    /* PROCESS */
+    #process { background: var(--navy); }
+    .ps-wrap { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 4rem; position: relative; }
+    .ps-wrap::before {
+      content: ''; position: absolute; top: 36px; left: 12%; right: 12%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cobalt), var(--sky), var(--cobalt), transparent);
+      opacity: 0.3;
+    }
+    .ps { text-align: center; position: relative; }
+    .ps-circ {
+      width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 1.5rem;
+      background: linear-gradient(135deg, var(--royal), var(--sky));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+      box-shadow: 0 0 0 8px rgba(21,101,192,0.12), 0 8px 25px rgba(21,101,192,0.3);
+    }
+    .ps-num {
+      position: absolute; top: -6px; right: calc(50% - 46px);
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--gold); color: var(--navy);
+      font-size: 0.65rem; font-weight: 900; font-family: var(--font-d);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ps-title { font-family: var(--font-h); font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .ps-text { font-size: 0.83rem; color: var(--text-dim); line-height: 1.6; }
+
+    /* TESTIMONIALS */
+    #testimonials { background: var(--deep); }
+    .tgrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3.5rem; }
+    .tc {
+      background: var(--card-bg); border: 1px solid var(--card-bd);
+      border-radius: 20px; padding: 2rem;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .tc:hover { transform: translateY(-5px); border-color: rgba(66,165,245,0.4); }
+    .tq { font-size: 2.5rem; color: var(--sky); opacity: 0.25; font-family: Georgia; line-height: 1; margin-bottom: 0.5rem; }
+    .ts { color: var(--gold); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 0.8rem; }
+    .tt { font-size: 0.88rem; color: var(--frost); opacity: 0.75; line-height: 1.75; font-style: italic; margin-bottom: 1.5rem; }
+    .ta { display: flex; align-items: center; gap: 0.9rem; }
+    .tav { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; border: 2px solid rgba(66,165,245,0.3); }
+    .tn { font-weight: 600; font-size: 0.9rem; }
+    .tr { font-size: 0.73rem; color: var(--text-dim); }
+
+    /* CONTACT */
+    #contact { background: var(--ocean); }
+    .contact-wrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start; }
+    .ci-list { display: flex; flex-direction: column; gap: 1.6rem; margin-top: 2.5rem; }
+    .ci { display: flex; gap: 1.1rem; align-items: flex-start; }
+    .ci-ico {
+      width: 48px; height: 48px; flex-shrink: 0; border-radius: 14px;
+      background: rgba(21,101,192,0.2); border: 1px solid rgba(66,165,245,0.25);
+      display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+    }
+    .ci-l { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 2.5px; color: var(--sky); margin-bottom: 0.25rem; }
+    .ci-v { font-size: 0.95rem; color: var(--text-dark); font-weight: 500; }
+    .ci-v a { color: inherit; text-decoration: none; transition: color 0.2s; }
+    .ci-v a:hover { color: var(--cobalt); }
+    .wa-btn {
+      display: flex; align-items: center; gap: 0.8rem;
+      background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.28);
+      border-radius: 14px; padding: 1.1rem 1.4rem; margin-top: 2rem;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .wa-btn:hover { background: rgba(37,211,102,0.18); }
+    .wa-btn .wi { font-size: 1.8rem; }
+    .wa-btn .wt { font-weight: 600; color: #25d366; font-size: 0.95rem; }
+    .wa-btn .ws { font-size: 0.75rem; color: var(--text-dim); }
+    .c-form {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(66,165,245,0.15);
+      border-radius: 24px; padding: 2.8rem;
+    }
+    .c-form h3 { font-family: var(--font-h); font-size: 1.7rem; margin-bottom: 2rem; }
+    .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .fg { margin-bottom: 1.2rem; }
+    .fg label { display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.8px; color: var(--text-dim); margin-bottom: 0.5rem; }
+    .fg input, .fg select, .fg textarea {
+      width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(66,165,245,0.2);
+      border-radius: 10px; color: var(--text-dark); font-family: var(--font-b); font-size: 0.9rem;
+      padding: 0.8rem 1.1rem; outline: none; transition: border-color 0.2s, background 0.2s;
+    }
+    .fg input::placeholder, .fg textarea::placeholder { color: rgba(123,174,212,0.45); }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--cobalt); background: rgba(25,118,210,0.06); }
+    .fg select option { background: var(--ocean); }
+    .fg textarea { resize: vertical; min-height: 105px; }
+    .fsub {
+      width: 100%; padding: 1.05rem;
+      background: linear-gradient(135deg, var(--royal), var(--sky));
+      border: none; border-radius: 12px; color: var(--pure);
+      font-weight: 700; font-size: 1rem; letter-spacing: 1.5px; text-transform: uppercase;
+      cursor: pointer; font-family: var(--font-b);
+      box-shadow: 0 6px 25px rgba(21,101,192,0.4);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .fsub:hover { opacity: 0.88; transform: translateY(-2px); }
+    .fsuccess { display: none; text-align: center; padding: 3rem 1rem; }
+    .fsuccess .si { font-size: 3.5rem; display: block; margin-bottom: 1rem; }
+    .fsuccess h3 { font-family: var(--font-h); font-size: 1.8rem; color: var(--sky); margin-bottom: 0.5rem; }
+    .fsuccess p { color: var(--text-dim); }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy); border-top: 1px solid rgba(66,165,245,0.1);
+      padding: 5rem 6% 2.5rem;
+    }
+    .fg-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3.5rem; margin-bottom: 4rem; }
+    .fb-brand p { color: var(--text-dim); font-size: 0.88rem; line-height: 1.75; margin: 1.2rem 0; }
+    .socials { display: flex; gap: 0.7rem; }
+    .soc { 
+      width: 40px; height: 40px; border-radius: 10px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(66,165,245,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; cursor: pointer; text-decoration: none; color: var(--cobalt); transition: all 0.2s;
+    }
+    .soc:hover { background: rgba(21,101,192,0.1); border-color: var(--cobalt); color: var(--sky); transform: translateY(-2px); }
+    .fc h4 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: var(--sky); margin-bottom: 1.4rem; }
+    .fc ul { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+    .fc ul li a { color: var(--text-dim); text-decoration: none; font-size: 0.87rem; transition: color 0.2s; }
+    .fc ul li a:hover { color: var(--white); }
+    .foot-bot {
+      border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .foot-bot p { font-size: 0.8rem; color: var(--text-dim); }
+    .foot-bot a { color: var(--sky); text-decoration: none; }
+    .fssai {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: rgba(21,101,192,0.15); border: 1px solid rgba(66,165,245,0.2);
+      border-radius: 8px; padding: 0.4rem 0.9rem; font-size: 0.75rem; color: var(--sky);
+    }
+
+    /* MODAL */
+    .modal-bg {
+      display: none; position: fixed; inset: 0; z-index: 300;
+      background: rgba(2,14,31,0.92); backdrop-filter: blur(8px);
+      align-items: center; justify-content: center; padding: 1rem;
+    }
+    .modal-bg.open { display: flex; }
+    .modal-box {
+      background: linear-gradient(160deg, var(--ocean), var(--deep));
+      border: 1px solid rgba(66,165,245,0.25); border-radius: 24px;
+      padding: 2.8rem; max-width: 440px; width: 100%; position: relative;
+      animation: mIn 0.3s ease;
+    }
+    @keyframes mIn { from{transform:scale(0.88);opacity:0} to{transform:scale(1);opacity:1} }
+    .mcl { position: absolute; top: 1.2rem; right: 1.4rem; background: none; border: none; color: var(--text-dim); font-size: 1.5rem; cursor: pointer; }
+    .mem { font-size: 5rem; text-align: center; display: block; margin-bottom: 0.3rem; animation: fishDrift 5s infinite; }
+    .mname { font-family: var(--font-h); font-size: 1.8rem; text-align: center; margin-bottom: 0.2rem; }
+    .mcat { text-align: center; font-size: 0.68rem; letter-spacing: 3px; text-transform: uppercase; color: var(--sky); margin-bottom: 1rem; }
+    .mdesc { color: var(--text-dim); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.4rem; }
+    .mdets { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 1.6rem; }
+    .mdet { background: rgba(66,165,245,0.08); border: 1px solid rgba(66,165,245,0.2); border-radius: 10px; padding: 0.55rem 1rem; }
+    .mdet .dl { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--sky); }
+    .mdet .dv { font-size: 0.9rem; font-weight: 600; }
+    .mpr-row { display: flex; align-items: center; justify-content: space-between; }
+    .mpr { font-family: var(--font-d); font-size: 2.2rem; color: var(--text-dark); letter-spacing: 2px; }
+
+    /* SCROLL TOP */
+    #st {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 100;
+      width: 46px; height: 46px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--royal), var(--sky));
+      border: none; cursor: pointer; color: var(--pure); font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.2s;
+      box-shadow: 0 4px 20px rgba(21,101,192,0.5);
+    }
+    #st.show { opacity: 1; pointer-events: auto; }
+    #st:hover { transform: translateY(-3px); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-content { padding: 9rem 0 5rem; }
+      .why-cards { grid-template-columns: repeat(2,1fr); }
+      .ben-grid { grid-template-columns: repeat(2,1fr); }
+      .ben-intro { grid-template-columns: 1fr; gap: 2.5rem; }
+      .facts-row { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 860px) {
+      .about-grid, .founder-grid, .contact-wrap { grid-template-columns: 1fr; gap: 3rem; }
+      .founder-image-box { position: static; }
+      .tgrid { grid-template-columns: 1fr; }
+      .ps-wrap { grid-template-columns: 1fr 1fr; }
+      .ps-wrap::before { display: none; }
+      .fg-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 5rem 5%; }
+      .ben-grid { grid-template-columns: 1fr; }
+      .why-cards { grid-template-columns: 1fr; }
+      .frow { grid-template-columns: 1fr; }
+      .fg-grid { grid-template-columns: 1fr; }
+      .ps-wrap { grid-template-columns: 1fr; }
+      .nut-grid { grid-template-columns: 1fr; }
+      .facts-row { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- GLOBAL BUBBLES -->
+<div class="bubbles" id="bubbles"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a class="logo" href="#">
+    <div class="logo-mark"><img src="lo1.jpeg" alt="Uzhamai Aquanics Logo"></div>
+    <div>
+      <div class="logo-name">UZHAMAI</div>
+      <div class="logo-sub">Aquanics</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#benefits">Fish Benefits</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#founder">Founder</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact" class="nav-btn">Order Now</a></li>
+  </ul>
+  <button class="hamburger" id="hamBtn"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mob-nav" id="mobNav">
+  <button class="mob-close" id="mobClose">✕</button>
+  <a href="#products" onclick="closeMob()">Products</a>
+  <a href="#benefits" onclick="closeMob()">Fish Benefits</a>
+  <a href="#about" onclick="closeMob()">About</a>
+  <a href="#founder" onclick="closeMob()">Founder</a>
+  <a href="#contact" onclick="closeMob()">Order Now</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="dot-grid"></div>
+
+  <!-- Water Waves Animation -->
+  <div class="water-waves">
+    <svg class="waves-svg" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+      <defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"/></defs>
+      <g class="parallax">
+        <use href="#gentle-wave" x="48" y="0" fill="rgba(66, 165, 245, 0.1)"/>
+        <use href="#gentle-wave" x="48" y="3" fill="rgba(66, 165, 245, 0.2)"/>
+        <use href="#gentle-wave" x="48" y="5" fill="rgba(66, 165, 245, 0.05)"/>
+        <use href="#gentle-wave" x="48" y="7" fill="rgba(66, 165, 245, 0.3)"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-badge">Erode's Trusted Fish Trading and Biofloc Farming company</div>
+    <h1 class="hero-h1">
+      <span class="h1-blue">UZHAMAI</span>
+      <span class="h1-white">AQUANICS</span>
+    </h1>
+    <p class="hero-tagline">From the Bay of Bengal — to your table.</p>
+    <p class="hero-desc">Freshness Redefined: Sustainable Biofloc Farming & Strategic fish Trading. Sourcing daily from Ramanathapuram and Cuddalore to serve the heart of Erode. Your trusted partner for premium fish supply.</p>
+    <div class="hero-actions">
+      <a href="#products" class="btn-primary">Explore Products</a>
+      <a href="#contact" class="btn-ghost">Place an Order</a>
+    </div>
+    <div class="hero-stats">
+      <div class="sv"><div class="sn">33+</div><div class="sl">Fish Varieties</div></div>
+      <div class="sv"><div class="sn">20+</div><div class="sl">Clients</div></div>
+      <div class="sv"><div class="sn">1+</div><div class="sl">Years in fish industry</div></div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-right-bg"></div>
+    <div class="light-rays"></div>
+    <div class="floating-particles" id="heroParticles"></div>
+    
+    <div class="hero-fish-canvas">
+      <!-- Rotating Badge Text -->
+      <div class="hero-badge-circle">
+        <svg viewBox="0 0 200 200">
+          <path id="circlePath" d="M 100, 100 m -88, 0 a 88,88 0 1,1 176,0 a 88,88 0 1,1 -176,0" fill="transparent"/>
+          <text>
+            <textPath href="#circlePath">
+          • FRESH FISH • QUALITY GUARANTEED • HEALTHY FOOD
+            </textPath>
+          </text>
+        </svg>
+      </div>
+
+      <!-- Enhanced Rings -->
+      <div class="ring" style="width:380px;height:380px;"></div>
+      <div class="ring dashed" style="width:420px;height:420px;animation-delay:0.5s;"></div>
+      <div class="ring" style="width:220px;height:220px;animation-delay:2s;"></div>
+      <div class="hero-swim-path">
+        <img src="lo1.jpeg" alt="Uzhamai Aquanics" class="hero-logo-large">
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="strip"><div class="strip-inner" id="stripEl"></div></div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="prod-hd">
+    <div>
+      <span class="s-tag">Our Catalog</span>
+      <h2 class="s-title">Fresh <em>Seafood</em> Selection</h2>
+      <p class="s-desc">Sourced daily from coastal Tamil Nadu waters. Delivered fresh to your door.</p>
+    </div>
+    <div class="filters" id="filters">
+      <button class="fb active" data-cat="all">All (33)</button>
+      <button class="fb" data-cat="freshwater">🏞️ Freshwater (5)</button>
+      <button class="fb" data-cat="saltwater">🌊 Saltwater (24)</button>
+      <button class="fb" data-cat="shellfish">🦀 Shellfish (4)</button>
+      <button class="fb" data-cat="premium">⭐ Premium (4)</button>
+    </div>
+  </div>
+  <div class="prod-grid" id="prodGrid"></div>
+</section>
+
+<!-- FISH BENEFITS -->
+<section id="benefits">
+  <div class="ben-intro">
+    <div class="ben-intro-left">
+      <span class="s-tag">Health & Nutrition</span>
+      <h2 class="s-title">Why Eating <em>Fish</em><br>Changes Your Life</h2>
+      <p class="s-desc">Fish isn't just food — it's medicine. Packed with essential nutrients, proteins, and healthy fats that your body craves. Regular fish consumption is one of the best dietary choices you can make for a long, healthy life.</p>
+    </div>
+    <div class="ben-intro-right">
+      <span class="ben-fish-big">🐡</span>
+      <h3>Nature's Superfood</h3>
+      <p>Fish is one of the most nutrient-dense foods on Earth — rich in complete protein, vitamins D & B12, iodine, selenium, and the incredibly powerful Omega-3 fatty acids your body cannot produce on its own.</p>
+      <span class="omega-pill">⭐ Highest Natural Source of Omega-3</span>
+    </div>
+  </div>
+
+  <div class="ben-grid">
+    <div class="ben-card">
+      <div class="ben-num">01</div>
+      <span class="ben-icon">🧠</span>
+      <div class="ben-title">Boosts Brain Health</div>
+      <p class="ben-text">Omega-3 fatty acids (DHA and EPA) found abundantly in fish are critical for brain function, memory, and development. Regular consumption significantly reduces the risk of cognitive decline, depression, and anxiety disorders.</p>
+      <span class="ben-pill">DHA · EPA · Omega-3</span>
+    </div>
+    <div class="ben-card">
+      <div class="ben-num">02</div>
+      <span class="ben-icon">❤️</span>
+      <div class="ben-title">Protects Your Heart</div>
+      <p class="ben-text">Studies consistently show people who eat fish regularly have a much lower risk of heart attacks and strokes. Fish naturally reduces triglycerides, lowers blood pressure, and prevents arterial plaque buildup.</p>
+      <span class="ben-pill">Cardio Health · Omega-3</span>
+    </div>
+    <div class="ben-card">
+      <div class="ben-num">03</div>
+      <span class="ben-icon">💪</span>
+      <div class="ben-title">High-Quality Protein</div>
+      <p class="ben-text">Fish is loaded with complete, easily digestible protein containing all essential amino acids. A single 100g serving can provide up to 26g of protein — perfect for muscle growth, repair, and overall body function.</p>
+      <span class="ben-pill">Protein · Amino Acids</span>
+    </div>
+    <div class="ben-card">
+      <div class="ben-num">04</div>
+      <span class="ben-icon">☀️</span>
+      <div class="ben-title">Vitamin D Powerhouse</div>
+      <p class="ben-text">Fish is among the world's best dietary sources of Vitamin D, a nutrient most people are dangerously deficient in. Vitamin D is essential for calcium absorption, strong bones, immune function, and mood regulation.</p>
+      <span class="ben-pill">Vitamin D · Bone Strength</span>
+    </div>
+    <div class="ben-card">
+      <div class="ben-num">05</div>
+      <span class="ben-icon">👁️</span>
+      <div class="ben-title">Protects Your Vision</div>
+      <p class="ben-text">DHA, a type of omega-3 found in oily fish, is a major structural component of the retina. Regular fish consumption helps prevent age-related macular degeneration and keeps your eyesight sharp as you age.</p>
+      <span class="ben-pill">DHA · Retinal Health</span>
+    </div>
+    <div class="ben-card">
+      <div class="ben-num">06</div>
+      <span class="ben-icon">🌙</span>
+      <div class="ben-title">Improves Sleep Quality</div>
+      <p class="ben-text">Fish is a natural source of tryptophan (a sleep-inducing amino acid) and Vitamin D, both strongly linked to improved sleep quality. People who eat fish regularly report fewer sleep disorders and better rest.</p>
+      <span class="ben-pill">Tryptophan · Deep Sleep</span>
+    </div>
+  </div>
+
+  <!-- Daily intake facts -->
+  <div class="facts-row">
+    <div class="fact-card">
+      <span class="fact-icon">🐟</span>
+      <span class="fact-num">2–3×</span>
+      <span class="fact-lbl">Recommended per week (WHO)</span>
+    </div>
+    <div class="fact-card">
+      <span class="fact-icon">💊</span>
+      <span class="fact-num">26g</span>
+      <span class="fact-lbl">Protein per 100g of fish</span>
+    </div>
+    <div class="fact-card">
+      <span class="fact-icon">⚡</span>
+      <span class="fact-num">40%</span>
+      <span class="fact-lbl">Lower risk of heart disease</span>
+    </div>
+    <div class="fact-card">
+      <span class="fact-icon">🧬</span>
+      <span class="fact-num">83%</span>
+      <span class="fact-lbl">Daily Vitamin D in 100g fish</span>
+    </div>
+  </div>
+
+  <!-- Nutrient bars -->
+  <div class="nut-sec">
+    <h3 class="nut-title">
+      Nutritional Profile per 100g of <em>Fresh Fish</em>
+      <small style="display:block; font-size: 0.9rem; font-weight: normal; margin-top: 0.5rem; color: var(--text-dim);">(Data based on Rohu Fish)</small>
+    </h3>
+    <div class="nut-grid" id="nutGrid"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <div class="about-num-grid">
+        <div class="num-card"><span class="n">33+</span><span class="l">Fish Species</span></div>
+        <div class="num-card"><span class="n">20+</span><span class="l">Clients</span></div>
+        <div class="num-card"><span class="n">1+</span><span class="l">Year Experience</span></div>
+        <div class="num-card"><span class="n">2T+</span><span class="l">Monthly Volume (kg)</span></div>
+      </div>
+    </div>
+    <div class="about-text">
+      <span class="s-tag">Our Story</span>
+      <h2 class="s-title">Rooted in <em>Uzhamai</em> — The Spirit of Hard Work</h2>
+      <p class="s-desc" style="margin-bottom:1.2rem;">Bringing fresh, healthy fish to your table through sustainable Biofloc farming and direct coastal sourcing.</p>
+      <p><strong>Uzhamai Aquanics</strong>, based in <strong>Erode</strong>, is more than just a trading partner. We are pioneers in <strong>Biofloc Fish Farming</strong>, a modern, eco-friendly method that produces healthy fish in a controlled, clean environment.</p>
+      <p>By combining our own farm-fresh production with a direct network from Chennai Kasimedu to Rameswaram, we offer unparalleled quality and variety. We supply <strong>restaurants, star hotels, caterers, supermarkets</strong>, and individual households every day.</p>
+      <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="#contact" class="btn-primary">Get in Touch</a>
+        <a href="#process" class="btn-ghost">Our Process</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section id="founder">
+  <div class="founder-grid">
+    <div class="founder-image-box">
+      <div class="founder-img-wrapper">
+        <img src="ME2.jpeg" alt="Hari Prasath S" class="founder-img">
+      </div>
+      <div class="founder-name">HARI PRASATH S</div>
+      <div class="founder-title">Founder | B.Tech Agricultural Engineering</div>
+    </div>
+    <div class="founder-text">
+      <span class="s-tag">Leadership</span>
+      <h2 class="s-title">Technical Precision in <em>Fishes</em></h2>
+      <p class="s-desc">Hari Prasath is an Agricultural Engineering graduate who founded Uzhamai Aquanics to bring technical precision to the seafood industry. By combining his academic background with practical expertise in aquaculture, he focuses on providing high-quality, transparent supply chain solutions.</p>
+      
+      <h3>Core Focus:</h3>
+      <ul>
+        <li>
+          <strong>Sustainable Farming:</strong> 
+          Implementing Biofloc technology for chemical-free and eco-friendly fish production.
+        </li>
+        <li>
+          <strong>Direct Sourcing:</strong> 
+          Establishing a direct link between the coastal docks (Rameswaram, Tuticorin, Chennai) and Erode to ensure daily freshness.
+        </li>
+        <li>
+          <strong>Ethical Standards:</strong> 
+          Ensuring accurate weights, traceability, transparent pricing, and rigorous quality checks led by technical knowledge.
+        </li>
+      </ul>
+
+      <h3>The Mission:</h3>
+      <p class="s-desc">To deliver fresh fish directly to households and the hospitality sector in Erode by integrating modern agricultural technology with traditional trading.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="why-head">
+    <span class="s-tag">Why Choose Us</span>
+    <h2 class="s-title">Built on <em>Trust, Freshness & Speed</em></h2>
+    <p class="s-desc">For over a decade, the most reliable name in biofloc fish farming and trading across Erode and Tamil Nadu.</p>
+  </div>
+  <div class="why-cards">
+    <div class="wc">
+      <span class="wc-ico">🌊</span>
+      <div class="wc-title">01. Freshly Sourced</div>
+      <p class="wc-text">Directly sourced from coastal docks and our sustainable Biofloc farms to ensure peak freshness and natural taste in every catch.</p>
+    </div>
+    <div class="wc">
+      <span class="wc-ico">🔍</span>
+      <div class="wc-title">02. Full Traceability</div>
+      <p class="wc-text">We provide complete transparency on the origin of your fish. Know exactly where and when your seafood was caught or harvested.</p>
+    </div>
+    <div class="wc">
+      <span class="wc-ico">🔬</span>
+      <div class="wc-title">03. Scientific Grade Quality</div>
+      <p class="wc-text">Managed by an Agricultural Engineering professional, our supply chain follows strict technical standards to ensure chemical-free and safe seafood.</p>
+    </div>
+    <div class="wc">
+      <span class="wc-ico">⚡</span>
+      <div class="wc-title">04. Quick Delivery</div>
+      <p class="wc-text">Efficient logistics to ensure your order reaches your doorstep as fast as possible, preserving the quality and texture of the fish.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="sec-c">
+    <span class="s-tag">How It Works</span>
+    <h2 class="s-title">From <em>Sea to You</em> in 3 Steps</h2>
+    <p class="s-desc">A transparent, traceable process ensuring every fish reaches you at peak freshness.</p>
+  </div>
+  <div class="ps-wrap">
+    <div class="ps"><div class="ps-circ">🚜</div><div class="ps-num">1</div><div class="ps-title">Farming & Sourcing</div><p class="ps-text">We grow premium fish in our own Biofloc tanks and source ocean-fresh varieties directly from coastal fishermen at dawn.</p></div>
+    <div class="ps"><div class="ps-circ">⚖️</div><div class="ps-num">2</div><div class="ps-title">Quality Inspection</div><p class="ps-text">Our quality team inspects freshness, weight, and food safety at our Erode facility before any dispatch.</p></div>
+    <div class="ps"><div class="ps-circ">🚚</div><div class="ps-num">3</div><div class="ps-title">Same-Day Delivery</div><p class="ps-text">Orders placed before 6 AM are delivered by noon across Erode and surrounding districts.</p></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div>
+      <span class="s-tag">Get in Touch</span>
+      <h2 class="s-title">Order <em>Fresh Fish</em> Today</h2>
+      <p class="s-desc">Whether you're a restaurant, hotel, caterer, or household — we supply fresh fish daily across Erode and surrounding areas.</p>
+      <div class="ci-list">
+        <div class="ci"><div class="ci-ico">📍</div><div><div class="ci-l">Location</div><div class="ci-v">Erode, Tamil Nadu, India</div></div></div>
+        <div class="ci"><div class="ci-ico">📞</div><div><div class="ci-l">Phone</div><div class="ci-v"><a href="tel:+919360985854">+91 93609 85854</a></div></div></div>
+        <div class="ci"><div class="ci-ico">✉️</div><div><div class="ci-l">Email</div><div class="ci-v"><a href="mailto:uzhamaiaquanics@gmail.com">uzhamaiaquanics@gmail.com</a></div></div></div>
+      </div>
+      <a class="wa-btn" href="https://wa.me/919360985854" target="_blank">
+        <span class="wi">💬</span>
+        <div><div class="wt">Order via WhatsApp</div><div class="ws">Quick, easy, instant confirmation</div></div>
+      </a>
+    </div>
+    <div class="c-form">
+      <h3>Place Your Order</h3>
+      <form id="orderForm">
+        <div class="frow">
+          <div class="fg"><label>First Name *</label><input type="text" placeholder="Ramesh" required/></div>
+          <div class="fg"><label>Last Name</label><input type="text" placeholder="Kumar"/></div>
+        </div>
+        <div class="fg"><label>Phone Number *</label><input type="tel" placeholder="+91 93609 85854" required/></div>
+        <div class="fg"><label>Email Address</label><input type="email" placeholder="you@example.com"/></div>
+        <div class="fg">
+          <label>Customer Type *</label>
+          <select required>
+            <option value="">Select type</option>
+            <option>Restaurant / Hotel</option>
+            <option>Caterer / Event Organizer</option>
+            <option>Retail / Supermarket</option>
+            <option>Individual / Household</option>
+          </select>
+        </div>
+        <div class="fg"><label>Fish / Seafood Required</label><input type="text" placeholder="e.g. 5kg Rohu, 2kg Prawns..."/></div>
+        <div class="fg"><label>Message / Special Requirements</label><textarea placeholder="Delivery address, timing, cleaning preferences..."></textarea></div>
+        <button type="submit" class="fsub">🐟 Submit Order Enquiry</button>
+      </form>
+      <div class="fsuccess" id="fSuccess">
+        <span class="si">✅</span>
+        <h3>Order Received!</h3>
+        <p>Thank you! Our team will call you within 30 minutes to confirm your order.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fg-grid">
+    <div class="fb-brand">
+      <div style="display:flex;align-items:center;gap:0.7rem;margin-bottom:0.3rem;">
+        <img src="lo1.jpeg" alt="Logo" style="width:48px; height:48px; border-radius:50%; object-fit:cover;">
+        <div>
+          <div style="font-family:var(--font-d);font-size:1.5rem;letter-spacing:3px;">UZHAMAI AQUANICS</div>
+          <div style="font-size:0.5rem;color:var(--sky);letter-spacing:4px;font-family:var(--font-b);">BIOFLOC FISH FARMING & TRADING · ERODE</div>
+        </div>
+      </div>
+      <p>Tamil Nadu's most trusted seafood supplier. Fresh, responsible, and delivered daily from coastal waters to your table.</p>
+      <div class="socials">
+        <a class="soc" href="https://www.facebook.com/share/1WckEykkfn/" target="_blank" title="Facebook">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96C18.34 21.21 22 17.06 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>
+        </a>
+        <a class="soc" href="https://www.instagram.com/uzhamai_aquanics?igsh=ajg4YXY1bjl1bjNw" target="_blank" title="Instagram">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/></svg>
+        </a>
+        <a class="soc" href="https://wa.me/919360985854" target="_blank" title="WhatsApp">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.04 2C6.5 2 2 6.5 2 12.04C2 13.81 2.46 15.53 3.33 17.04L2 22L7.13 20.65C8.59 21.44 10.27 21.86 12.03 21.86C17.56 21.86 22.06 17.36 22.06 11.82C22.06 9.14 21.01 6.64 19.12 4.75C17.23 2.86 14.72 1.82 12.04 2M11.5 5.25H12.5C13.88 5.25 15.25 5.5 16.5 6C18.75 6.9 20.35 8.95 20.35 11.35C20.35 13.15 19.85 14.85 18.9 16.3L19.4 18.15L17.55 17.65C16.1 18.5 14.4 19 12.6 19H12.55C10.75 19 9.05 18.5 7.55 17.6L5.7 18.1L6.2 16.25C5.25 14.8 4.75 13.1 4.75 11.35C4.75 7.95 7.45 5.25 10.75 5.25H11.5M16.1 10.15C15.9 10.1 14.85 9.6 14.65 9.55C14.45 9.5 14.3 9.45 14.15 9.65C14 9.85 13.55 10.4 13.4 10.55C13.25 10.7 13.1 10.75 12.9 10.65C12.7 10.55 12.05 10.35 11.25 9.65C10.65 9.1 10.25 8.4 10.15 8.2C10.05 8 10.15 7.9 10.25 7.8C10.35 7.7 10.45 7.6 10.55 7.5C10.65 7.4 10.7 7.35 10.75 7.25C10.8 7.15 10.75 7.05 10.7 6.95C10.65 6.85 10.2 5.75 10 5.25C9.8 4.75 9.6 4.8 9.45 4.8C9.3 4.8 9.15 4.8 9 4.8C8.85 4.8 8.6 4.85 8.4 5.05C8.2 5.25 7.65 5.8 7.65 6.9C7.65 8 8.45 9.05 8.55 9.2C8.65 9.35 10.15 11.65 12.45 12.65C13 12.85 13.4 13 13.7 13.1C14.25 13.25 14.75 13.25 15.15 13.15C15.6 13.1 16.5 12.6 16.7 12.1C16.9 11.6 16.9 11.15 16.85 11.05C16.8 10.95 16.65 10.9 16.45 10.8C16.25 10.7 16.1 10.15 16.1 10.15Z"/></svg>
+        </a>
+        <a class="soc" href="https://youtube.com/@uzhamaiaquanics?si=KcC8VfRYaT-P2KFa" target="_blank" title="YouTube">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M21.58,7.19C21.35,6.33,20.67,5.65,19.81,5.42C18.25,5,12,5,12,5s-6.25,0-7.81,0.42C3.33,5.65,2.65,6.33,2.42,7.19C2,8.75,2,12,2,12s0,3.25,0.42,4.81c0.23,0.86,0.91,1.54,1.77,1.77C5.75,19,12,19,12,19s6.25,0,7.81-0.42c0.86-0.23,1.54-0.91,1.77-1.77C22,15.25,22,12,22,12S22,8.75,21.58,7.19z M10,15V9l5.2,3L10,15z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="fc">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="#products">Saltwater Fish</a></li>
+        <li><a href="#products">Freshwater Fish</a></li>
+        <li><a href="#products">Shellfish & Prawns</a></li>
+        <li><a href="#products">Premium Varieties</a></li>
+        <li><a href="#products">Cleaned & Processed</a></li>
+      </ul>
+    </div>
+    <div class="fc">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#why">Why Choose Us</a></li>
+        <li><a href="#process">Our Process</a></li>
+        <li><a href="#benefits">Fish Benefits</a></li>
+      </ul>
+    </div>
+    <div class="fc">
+      <h4>Information</h4>
+      <ul>
+        <li><a href="#">Delivery Areas</a></li>
+        <li><a href="#">Wholesale Pricing</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <p>© 2025 Uzhamai Aquanics. All rights reserved. Erode, Tamil Nadu.</p>
+    <p>Made with 🌊 for fresh fish lovers</p>
+  </div>
+</footer>
+
+<button id="st">↑</button>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-bg" id="modal">
+  <div class="modal-box">
+    <button class="mcl" id="mClose">✕</button>
+    <span class="mem" id="mEmoji"></span>
+    <h3 class="mname" id="mName"></h3>
+    <div class="mcat" id="mCat"></div>
+    <p class="mdesc" id="mDesc"></p>
+    <div class="mdets" id="mDets"></div>
+    <div class="mpr-row">
+      <div class="mpr" id="mPrice"></div>
+      <a href="#contact" class="btn-primary" onclick="document.getElementById('modal').classList.remove('open')">Order Now</a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* DATA */
+const products = [
+  // DAM FISHES (Freshwater)
+  {id:1,img:'Rohu.jpg',name:'ரோகு (Rohu)',cat:'freshwater',badge:'fresh',price:'₹190',unit:'kg',desc:'Labeo rohita - Fresh river fish, great for curry.',Origin:'River Farms',details:{Origin:'Dam/River',Scientific:'Labeo rohita'}},
+  {id:2,img:'Catla.avif',name:'கட்லா (Catla)',cat:'freshwater',badge:'fresh',price:'₹190',unit:'kg',desc:'Labeo catla - Large river carp, meaty texture.',details:{Origin:'Dam/River',Scientific:'Labeo catla'}},
+  {id:3,img:'rupchanda-fish.jpg',name:'பாறை (Roopchand)',cat:'freshwater',badge:'fresh',price:'₹180',unit:'kg',desc:'Piaractus brachypomus - Popular freshwater fish.',details:{Origin:'Freshwater',Scientific:'Piaractus brachypomus'}},
+  {id:4,img:'neimeen.jpeg',name:'நெய்மீன் (Nei Meen)',cat:'freshwater',badge:'fresh',price:'₹150',unit:'kg',desc:'Scomberomorus guttatus - Freshwater specialty.',details:{Origin:'River',Scientific:'Scomberomorus guttatus'}},
+  {id:5,img:'tilapia-fish-500x500.webp',name:'ஜிலேபி (Tilapia)',cat:'freshwater',badge:'fresh',price:'₹140',unit:'kg',desc:'Oreochromis niloticus - Budget friendly freshwater fish.',details:{Origin:'Freshwater',Scientific:'Oreochromis niloticus'}},
+
+  // SEA FISHES (Saltwater)
+  {id:6,img:'saalai.jpeg',name:'சாலை (Saalai)',cat:'saltwater',badge:'fresh',price:'₹190',unit:'kg',desc:'Sardinella longiceps - Healthy oily fish.',details:{Origin:'Sea',Scientific:'Sardinella longiceps'}},
+  {id:7,img:'mathi-fish-500x500.webp',name:'சின்ன மத்தி (Chinna Maththi)',cat:'saltwater',badge:'fresh',price:'₹160',unit:'kg',desc:'Small sized sardines, rich in nutrients.',details:{Origin:'Sea',Scientific:'Sardinella longiceps'}},
+  {id:8,img:'ayilai.jpg',name:'அயிலை (Ayilai)',cat:'saltwater',badge:'hot',price:'₹310',unit:'kg',desc:'Rastrelliger kanagurta - Coastal favorite.',details:{Origin:'Sea',Scientific:'Rastrelliger kanagurta'}},
+  {id:9,img:'mural.webp',name:'பட்டை முரல் (Pattai Mural)',cat:'saltwater',badge:'fresh',price:'₹330',unit:'kg',desc:'Hemiramphus far - Unique sea variety.',details:{Origin:'Sea',Scientific:'Hemiramphus far'}},
+  {id:10,img:'periya nandu.webp',name:'பெரிய நண்டு (Periya Nandu)',cat:'shellfish',badge:'hot',price:'₹360',unit:'kg',desc:'Scylla serrata - Large meaty sea crabs.',details:{Origin:'Sea',Scientific:'Scylla serrata'}},
+  {id:11,img:'chinna nandu.jpg',name:'சின்ன நண்டு (Chinna Nandu)',cat:'shellfish',badge:'fresh',price:'₹310',unit:'kg',desc:'Barytelphusa cunicularis - Tasty small crabs.',details:{Origin:'Coast',Scientific:'Barytelphusa cunicularis'}},
+  {id:12,img:'thegaparai-1.webp',name:'தேங்கா பாறை (Thenga Paarai)',cat:'premium',badge:'fresh',price:'₹460',unit:'kg',desc:'Carangoides malabaricus - Premium sea fish.',details:{Origin:'Sea',Scientific:'Carangoides malabaricus'}},
+  {id:13,img:'ooli-barracuda-seela-500x500.webp',name:'ஊளி (Ooli)',cat:'saltwater',badge:'fresh',price:'₹410',unit:'kg',desc:'Sphyraena jello - Firm meat, great for fry.',details:{Origin:'Sea',Scientific:'Sphyraena jello'}},
+  {id:14,img:'Goan-Prawn-Molho-01.jpg',name:'இறால் (Iraal)',cat:'shellfish',badge:'hot',price:'₹460',unit:'kg',desc:'Dendrobranchiata - Fresh sea prawns.',details:{Origin:'Sea',Scientific:'Dendrobranchiata'}},
+  {id:15,img:'manja-paarai-yellow-trevally-500x500.webp',name:'மஞ்ச பாறை (Manja Paarai)',cat:'saltwater',badge:'fresh',price:'₹460',unit:'kg',desc:'Selaroides leptolepis - Tasty sea variety.',details:{Origin:'Sea',Scientific:'Selaroides leptolepis'}},
+  {id:16,img:'Sankara.png',name:'சங்கரா (Sankara)',cat:'saltwater',badge:'fresh',price:'₹410',unit:'kg',desc:'Lutjanus spp - Classic red snapper.',details:{Origin:'Sea',Scientific:'Lutjanus spp'}},
+  {id:17,img:'chinna kattaparai.jpeg',name:'சின்ன கட்டாபாறை (Chinna Katta Paarai)',cat:'saltwater',badge:'fresh',price:'₹210',unit:'kg',desc:'Small sized Malabar Trevally.',details:{Origin:'Sea',Scientific:'Carangoides malabaricus'}},
+  {id:18,img:'periya kattaparai.jpg',name:'பெரிய கட்டாபாறை (PeriyaKatta Paarai)',cat:'saltwater',badge:'hot',price:'₹410',unit:'kg',desc:'Large sized Malabar Trevally.',details:{Origin:'Deep Sea',Scientific:'Carangoides malabaricus'}},
+  {id:19,img:'kannadipaarai.jpg',name:'கண்ணாடி பாறை (Kannadi Paarai)',cat:'saltwater',badge:'new',price:'₹210',unit:'kg',desc:'Alectis indicus - Shiny mirror-like skin.',details:{Origin:'Sea',Scientific:'Alectis indicus'}},
+  {id:20,img:'68d79a5e-f016-42bb-aa91-9c1dd2a5d453.webp',name:'முட்டக்கண்ணி அயிலை (Muttakanni Ayilai)',cat:'saltwater',badge:'fresh',price:'₹310',unit:'kg',desc:'Large eye variety of Indian Mackerel.',details:{Origin:'Sea',Scientific:'Rastrelliger kanagurta'}},
+  {id:21,img:'vari soorai (2).jpg',name:'வரிச்சூரை (Vari Soorai)',cat:'saltwater',badge:'fresh',price:'₹260',unit:'kg',desc:'Katsuwonus pelamis - High protein tuna.',details:{Origin:'Deep Sea',Scientific:'Katsuwonus pelamis'}},
+  {id:22,img:'soorai-tuna-fish-500x500.webp',name:'சூரை (Soorai)',cat:'saltwater',badge:'fresh',price:'₹310',unit:'kg',desc:'Tolephorus indicus - Regular sea tuna.',details:{Origin:'Sea',Scientific:'Tolephorus indicus'}},
+  {id:23,img:'periya ettai.jpeg',name:'புலிமுருகன் (Puli Murugan)',cat:'saltwater',badge:'new',price:'₹260',unit:'kg',desc:'Unique regional sea fish variety.',details:{Origin:'Coast',Scientific:'Ziziphus oenoplia'}},
+  {id:24,img:'paral.jpg',name:'பரலா (Parla)',cat:'premium',badge:'fresh',price:'₹360',unit:'kg',desc:'Coryphaena hippurus - Premium sea fish.',details:{Origin:'Deep Sea',Scientific:'Coryphaena hippurus'}},
+  {id:25,img:'korai.webp',name:'கோரை (Korai)',cat:'saltwater',badge:'hot',price:'₹310',unit:'kg',desc:'Eleutheronema tetradactylum - High quality meat.',details:{Origin:'Sea',Scientific:'Eleutheronema tetradactylum'}},
+  {id:26,img:'karuppu-vaval-black-pomfret.jpg',name:'கருப்பு வாவல் (Karuppu Vaaval)',cat:'premium',badge:'hot',price:'₹610',unit:'kg',desc:'Parastromateus niger - Delicious flat fish.',details:{Origin:'Sea',Scientific:'Parastromateus niger'}},
+  {id:27,img:'vellai vaaval.jpeg',name:'வெள்ளை வாவல் (Vellai Vaaval)',cat:'premium',badge:'hot',price:'₹710',unit:'kg',desc:'Pampus argenteus - Elite white flat fish.',details:{Origin:'Sea',Scientific:'Pampus argenteus'}},
+  {id:28,img:'manja kili.webp',name:'மஞ்ச கிளி (Manja Kizhi)',cat:'saltwater',badge:'fresh',price:'₹310',unit:'kg',desc:'Lutjanus russellii - Bright yellow sea fish.',details:{Origin:'Sea',Scientific:'Lutjanus russellii'}},
+  {id:29,img:'medium kilangaan.webp',name:'மீடியம் கிழங்கான் (Medium Kilangaan)',cat:'saltwater',badge:'fresh',price:'₹160',unit:'kg',desc:'Sillago sihama - Soft and tasty meat.',details:{Origin:'Coast',Scientific:'Sillago sihama'}},
+  {id:30,img:'periya kilangaana.webp',name:'பெரிய கிழங்கான் (Periya Kilangaan)',cat:'saltwater',badge:'fresh',price:'₹210',unit:'kg',desc:'Large size Sillago sihama.',details:{Origin:'Sea',Scientific:'Sillago sihama'}},
+  {id:31,img:'ettai.jpeg',name:'ஏட்டை (Eattai)',cat:'saltwater',badge:'fresh',price:'₹260',unit:'kg',desc:'Plicofollis dussumieri - Sea catfish variety.',details:{Origin:'Sea',Scientific:'Plicofollis dussumieri'}},
+  {id:32,img:'periya eattai.jpeg',name:'பெரிய ஏட்டை (Periya Eattai)',cat:'saltwater',badge:'fresh',price:'₹360',unit:'kg',desc:'Large sea catfish, good for curry.',details:{Origin:'Sea',Scientific:'Plicofollis dussumieri'}},
+  {id:33,img:'kanava.jpg',name:'கணவாய் (Kanavai)',cat:'shellfish',badge:'fresh',price:'₹330',unit:'kg',desc:'Uroteuthis duvaucelii - Tender sea squid.',details:{Origin:'Sea',Scientific:'Uroteuthis duvaucelii'}},
+];
+const nutrients = [
+  {name:'Protein',val:'26g',pct:86},{name:'Omega-3 Fatty Acids',val:'1.8g',pct:72},
+  {name:'Vitamin D',val:'16.7 mcg',pct:83},{name:'Vitamin B12',val:'3.2 mcg',pct:93},
+  {name:'Selenium',val:'36.5 mcg',pct:66},{name:'Phosphorus',val:'228 mg',pct:55},
+  {name:'Potassium',val:'480 mg',pct:48},{name:'Iodine',val:'130 mcg',pct:60},
+];
+const strips = ['FRESH DAILY','QUALITY GUARANTEED','COLD-CHAIN ASSURED','WHOLESALE AVAILABLE','DIRECT FROM SEA','SAME DAY DELIVERY','ERODE BASED','ZERO PRESERVATIVES'];
+
+/* STRIP */
+const si = document.getElementById('stripEl');
+const sa = [...strips,...strips,...strips,...strips];
+si.innerHTML = sa.map(s=>`<span>${s}</span><span class="dot">◆</span>`).join('');
+
+/* BUBBLES */
+const bEl = document.getElementById('bubbles');
+for(let i=0;i<100;i++){
+  const b=document.createElement('div'); b.className='bub';
+  const sz=Math.random()*15+4;
+  const op=Math.random()*0.5 + 0.2;
+  b.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;opacity:${op};animation-duration:${10+Math.random()*20}s;animation-delay:${Math.random()*15}s;`;
+  bEl.appendChild(b);
+}
+
+/* HERO PARTICLES */
+const hp = document.getElementById('heroParticles');
+for(let i=0; i<15; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  const s = Math.random() * 4 + 2;
+  p.style.width = s + 'px'; p.style.height = s + 'px';
+  p.style.left = Math.random() * 100 + '%';
+  p.style.top = Math.random() * 100 + '%';
+  p.style.setProperty('--d', (Math.random() * 5 + 5) + 's');
+  hp.appendChild(p);
+}
+
+/* PRODUCTS */
+function renderProducts(cat='all'){
+  const g=document.getElementById('prodGrid');
+  const list=cat==='all'?products:products.filter(p=>p.cat===cat);
+  g.innerHTML=list.map(p=>`
+    <div class="pc" onclick="openModal(${p.id})">
+      <div class="pi">
+        <div class="pi-bg"></div>
+        <span class="pbadge b${p.badge.charAt(0)}">${p.badge.toUpperCase()}</span>
+        ${p.img ? 
+          `<img src="${p.img}" class="pi-img" alt="${p.name}" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
+           <span class="pi-em" style="display:none;">${p.emoji || '🐟'}</span>` : 
+          `<span class="pi-em">${p.emoji || '🐟'}</span>`
+        }
+      </div>
+      <div class="pinfo">
+        <div class="pcat">${p.cat}</div>
+        <div class="pname">${p.name}</div>
+        <div class="pdesc">${p.desc}</div>
+        <div class="pfoot">
+          <div class="pprice">${p.price} <span>/ ${p.unit}</span></div>
+          <button class="pbtn">View Details</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+renderProducts();
+document.getElementById('filters').addEventListener('click',e=>{
+  const btn=e.target.closest('.fb'); if(!btn) return;
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active'); renderProducts(btn.dataset.cat);
+});
+
+/* NUTRIENTS */
+const ng=document.getElementById('nutGrid');
+ng.innerHTML=nutrients.map(n=>`
+  <div class="nut-item">
+    <div class="nut-top"><span class="nut-nm">${n.name}</span><span class="nut-vl">${n.val}</span></div>
+    <div class="nut-bar"><div class="nut-fill" data-pct="${n.pct}"></div></div>
+  </div>
+`).join('');
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) document.querySelectorAll('.nut-fill').forEach(el=>{ el.style.width=el.dataset.pct+'%'; });
+  });
+},{threshold:0.2});
+obs.observe(ng);
+
+/* MODAL */
+function openModal(id){
+  const p=products.find(x=>x.id===id);
+  const mEmoji = document.getElementById('mEmoji');
+  if(p.img) {
+    mEmoji.innerHTML = `<img src="${p.img}" style="width:100%; height: 280px; object-fit:cover; border-radius:15px; margin-bottom:1.5rem; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.15));">`;
+  } else {
+    mEmoji.textContent = p.emoji || '🐟';
+  }
+  document.getElementById('mName').textContent=p.name;
+  document.getElementById('mCat').textContent=p.cat;
+  document.getElementById('mDesc').textContent=p.desc;
+  document.getElementById('mPrice').textContent=p.price+' / '+p.unit;
+  document.getElementById('mDets').innerHTML=Object.entries(p.details).map(([k,v])=>`
+    <div class="mdet"><div class="dl">${k}</div><div class="dv">${v}</div></div>
+  `).join('');
+  document.getElementById('modal').classList.add('open');
+}
+document.getElementById('mClose').onclick=()=>document.getElementById('modal').classList.remove('open');
+document.getElementById('modal').addEventListener('click',e=>{ if(e.target===e.currentTarget) e.currentTarget.classList.remove('open'); });
+
+/* FORM */
+document.getElementById('orderForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  document.getElementById('orderForm').style.display='none';
+  document.getElementById('fSuccess').style.display='block';
+});
+
+/* NAV + SCROLL TOP */
+const nav=document.getElementById('navbar');
+const st=document.getElementById('st');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>50);
+  st.classList.toggle('show',window.scrollY>400);
+});
+st.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+/* MOBILE */
+document.getElementById('hamBtn').onclick=()=>document.getElementById('mobNav').classList.add('open');
+document.getElementById('mobClose').onclick=closeMob;
+function closeMob(){ document.getElementById('mobNav').classList.remove('open'); }
+
+/* SCHOOL OF FISH CURSOR */
+const fishEmojis = ['🐟', '🐠', '🐡', '🐟'];
+const fishCount = 6;
+const school = [];
+let mX = window.innerWidth / 2, mY = window.innerHeight / 2, cX = mX, cY = mY;
+let isActive = false;
+let idleTimer;
+
+// Initialize school
+for (let i = 0; i < fishCount; i++) {
+  const el = document.createElement('div');
+  el.className = 'swimming-fish';
+  el.innerHTML = fishEmojis[i % fishEmojis.length];
+  document.body.appendChild(el);
+  school.push({
+    el,
+    radius: 25,
+    angle: (i * Math.PI * 2) / fishCount,
+    orbitSpeed: 0.04,
+    speed: 0.1
+  });
+}
+
+window.addEventListener('mousemove', (e) => {
+  mX = e.clientX;
+  mY = e.clientY;
+  if (!isActive) {
+    isActive = true;
+    school.forEach(f => f.el.classList.add('active'));
+  }
+  clearTimeout(idleTimer);
+  idleTimer = setTimeout(() => {
+    isActive = false;
+    school.forEach(f => f.el.classList.remove('active'));
+  }, 2000);
+});
+
+window.addEventListener('mousedown', () => {
+  // Speed boost on click
+  school.forEach(f => { f.angle += 1.5; });
+});
+
+function animateSchool() {
+  // Smoothly move the center of the orbit towards the mouse
+  cX += (mX - cX) * 0.12;
+  cY += (mY - cY) * 0.12;
+
+  school.forEach(f => {
+    f.angle += f.orbitSpeed;
+
+    // Calculate perfect circular position relative to the smooth center
+    const x = cX + Math.cos(f.angle) * f.radius;
+    const y = cY + Math.sin(f.angle) * f.radius;
+
+    // Determine flip based on the horizontal direction of the orbit
+    const flip = -Math.sin(f.angle) > 0 ? 1 : -1;
+    f.el.style.transform = `translate(${x}px, ${y}px) scaleX(${flip})`;
+  });
+  requestAnimationFrame(animateSchool);
+}
+animateSchool();
+</script>
+</body>
+</html>
