@@ -1071,14 +1071,14 @@
       <h3>Place Your Order</h3>
       <form id="orderForm">
         <div class="frow">
-          <div class="fg"><label>First Name *</label><input type="text" placeholder="Ramesh" required/></div>
-          <div class="fg"><label>Last Name</label><input type="text" placeholder="Kumar"/></div>
+          <div class="fg"><label>First Name *</label><input type="text" id="fName" placeholder="Ramesh" required/></div>
+          <div class="fg"><label>Last Name</label><input type="text" id="lName" placeholder="Kumar"/></div>
         </div>
-        <div class="fg"><label>Phone Number *</label><input type="tel" placeholder="+91 93609 85854" required/></div>
-        <div class="fg"><label>Email Address</label><input type="email" placeholder="you@example.com"/></div>
+        <div class="fg"><label>Phone Number *</label><input type="tel" id="pNum" placeholder="+91 93609 85854" required/></div>
+        <div class="fg"><label>Email Address</label><input type="email" id="email" placeholder="you@example.com"/></div>
         <div class="fg">
           <label>Customer Type *</label>
-          <select required>
+          <select id="cType" required>
             <option value="">Select type</option>
             <option>Restaurant / Hotel</option>
             <option>Caterer / Event Organizer</option>
@@ -1086,8 +1086,8 @@
             <option>Individual / Household</option>
           </select>
         </div>
-        <div class="fg"><label>Fish / Seafood Required</label><input type="text" placeholder="e.g. 5kg Rohu, 2kg Prawns..."/></div>
-        <div class="fg"><label>Message / Special Requirements</label><textarea placeholder="Delivery address, timing, cleaning preferences..."></textarea></div>
+        <div class="fg"><label>Fish / Seafood Required</label><input type="text" id="fishReq" placeholder="e.g. 5kg Rohu, 2kg Prawns..."/></div>
+        <div class="fg"><label>Message / Special Requirements</label><textarea id="msg" placeholder="Delivery address, timing, cleaning preferences..."></textarea></div>
         <button type="submit" class="fsub">🐟 Submit Order Enquiry</button>
       </form>
       <div class="fsuccess" id="fSuccess">
