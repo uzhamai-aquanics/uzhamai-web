@@ -1328,8 +1328,33 @@ document.getElementById('modal').addEventListener('click',e=>{ if(e.target===e.c
 /* FORM */
 document.getElementById('orderForm').addEventListener('submit',e=>{
   e.preventDefault();
+
+  // Get values from the form
+  const fName = document.getElementById('fName').value;
+  const lName = document.getElementById('lName').value;
+  const pNum = document.getElementById('pNum').value;
+  const email = document.getElementById('email').value;
+  const cType = document.getElementById('cType').value;
+  const fish = document.getElementById('fishReq').value;
+  const msg = document.getElementById('msg').value;
+
+  // Construct the WhatsApp message
+  const message = `*New Order Enquiry - Uzhamai Aquanics*%0A` +
+                  `-----------------------------------%0A` +
+                  `*Name:* ${fName} ${lName}%0A` +
+                  `*Phone:* ${pNum}%0A` +
+                  `*Email:* ${email}%0A` +
+                  `*Type:* ${cType}%0A` +
+                  `*Order:* ${fish}%0A` +
+                  `*Notes:* ${msg}`;
+
+  // Show success message UI
   document.getElementById('orderForm').style.display='none';
   document.getElementById('fSuccess').style.display='block';
+
+  // Redirect to WhatsApp
+  const whatsappURL = `https://wa.me/919360985854?text=${message}`;
+  window.open(whatsappURL, '_blank');
 });
 
 /* NAV + SCROLL TOP */
