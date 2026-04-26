@@ -1,1441 +1,1321 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>UZHAMAI AQUANICS — Biofloc Fish Farming & Trading, Erode</title>
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="apple-touch-icon" href="favicon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600;700&family=Big+Shoulders+Display:wght@700;900&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --navy:     rgba(240, 249, 255, 0.9);
-      --deep:     rgba(224, 242, 241, 0.85);
-      --ocean:    rgba(224, 247, 250, 0.85);
-      --mid-blue: #e3f2fd;
-      --royal:    #1565c0;
-      --cobalt:   #1976d2;
-      --sky:      #42a5f5;
-      --ice:      #90caf9;
-      --frost:    #bbdefb;
-      --white:    #0d47a1;
-      --pure:     #ffffff;
-      --text-dark: #0d47a1;
-      --gold:     #ffd54f;
-      --text-dim: #1976d2;
-      --card-bg:  rgba(0,0,0,0.03);
-      --card-bd:  rgba(25,118,210,0.12);
-      --font-d: 'Big Shoulders Display', sans-serif;
-      --font-h: 'Philosopher', sans-serif;
-      --font-b: 'Outfit', sans-serif;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { background: var(--navy); color: var(--white); font-family: var(--font-b); overflow-x: hidden; }
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: var(--navy); }
-    ::-webkit-scrollbar-thumb { background: var(--cobalt); border-radius: 3px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uzhamai Aquanics — Dashboard</title>
+<link rel="icon" type="image/png" href="lo2.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+<style>
+  :root {
+    --navy: #ffffff;
+    --blue: #1a4fa0;
+    --cyan: #00b4d8;
+    --light: #f0f9ff;
+    --white: #1e293b;
+    --green: #10b981;
+    --red: #ef4444;
+    --orange: #f59e0b;
+    --card: #ffffff;
+    --border: #e2e8f0;
+  }
 
-    /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.4rem 6%; transition: all 0.4s;
-    }
-    nav.scrolled {
-      background: rgba(255,255,255,0.96); backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(66,165,245,0.12);
-      padding: 0.9rem 6%;
-    }
-    .logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
-    .logo-mark {
-      width: 44px; height: 44px; border-radius: 0;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-      position: relative;
-    }
-    .logo-mark::after {
-      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-    }
-    @keyframes shine { 0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; } }
-    .logo-mark img { width: 100%; height: 100%; object-fit: cover; }
-    .logo-name { font-family: var(--font-d); font-size: 1.5rem; letter-spacing: 3px; color: var(--text-dark); line-height: 1; }
-    .logo-sub { font-size: 0.55rem; letter-spacing: 2px; color: var(--sky); font-family: var(--font-b); font-weight: 600; text-transform: uppercase; }
-    .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
-    .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.82rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--sky); }
-    .nav-btn {
-      background: linear-gradient(135deg, var(--cobalt), var(--sky));
-      color: var(--pure) !important; padding: 0.6rem 1.5rem; border-radius: 8px;
-      font-weight: 700 !important; box-shadow: 0 4px 16px rgba(25,118,210,0.35);
-      transition: box-shadow 0.2s, transform 0.2s !important;
-    }
-    .nav-btn:hover { box-shadow: 0 6px 24px rgba(66,165,245,0.5); transform: translateY(-1px); }
-    .hamburger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; }
-    .hamburger span { width: 26px; height: 2px; background: var(--sky); border-radius: 2px; }
-    .mob-nav {
-      display: none; position: fixed; inset: 0; z-index: 190;
-      background: rgba(255,255,255,0.98); backdrop-filter: blur(12px);
-      flex-direction: column; align-items: center; justify-content: center; gap: 2.8rem;
-    }
-    .mob-nav.open { display: flex; }
-    .mob-nav a { font-family: var(--font-d); font-size: 2.8rem; letter-spacing: 4px; color: var(--text-dark); text-decoration: none; transition: color 0.2s; }
-    .mob-nav a:hover { color: var(--sky); }
-    .mob-close { position: absolute; top: 1.5rem; right: 6%; background: none; border: none; color: var(--text-dim); font-size: 2rem; cursor: pointer; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    /* HERO */
-    #hero {
-      min-height: 100vh; display: grid; grid-template-columns: 55% 45%;
-      align-items: center; padding-left: 6%; position: relative; overflow: hidden;
-    }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(circle at 50% -20%, rgba(66,165,245,0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(21,101,192,0.08) 0%, transparent 50%),
-        linear-gradient(180deg, #ffffff 0%, var(--navy) 100%);
-      z-index: 0;
-    }
-    
-    /* WATER FLOW ANIMATION */
-    .water-waves {
-      position: absolute; bottom: 0; left: 0; width: 100%; height: 120px;
-      z-index: 1; pointer-events: none; opacity: 0.7;
-    }
-    .waves-svg { width: 100%; height: 100%; }
-    .parallax > use { animation: waveFlow 25s cubic-bezier(.55,.5,.45,.5) infinite; }
-    .parallax > use:nth-child(1) { animation-delay: -2s; animation-duration: 7s; }
-    .parallax > use:nth-child(2) { animation-delay: -3s; animation-duration: 10s; }
-    .parallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 13s; }
-    .parallax > use:nth-child(4) { animation-delay: -5s; animation-duration: 20s; }
-    @keyframes waveFlow {
-      0% { transform: translate3d(-90px,0,0); }
-      100% { transform: translate3d(85px,0,0); }
-    }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background-color: var(--navy);
+    background-image:
+      radial-gradient(circle at 15% 25%, rgba(0, 180, 216, 0.15) 0%, transparent 45%),
+      radial-gradient(circle at 85% 75%, rgba(26, 79, 160, 0.12) 0%, transparent 45%),
+      radial-gradient(circle at 50% 50%, rgba(0, 180, 216, 0.06) 0%, transparent 60%),
+      linear-gradient(135deg, #ffffff 0%, #e0f2fe 100%);
+    background-attachment: fixed;
+    background-size: 400% 400%;
+    animation: ambientLight 20s ease infinite alternate, shimmer 8s linear infinite;
+    color: var(--white);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
 
-    .dot-grid {
-      position: absolute; inset: 0;
-      background-image: radial-gradient(circle, rgba(66,165,245,0.2) 1px, transparent 1px);
-      background-size: 40px 40px;
-      mask-image: radial-gradient(ellipse 55% 75% at 15% 50%, black 20%, transparent 70%);
-    }
-    .bubbles { position: fixed; inset: 0; pointer-events: none; z-index: -1; }
-    .bub {
-      position: absolute; border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), rgba(66,165,245,0.15));
-      border: 1px solid rgba(255,255,255,0.3);
-      box-shadow: inset 0 0 10px rgba(255,255,255,0.2);
-      animation: bubUp linear infinite;
-    }
-    @keyframes bubUp {
-      0%   { transform: translateY(105vh) translateX(0) scale(0.3); opacity: 0; }
-      20%  { opacity: 0.6; transform: translateY(80vh) translateX(20px) scale(0.6); }
-      50%  { transform: translateY(50vh) translateX(-20px) scale(0.8); }
-      80%  { opacity: 0.3; transform: translateY(20vh) translateX(15px) scale(1); }
-      100% { transform: translateY(-15vh) translateX(0) scale(1.2); opacity: 0; }
-    }
-    .hero-content { position: relative; z-index: 2; padding: 2.5rem 0 5rem; }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 0.6rem;
-      background: rgba(66,165,245,0.1); border: 1px solid rgba(66,165,245,0.3);
-      border-radius: 50px; padding: 0.45rem 1.1rem;
-      font-size: 0.72rem; letter-spacing: 2.5px; text-transform: uppercase;
-      color: var(--sky); margin-bottom: 1.8rem;
-      animation: fadeUp 0.7s ease both;
-    }
-    .hero-badge::before { content:''; width:7px; height:7px; border-radius:50%; background:var(--sky); animation:blink 2s infinite; }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-    .hero-h1 {
-      font-family: var(--font-h);
-      font-size: clamp(3.5rem, 7vw, 7rem);
-      line-height: 0.9; letter-spacing: 1px; margin-bottom: 1.2rem;
-      animation: fadeUp 0.7s 0.1s ease both;
-    }
-    .h1-blue  { color: var(--sky); display: block; font-style: italic; }
-    .h1-white { color: var(--text-dark); display: block; font-weight: 700; }
-    .h1-outline { display: block; -webkit-text-stroke: 2px rgba(5,32,53,0.15); color: transparent; }
-    .hero-tagline { font-family: var(--font-h); font-size: clamp(1rem,2vw,1.3rem); font-style: italic; color: var(--cobalt); opacity: 0.8; margin-bottom: 1.4rem; animation: fadeUp 0.7s 0.2s ease both; }
-    .hero-desc { font-size: 0.97rem; color: var(--text-dim); line-height: 1.78; max-width: 480px; margin-bottom: 2.5rem; animation: fadeUp 0.7s 0.3s ease both; }
-    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.7s 0.4s ease both; }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--royal), var(--sky));
-      color: var(--pure); padding: 0.9rem 2.2rem; border-radius: 10px;
-      font-weight: 700; font-size: 0.88rem; letter-spacing: 1.5px; text-transform: uppercase;
-      text-decoration: none; border: none; cursor: pointer;
-      box-shadow: 0 6px 25px rgba(21,101,192,0.45);
-      transition: transform 0.2s, box-shadow 0.2s; display: inline-block;
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 35px rgba(66,165,245,0.45); }
-    .btn-ghost {
-      background: transparent; color: var(--sky);
-      padding: 0.9rem 2.2rem; border-radius: 10px;
-      font-weight: 600; font-size: 0.88rem; letter-spacing: 1.5px; text-transform: uppercase;
-      text-decoration: none; border: 1.5px solid rgba(66,165,245,0.4);
-      transition: all 0.2s; display: inline-block; cursor: pointer;
-    }
-    .btn-ghost:hover { background: rgba(66,165,245,0.1); border-color: var(--sky); }
-    .hero-stats { display: flex; gap: 2.5rem; margin-top: 4rem; animation: fadeUp 0.7s 0.5s ease both; }
-    .sv { border-left: 2px solid rgba(66,165,245,0.3); padding-left: 1rem; }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.02;
+    pointer-events: none;
+    z-index: 0;
+  }
 
-    /* LARGE HERO LOGO ANIMATION */
-    .hero-swim-path {
-      width: 380px; height: 380px;
-      position: relative; overflow: hidden; border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .hero-swim-path::after {
-      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      animation: shine 4s infinite 1.5s;
-      pointer-events: none;
-      z-index: 6;
-    }
-    .hero-logo-large {
-      width: 320px; height: 320px;
-      object-fit: contain;
-      border-radius: 0;
-      z-index: 5;
-    }
-    @keyframes logoFloat {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-25px) rotate(2deg); }
-    }
-    
-    /* ENHANCED HERO RIGHT ELEMENTS */
-    .light-rays {
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(45deg, rgba(66, 165, 245, 0.05) 0%, transparent 10%, transparent 20%);
-      mask-image: radial-gradient(circle at 50% 50%, black, transparent 70%);
-      pointer-events: none;
-      z-index: 1;
-      animation: rayRotate 60s linear infinite;
-    }
-    @keyframes rayRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes ambientLight {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 50%; }
+  }
 
-    .hero-badge-circle {
-      position: absolute;
-      width: 580px; height: 580px;
-      z-index: 2;
-      animation: rotateText 25s linear infinite;
-      pointer-events: none;
-      opacity: 0.5;
-    }
-    @keyframes rotateText { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes shimmer {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(15deg); }
+  }
 
-    .hero-badge-circle svg { width: 100%; height: 100%; fill: var(--sky); font-family: var(--font-d); font-size: 16px; letter-spacing: 6px; text-transform: uppercase; }
+  /* LOGIN */
+  #loginScreen {
+    position: fixed; inset: 0;
+    background: transparent;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000;
+    overflow: hidden;
+  }
 
-    .floating-particles {
-      position: absolute; inset: 0;
-      pointer-events: none;
-      z-index: 1;
-    }
-    .particle {
-      position: absolute; background: var(--sky); border-radius: 50%; opacity: 0.2;
-      animation: floatUp var(--d) ease-in-out infinite;
-    }
-    @keyframes floatUp {
-      0% { transform: translateY(0) translateX(0); opacity: 0; }
-      50% { opacity: 0.3; }
-      100% { transform: translateY(-100px) translateX(20px); opacity: 0; }
-    }
-    
-    .ring.dashed { border-style: dashed; border-width: 2px; opacity: 0.2; }
+  .login-box {
+    position: relative;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 180, 216, 0.2);
+    border-radius: 24px;
+    padding: 48px 40px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(26, 79, 160, 0.08);
+  }
 
-    /* CURSOR FISH */
-    .swimming-fish {
-      position: fixed; top: 0; left: 0; font-size: 0.6rem;
-      pointer-events: none; z-index: 999; opacity: 0;
-      transition: opacity 0.5s ease;
-      will-change: transform;
-      filter: drop-shadow(0 3px 6px rgba(25,118,210,0.2));
-    }
-    .swimming-fish.active { opacity: 1; }
+  .login-quote {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    color: var(--blue);
+    margin-bottom: 24px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
 
-    .c-trail {
-      position: fixed; pointer-events: none; z-index: 998;
-      background: rgba(66, 165, 245, 0.2);
-      border: 1px solid rgba(66, 165, 245, 0.3);
-      border-radius: 50%;
-      animation: c-bub-out 0.8s ease-out forwards;
-    }
-    @keyframes c-bub-out {
-      0% { transform: scale(0.3) translateY(0); opacity: 0.8; }
-      100% { transform: scale(1.5) translateY(-30px); opacity: 0; }
-    }
+  .login-box input {
+    width: 100%;
+    padding: 14px 18px;
+    background: #f1f5f9;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: #1e293b;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    transition: border 0.2s;
+  }
 
-    .sn { font-family: var(--font-d); font-size: 2.4rem; letter-spacing: 2px; color: var(--sky); line-height: 1; }
-    .sl { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; margin-top: 0.2rem; }
-    .hero-right {
-      position: relative; height: 100vh;
-      display: flex; align-items: center; justify-content: center; overflow: hidden;
-    }
-    .hero-right-bg {
-      position: absolute; inset: 0;
-    }
-    .hero-fish-canvas { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; }
-    @keyframes fishDrift { 0%,100%{transform:translateY(0) rotate(-3deg)} 33%{transform:translateY(-20px) rotate(0)} 66%{transform:translateY(10px) rotate(-5deg)} }
-    .ring { position: absolute; border-radius: 50%; border: 1px solid rgba(66,165,245,0.14); animation: ringP 4s ease-in-out infinite; }
-    @keyframes ringP { 0%,100%{transform:scale(1);opacity:0.5} 50%{transform:scale(1.08);opacity:0.15} }
-    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+  .pw-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 16px;
+  }
 
-    /* STRIP */
-    .strip { background: linear-gradient(90deg, var(--royal) 0%, var(--sky) 50%, var(--royal) 100%); padding: 0.85rem 0; overflow: hidden; }
-    .strip-inner { display: flex; gap: 2.5rem; animation: scroll 22s linear infinite; white-space: nowrap; }
-    .strip-inner span { font-family: var(--font-d); font-size: 0.95rem; letter-spacing: 3px; color: var(--pure); }
-    .strip-inner .dot { opacity: 0.4; }
-    @keyframes scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+  .pw-container input { margin-bottom: 0; padding-right: 45px; }
 
-    /* COMMON SECTION */
-    section { padding: 7rem 6%; }
-    .s-tag { display: block; font-size: 0.68rem; letter-spacing: 3.5px; text-transform: uppercase; color: var(--sky); margin-bottom: 0.8rem; }
-    .s-title { font-family: var(--font-h); font-size: clamp(2rem,4vw,3.2rem); font-weight: 700; line-height: 1.15; margin-bottom: 1rem; }
-    .s-title em { font-style: italic; color: var(--sky); }
-    .s-desc { color: var(--text-dim); font-size: 0.97rem; line-height: 1.78; }
-    .sec-c { text-align: center; }
-    .sec-c .s-desc { max-width: 600px; margin: 0 auto; }
+  .toggle-pw {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--blue);
+    user-select: none;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
 
-    /* PRODUCTS */
-    #products { background: var(--deep); }
-    .prod-hd { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 2rem; }
-    .filters { display: flex; gap: 0.6rem; flex-wrap: wrap; }
-    .fb {
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(66,165,245,0.2);
-      color: var(--text-dim); padding: 0.5rem 1.3rem; border-radius: 50px;
-      font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase;
-      cursor: pointer; transition: all 0.2s; font-family: var(--font-b);
-    }
-    .fb.active, .fb:hover { background: rgba(25,118,210,0.2); border-color: var(--cobalt); color: var(--sky); }
-    .prod-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px,1fr)); gap: 1.6rem; }
-    .pc {
-      background: var(--card-bg); border: 1px solid var(--card-bd); border-radius: 18px;
-      overflow: hidden; cursor: pointer;
-      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-    }
-    .pc:hover { transform: translateY(-7px); border-color: rgba(66,165,245,0.5); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-    .pi { 
-      height: 185px; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      font-size: 5.5rem; 
-      position: relative; 
-      overflow: hidden;
-      background: rgba(25, 118, 210, 0.03);
-    }
-    .pi-img { 
-      width: 100%;
-      height: 100%;
-      object-fit: cover; 
-      position: relative; 
-      z-index: 1; 
-      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .pc:hover .pi-img { transform: scale(1.1); }
-    .pi-bg { position: absolute; inset: 0; background: linear-gradient(135deg,rgba(21,101,192,0.35),rgba(66,165,245,0.06)); }
-    .pi-em { position: relative; z-index: 1; filter: drop-shadow(0 6px 18px rgba(0,0,0,0.5)); }
-    .pbadge {
-      position: absolute; top: 12px; right: 12px; z-index: 2;
-      padding: 0.22rem 0.65rem; border-radius: 50px;
-      font-size: 0.62rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-    }
-    .bf { background: rgba(66,165,245,0.2); color: var(--sky); border: 1px solid rgba(66,165,245,0.4); }
-    .bh { background: rgba(255,213,79,0.18); color: var(--gold); border: 1px solid rgba(255,213,79,0.4); }
-    .bn { background: rgba(67,200,140,0.18); color: #43c88c; border: 1px solid rgba(67,200,140,0.4); }
-    .pinfo { padding: 1.3rem 1.5rem 1.6rem; }
-    .pcat { font-size: 0.63rem; letter-spacing: 2.5px; text-transform: uppercase; color: var(--sky); margin-bottom: 0.35rem; }
-    .pname { font-family: var(--font-h); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.4rem; }
-    .pdesc { font-size: 0.82rem; color: var(--text-dim); line-height: 1.55; margin-bottom: 1.1rem; }
-    .pfoot { display: flex; align-items: center; justify-content: space-between; }
-    .pprice { font-family: var(--font-d); font-size: 1.5rem; color: var(--text-dark); letter-spacing: 1px; }
-    .pprice span { font-size: 0.7rem; color: var(--text-dim); font-family: var(--font-b); }
-    .pbtn {
-      background: linear-gradient(135deg, var(--royal), var(--sky)); border: none;
-      color: var(--pure); padding: 0.5rem 1.1rem; border-radius: 8px;
-      font-size: 0.78rem; font-weight: 700; cursor: pointer;
-      font-family: var(--font-b); transition: opacity 0.2s;
-    }
-    .pbtn:hover { opacity: 0.85; }
+  .login-box input:focus { border-color: var(--cyan); }
 
-    /* FISH BENEFITS */
-    #benefits { background: var(--ocean); position: relative; overflow: hidden; }
-    #benefits::before {
-      content: ''; position: absolute; top: -200px; right: -200px;
-      width: 600px; height: 600px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(21,101,192,0.16), transparent 70%);
-      pointer-events: none;
-    }
-    .ben-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-bottom: 5rem; }
-    .ben-intro-left .s-desc { margin-top: 1rem; max-width: 480px; }
-    .ben-intro-right {
-      background: linear-gradient(135deg, rgba(21,101,192,0.15), rgba(66,165,245,0.04));
-      border: 1px solid rgba(66,165,245,0.18); border-radius: 24px; padding: 2.8rem;
-      text-align: center; position: relative; overflow: hidden;
-    }
-    .ben-intro-right::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--royal), var(--sky));
-    }
-    .ben-fish-big { font-size: 5.5rem; display: block; margin-bottom: 0.5rem; animation: fishDrift 6s ease-in-out infinite; }
-    .ben-intro-right h3 { font-family: var(--font-h); font-size: 1.7rem; margin-bottom: 0.5rem; }
-    .ben-intro-right p { color: var(--text-dim); font-size: 0.9rem; line-height: 1.65; }
-    .omega-pill {
-      display: inline-block; margin-top: 1.2rem;
-      background: rgba(66,165,245,0.15); border: 1px solid rgba(66,165,245,0.3);
-      border-radius: 50px; padding: 0.4rem 1.1rem; font-size: 0.8rem; color: var(--sky); font-weight: 600;
-    }
-    .ben-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
-    .ben-card {
-      background: rgba(255,255,255,0.03); border: 1px solid rgba(66,165,245,0.12);
-      border-radius: 20px; padding: 2rem; position: relative; overflow: hidden;
-      transition: transform 0.3s, border-color 0.3s;
-    }
-    .ben-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--cobalt), transparent);
-      opacity: 0; transition: opacity 0.3s;
-    }
-    .ben-card:hover { transform: translateY(-5px); border-color: rgba(66,165,245,0.35); }
-    .ben-card:hover::before { opacity: 1; }
-    .ben-num { font-family: var(--font-d); font-size: 4.5rem; color: rgba(66,165,245,0.07); position: absolute; top: 0.8rem; right: 1.2rem; line-height: 1; }
-    .ben-icon { font-size: 2.4rem; margin-bottom: 1rem; display: block; }
-    .ben-title { font-family: var(--font-h); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .ben-text { font-size: 0.85rem; color: var(--text-dim); line-height: 1.68; }
-    .ben-pill {
-      display: inline-block; margin-top: 1rem;
-      background: rgba(21,101,192,0.2); border: 1px solid rgba(66,165,245,0.2);
-      border-radius: 6px; padding: 0.25rem 0.75rem;
-      font-size: 0.67rem; color: var(--sky); letter-spacing: 1.5px; text-transform: uppercase;
-    }
-    /* Nutrient bars */
-    .nut-sec { margin-top: 5rem; }
-    .nut-title { font-family: var(--font-h); font-size: 1.8rem; text-align: center; margin-bottom: 2.5rem; }
-    .nut-title em { color: var(--sky); font-style: italic; }
-    .nut-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.4rem; }
-    .nut-item { display: flex; flex-direction: column; gap: 0.5rem; }
-    .nut-top { display: flex; justify-content: space-between; }
-    .nut-nm { font-size: 0.87rem; font-weight: 600; }
-    .nut-vl { font-size: 0.87rem; color: var(--sky); font-weight: 700; }
-    .nut-bar { height: 6px; background: rgba(66,165,245,0.1); border-radius: 3px; overflow: hidden; }
-    .nut-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--royal), var(--sky)); width: 0; transition: width 1.6s ease; }
-    /* Daily facts row */
-    .facts-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.2rem; margin-top: 4rem; }
-    .fact-card {
-      background: linear-gradient(135deg, rgba(21,101,192,0.18), rgba(66,165,245,0.05));
-      border: 1px solid rgba(66,165,245,0.2); border-radius: 16px;
-      padding: 1.5rem; text-align: center;
-    }
-    .fact-icon { font-size: 2rem; display: block; margin-bottom: 0.6rem; }
-    .fact-num { font-family: var(--font-d); font-size: 2rem; color: var(--sky); letter-spacing: 1px; display: block; }
-    .fact-lbl { font-size: 0.75rem; color: var(--text-dim); letter-spacing: 1px; }
+  .login-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
 
-    /* ABOUT */
-    #about { background: var(--deep); }
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
-    .about-num-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
-    .num-card {
-      background: rgba(255,255,255,0.03); border: 1px solid rgba(66,165,245,0.14);
-      border-radius: 16px; padding: 1.6rem; text-align: center;
-      transition: border-color 0.3s, transform 0.3s;
-    }
-    .num-card:hover { border-color: rgba(66,165,245,0.4); transform: translateY(-4px); }
-    .num-card .n { font-family: var(--font-d); font-size: 2.8rem; color: var(--sky); letter-spacing: 2px; display: block; }
-    .num-card .l { font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; }
-    .num-card.sp2 { grid-column: span 2; }
-    .about-text p { color: var(--text-dim); font-size: 0.96rem; line-height: 1.8; margin-bottom: 1.1rem; }
-    .about-text p strong { color: var(--white); }
-    .cert-row { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1.5rem; }
-    .cert {
-      display: flex; align-items: center; gap: 0.5rem;
-      background: rgba(21,101,192,0.15); border: 1px solid rgba(66,165,245,0.25);
-      border-radius: 10px; padding: 0.5rem 1rem;
-    }
-    .cert span:first-child { font-size: 1rem; }
-    .cert span:last-child { font-size: 0.78rem; font-weight: 600; color: var(--frost); }
+  .login-btn:hover { opacity: 0.9; }
+  .login-error { color: var(--red); font-size: 13px; margin-top: 12px; display: none; }
 
-    /* FOUNDER SECTION */
-    #founder { background: var(--ocean); }
-    .founder-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start; max-width: 800px; margin: 0 auto; }
-    .founder-image-box { text-align: center; position: sticky; top: 120px; }
-    .founder-img-wrapper {
-      position: relative;
-      max-width: 340px;
-      margin: 0 auto 1.5rem;
-      border-radius: 24px;
-      overflow: hidden;
-      border: 6px solid var(--pure);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    }
-    .founder-img-wrapper::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -150%;
-      width: 50%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      transform: skewX(-20deg);
-      animation: imgShine 4s infinite;
-    }
-    .founder-img { 
-      width: 100%; 
-      aspect-ratio: 1/1;
-      object-fit: cover;
-      display: block;
-    }
-    .founder-name { font-family: var(--font-h); font-size: 2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.4rem; }
-    .founder-title { font-size: 0.75rem; color: var(--sky); letter-spacing: 2.5px; font-weight: 600; text-transform: uppercase; opacity: 0.9; }
-    .founder-text h3 { 
-      font-family: var(--font-h); 
-      font-size: 1.6rem; 
-      margin: 2.2rem 0 1rem; 
-      color: var(--sky); 
-      position: relative;
-    }
-    .founder-text h3::after { content: ''; display: block; width: 40px; height: 3px; background: var(--sky); margin-top: 8px; border-radius: 2px; }
-    .founder-text ul { list-style: none; margin-top: 1rem; }
-    .founder-text ul li { margin-bottom: 1.5rem; position: relative; padding-left: 2.2rem; font-size: 0.96rem; color: var(--text-dim); line-height: 1.7; }
-    .founder-text ul li::before { content: '🐠'; position: absolute; left: 0; top: 0; font-size: 1rem; }
-    .founder-text ul li strong { color: var(--text-dark); font-weight: 700; }
+  /* DASHBOARD */
+  #dashboard { display: none; position: relative; z-index: 2; }
 
-    @keyframes imgShine { 0% { left: -150%; } 30% { left: 150%; } 100% { left: 150%; } }
+  /* HEADER */
+  .header {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+  }
 
-    /* WHY US */
-    #why { background: var(--mid-blue); position: relative; overflow: hidden; }
-    #why::after {
-      content: ''; position: absolute; bottom: -150px; left: -150px;
-      width: 500px; height: 500px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(2,14,31,0.5), transparent 70%);
-    }
-    .why-head { text-align: center; margin-bottom: 4rem; }
-    .why-head .s-desc { max-width: 580px; margin: 0 auto; }
-    .why-cards { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.4rem; position: relative; z-index: 1; }
-    .wc {
-      background: var(--pure); 
-      border: 1px solid rgba(25,118,210,0.1);
-      border-radius: 20px; padding: 2rem 1.6rem; text-align: center;
-      transition: transform 0.3s, box-shadow 0.3s;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-    }
-    .wc:hover { transform: translateY(-6px); box-shadow: 0 15px 40px rgba(25,118,210,0.12); }
-    .wc-ico { font-size: 2.8rem; display: block; margin-bottom: 1.1rem; }
-    .wc-title { font-family: var(--font-h); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .wc-text { font-size: 0.83rem; color: var(--text-dim); line-height: 1.6; }
+  .header-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
 
-    /* PROCESS */
-    #process { background: var(--navy); }
-    .ps-wrap { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 4rem; position: relative; }
-    .ps-wrap::before {
-      content: ''; position: absolute; top: 36px; left: 12%; right: 12%; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--cobalt), var(--sky), var(--cobalt), transparent);
-      opacity: 0.3;
-    }
-    .ps { text-align: center; position: relative; }
-    .ps-circ {
-      width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 1.5rem;
-      background: linear-gradient(135deg, var(--royal), var(--sky));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.8rem;
-      box-shadow: 0 0 0 8px rgba(21,101,192,0.12), 0 8px 25px rgba(21,101,192,0.3);
-    }
-    .ps-num {
-      position: absolute; top: -6px; right: calc(50% - 46px);
-      width: 20px; height: 20px; border-radius: 50%;
-      background: var(--gold); color: var(--navy);
-      font-size: 0.65rem; font-weight: 900; font-family: var(--font-d);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .ps-title { font-family: var(--font-h); font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .ps-text { font-size: 0.83rem; color: var(--text-dim); line-height: 1.6; }
+  .header-logo .brand-info { display: flex; flex-direction: column; }
+  .header-logo .brand-text { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 18px; color: var(--blue); line-height: 1.1; }
+  .header-logo .sub-logo { color: #64748b; font-size: 9px; font-weight: 600; text-transform: uppercase; font-family: 'Inter', sans-serif; margin-top: 2px; letter-spacing: 0.5px; }
 
-    /* TESTIMONIALS */
-    #testimonials { background: var(--deep); }
-    .tgrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3.5rem; }
-    .tc {
-      background: var(--card-bg); border: 1px solid var(--card-bd);
-      border-radius: 20px; padding: 2rem;
-      transition: transform 0.3s, border-color 0.3s;
-    }
-    .tc:hover { transform: translateY(-5px); border-color: rgba(66,165,245,0.4); }
-    .tq { font-size: 2.5rem; color: var(--sky); opacity: 0.25; font-family: Georgia; line-height: 1; margin-bottom: 0.5rem; }
-    .ts { color: var(--gold); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 0.8rem; }
-    .tt { font-size: 0.88rem; color: var(--frost); opacity: 0.75; line-height: 1.75; font-style: italic; margin-bottom: 1.5rem; }
-    .ta { display: flex; align-items: center; gap: 0.9rem; }
-    .tav { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; border: 2px solid rgba(66,165,245,0.3); }
-    .tn { font-weight: 600; font-size: 0.9rem; }
-    .tr { font-size: 0.73rem; color: var(--text-dim); }
+  .header-date { font-size: 13px; color: #64748b; text-align:right; line-height:1.4; font-family: 'Outfit', sans-serif; }
 
-    /* CONTACT */
-    #contact { background: var(--ocean); }
-    .contact-wrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start; }
-    .ci-list { display: flex; flex-direction: column; gap: 1.6rem; margin-top: 2.5rem; }
-    .ci { display: flex; gap: 1.1rem; align-items: flex-start; }
-    .ci-ico {
-      width: 48px; height: 48px; flex-shrink: 0; border-radius: 14px;
-      background: rgba(21,101,192,0.2); border: 1px solid rgba(66,165,245,0.25);
-      display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
-    }
-    .ci-l { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 2.5px; color: var(--sky); margin-bottom: 0.25rem; }
-    .ci-v { font-size: 0.95rem; color: var(--text-dark); font-weight: 500; }
-    .ci-v a { color: inherit; text-decoration: none; transition: color 0.2s; }
-    .ci-v a:hover { color: var(--cobalt); }
-    .wa-btn {
-      display: flex; align-items: center; gap: 0.8rem;
-      background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.28);
-      border-radius: 14px; padding: 1.1rem 1.4rem; margin-top: 2rem;
-      text-decoration: none; transition: background 0.2s;
-    }
-    .wa-btn:hover { background: rgba(37,211,102,0.18); }
-    .wa-btn .wi { font-size: 1.8rem; }
-    .wa-btn .wt { font-weight: 600; color: #25d366; font-size: 0.95rem; }
-    .wa-btn .ws { font-size: 0.75rem; color: var(--text-dim); }
-    .c-form {
-      background: rgba(255,255,255,0.03); border: 1px solid rgba(66,165,245,0.15);
-      border-radius: 24px; padding: 2.8rem;
-    }
-    .c-form h3 { font-family: var(--font-h); font-size: 1.7rem; margin-bottom: 2rem; }
-    .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .fg { margin-bottom: 1.2rem; }
-    .fg label { display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.8px; color: var(--text-dim); margin-bottom: 0.5rem; }
-    .fg input, .fg select, .fg textarea {
-      width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(66,165,245,0.2);
-      border-radius: 10px; color: var(--text-dark); font-family: var(--font-b); font-size: 0.9rem;
-      padding: 0.8rem 1.1rem; outline: none; transition: border-color 0.2s, background 0.2s;
-    }
-    .fg input::placeholder, .fg textarea::placeholder { color: rgba(123,174,212,0.45); }
-    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--cobalt); background: rgba(25,118,210,0.06); }
-    .fg select option { background: var(--ocean); }
-    .fg textarea { resize: vertical; min-height: 105px; }
-    .fsub {
-      width: 100%; padding: 1.05rem;
-      background: linear-gradient(135deg, var(--royal), var(--sky));
-      border: none; border-radius: 12px; color: var(--pure);
-      font-weight: 700; font-size: 1rem; letter-spacing: 1.5px; text-transform: uppercase;
-      cursor: pointer; font-family: var(--font-b);
-      box-shadow: 0 6px 25px rgba(21,101,192,0.4);
-      transition: opacity 0.2s, transform 0.2s;
-    }
-    .fsub:hover { opacity: 0.88; transform: translateY(-2px); }
-    .fsuccess { display: none; text-align: center; padding: 3rem 1rem; }
-    .fsuccess .si { font-size: 3.5rem; display: block; margin-bottom: 1rem; }
-    .fsuccess h3 { font-family: var(--font-h); font-size: 1.8rem; color: var(--sky); margin-bottom: 0.5rem; }
-    .fsuccess p { color: var(--text-dim); }
+  /* NAV TABS */
+  .nav-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 16px 24px;
+    overflow-x: auto;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #edf2f7;
+  }
 
-    /* FOOTER */
-    footer {
-      background: var(--navy); border-top: 1px solid rgba(66,165,245,0.1);
-      padding: 5rem 6% 2.5rem;
-    }
-    .fg-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3.5rem; margin-bottom: 4rem; }
-    .fb-brand p { color: var(--text-dim); font-size: 0.88rem; line-height: 1.75; margin: 1.2rem 0; }
-    .socials { display: flex; gap: 0.7rem; }
-    .soc { 
-      width: 40px; height: 40px; border-radius: 10px;
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(66,165,245,0.15);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1rem; cursor: pointer; text-decoration: none; color: var(--cobalt); transition: all 0.2s;
-    }
-    .soc:hover { background: rgba(21,101,192,0.1); border-color: var(--cobalt); color: var(--sky); transform: translateY(-2px); }
-    .fc h4 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: var(--sky); margin-bottom: 1.4rem; }
-    .fc ul { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
-    .fc ul li a { color: var(--text-dim); text-decoration: none; font-size: 0.87rem; transition: color 0.2s; }
-    .fc ul li a:hover { color: var(--white); }
-    .foot-bot {
-      border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem;
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
-    }
-    .foot-bot p { font-size: 0.8rem; color: var(--text-dim); }
-    .foot-bot a { color: var(--sky); text-decoration: none; }
-    .fssai {
-      display: flex; align-items: center; gap: 0.5rem;
-      background: rgba(21,101,192,0.15); border: 1px solid rgba(66,165,245,0.2);
-      border-radius: 8px; padding: 0.4rem 0.9rem; font-size: 0.75rem; color: var(--sky);
-    }
+  .nav-tab {
+    padding: 8px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: #64748b;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
 
-    /* MODAL */
-    .modal-bg {
-      display: none; position: fixed; inset: 0; z-index: 300;
-      background: rgba(2,14,31,0.92); backdrop-filter: blur(8px);
-      align-items: center; justify-content: center; padding: 1rem;
-    }
-    .modal-bg.open { display: flex; }
-    .modal-box {
-      background: linear-gradient(160deg, var(--ocean), var(--deep));
-      border: 1px solid rgba(66,165,245,0.25); border-radius: 24px;
-      padding: 2.8rem; max-width: 440px; width: 100%; position: relative;
-      animation: mIn 0.3s ease;
-    }
-    @keyframes mIn { from{transform:scale(0.88);opacity:0} to{transform:scale(1);opacity:1} }
-    .mcl { position: absolute; top: 1.2rem; right: 1.4rem; background: none; border: none; color: var(--text-dim); font-size: 1.5rem; cursor: pointer; }
-    .mem { font-size: 5rem; text-align: center; display: block; margin-bottom: 0.3rem; animation: fishDrift 5s infinite; }
-    .mname { font-family: var(--font-h); font-size: 1.8rem; text-align: center; margin-bottom: 0.2rem; }
-    .mcat { text-align: center; font-size: 0.68rem; letter-spacing: 3px; text-transform: uppercase; color: var(--sky); margin-bottom: 1rem; }
-    .mdesc { color: var(--text-dim); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.4rem; }
-    .mdets { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 1.6rem; }
-    .mdet { background: rgba(66,165,245,0.08); border: 1px solid rgba(66,165,245,0.2); border-radius: 10px; padding: 0.55rem 1rem; }
-    .mdet .dl { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--sky); }
-    .mdet .dv { font-size: 0.9rem; font-weight: 600; }
-    .mpr-row { display: flex; align-items: center; justify-content: space-between; }
-    .mpr { font-family: var(--font-d); font-size: 2.2rem; color: var(--text-dark); letter-spacing: 2px; }
+  .nav-tab.active {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: white;
+  }
 
-    /* SCROLL TOP */
-    #st {
-      position: fixed; bottom: 2rem; right: 2rem; z-index: 100;
-      width: 46px; height: 46px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--royal), var(--sky));
-      border: none; cursor: pointer; color: var(--pure); font-size: 1.1rem;
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.2s;
-      box-shadow: 0 4px 20px rgba(21,101,192,0.5);
-    }
-    #st.show { opacity: 1; pointer-events: auto; }
-    #st:hover { transform: translateY(-3px); }
+  /* MAIN */
+  .main { padding: 24px; max-width: 1200px; margin: 0 auto; }
 
-    /* RESPONSIVE */
-    @media (max-width: 1100px) {
-      #hero { grid-template-columns: 1fr; text-align: center; padding-left: 0; padding: 110px 5% 40px; min-height: auto; display: flex; flex-direction: column; align-items: center; }
-      .hero-content { padding: 0; margin-top: 15px; display: flex; flex-direction: column; align-items: center; }
-      .hero-right { display: flex; height: 280px; order: -1; margin-bottom: 10px; overflow: visible; width: 100%; justify-content: center; }
-      
-      /* Scaling down logo elements for mobile */
-      .hero-swim-path { width: 160px; height: 160px; }
-      .hero-logo-large { width: 150px; height: 150px; }
-      .hero-badge-circle { width: 280px; height: 280px; opacity: 0.4; }
-      .ring { width: 240px !important; height: 240px !important; }
-      
-      .hero-desc { margin-left: auto; margin-right: auto; }
-      .hero-actions { justify-content: center; }
-      .why-cards { grid-template-columns: repeat(2,1fr); }
-      .ben-grid { grid-template-columns: repeat(2,1fr); }
-      .ben-intro { grid-template-columns: 1fr; gap: 2.5rem; }
-      .facts-row { grid-template-columns: repeat(2,1fr); }
-    }
-    @media (max-width: 860px) {
-      .about-grid, .founder-grid, .contact-wrap { grid-template-columns: 1fr; gap: 3rem; }
-      .founder-image-box { position: static; }
-      .tgrid { grid-template-columns: 1fr; }
-      .ps-wrap { grid-template-columns: 1fr 1fr; }
-      .ps-wrap::before { display: none; }
-      .fg-grid { grid-template-columns: 1fr 1fr; }
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-    }
-    @media (max-width: 600px) {
-      section { padding: 5rem 5%; }
-      .ben-grid { grid-template-columns: 1fr; }
-      .why-cards { grid-template-columns: 1fr; }
-      .frow { grid-template-columns: 1fr; }
-      .fg-grid { grid-template-columns: 1fr; }
-      .ps-wrap { grid-template-columns: 1fr; }
-      .nut-grid { grid-template-columns: 1fr; }
-      .facts-row { grid-template-columns: 1fr 1fr; }
-    }
-  </style>
+  /* SECTION */
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* STATS ROW */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .stat-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(6px);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 16px;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  }
+
+  .stat-val {
+    font-family: 'Outfit', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--blue);
+    letter-spacing: -0.5px;
+  }
+
+  .stat-label { font-size: 12px; color: #7a9cc0; margin-top: 4px; }
+
+  /* CARD */
+  .card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(6px);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  }
+
+  .card-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* FORM */
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+
+  @media(max-width: 600px) {
+    .form-row, .form-row-3 { grid-template-columns: 1fr; }
+  }
+
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: 12px; color: #7a9cc0; text-transform: uppercase; letter-spacing: 1px; }
+
+  .form-group input, .form-group select, .form-group textarea {
+    padding: 10px 14px;
+    background: var(--navy);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--white);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border 0.2s;
+  }
+
+  .form-group input:focus, .form-group select:focus { border-color: var(--cyan); }
+  .form-group select option { background: white; }
+
+  .btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .btn:hover { opacity: 0.85; }
+  .btn-primary { background: linear-gradient(135deg, var(--blue), var(--cyan)); color: white; }
+  .btn-danger { background: var(--red); color: white; }
+  .btn-success { background: var(--green); color: white; }
+  .btn-sm { padding: 6px 12px; font-size: 12px; }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  th {
+    background: #f1f5f9;
+    padding: 10px 14px;
+    text-align: left;
+    color: #64748b;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+
+  td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #f8fafc; }
+
+  /* BADGE */
+  .badge {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .badge-green { background: rgba(16,185,129,0.15); color: var(--green); }
+  .badge-red { background: rgba(239,68,68,0.15); color: var(--red); }
+  .badge-orange { background: rgba(245,158,11,0.15); color: var(--orange); }
+  .badge-blue { background: rgba(0,180,216,0.15); color: var(--cyan); }
+
+  /* PROFIT */
+  .profit-positive { color: var(--green); font-weight: 600; }
+  .profit-negative { color: var(--red); font-weight: 600; }
+
+  /* EMPTY STATE */
+  .empty { text-align: center; padding: 40px; color: #7a9cc0; font-size: 14px; }
+
+  /* FISH TAG */
+  .fish-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #f1f5f9;
+    border-left: 3px solid var(--cyan);
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--blue);
+    margin: 2px;
+  }
+
+  /* SUMMARY BAR */
+  .summary-bar {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(4px);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .summary-item { }
+  .summary-item .val {
+    font-family: 'Outfit', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--blue);
+  }
+  .summary-item .lbl { font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; }
+  
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  @media(max-width:600px){.stats-grid{grid-template-columns:1fr!important}.stats-grid .card{grid-column:1/-1!important}}
+</style>
 </head>
 <body>
-
-<!-- GLOBAL BUBBLES -->
-<div class="bubbles" id="bubbles"></div>
-
-<!-- NAVBAR -->
-<nav id="navbar">
-  <a class="logo" href="#">
-    <div class="logo-mark"><img src="lo2.png" alt="Uzhamai Aquanics Logo"></div>
-    <div>
-      <div class="logo-name">UZHAMAI</div>
-      <div class="logo-sub">Aquanics</div>
+<!-- LOGIN SCREEN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <img src="lo2.png" alt="Uzhamai Logo" style="width: 140px; height: 140px; border-radius: 50%; margin-bottom: 24px;">
+    <div class="login-quote">Clean Tech. Green Growth. Fresh Harvest.</div>
+    <div class="pw-container">
+      <input type="password" id="pwInput" placeholder="Enter Password" autocomplete="new-password" onkeydown="if(event.key==='Enter')doLogin()">
+      <span class="toggle-pw" id="eyeIcon" onclick="togglePassword()">SHOW</span>
     </div>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#products">Products</a></li>
-    <li><a href="#benefits">Fish Benefits</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#founder">Founder</a></li>
-    <li><a href="#why">Why Us</a></li>
-    <li><a href="#process">Process</a></li>
-    <li><a href="#contact" class="nav-btn">Order Now</a></li>
-  </ul>
-  <button class="hamburger" id="hamBtn"><span></span><span></span><span></span></button>
-</nav>
-
-<!-- MOBILE NAV -->
-<div class="mob-nav" id="mobNav">
-  <button class="mob-close" id="mobClose">✕</button>
-  <a href="#products" onclick="closeMob()">Products</a>
-  <a href="#benefits" onclick="closeMob()">Fish Benefits</a>
-  <a href="#about" onclick="closeMob()">About</a>
-  <a href="#founder" onclick="closeMob()">Founder</a>
-  <a href="#contact" onclick="closeMob()">Order Now</a>
+    <button class="login-btn" onclick="doLogin()">LOGIN</button>
+    <div class="login-error" id="loginErr">Error: Invalid credentials.</div>
+  </div>
 </div>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-bg"></div>
-  <div class="dot-grid"></div>
+<!-- DASHBOARD -->
+<div id="dashboard">
 
-  <!-- Water Waves Animation -->
-  <div class="water-waves">
-    <svg class="waves-svg" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-      <defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"/></defs>
-      <g class="parallax">
-        <use href="#gentle-wave" x="48" y="0" fill="rgba(66, 165, 245, 0.1)"/>
-        <use href="#gentle-wave" x="48" y="3" fill="rgba(66, 165, 245, 0.2)"/>
-        <use href="#gentle-wave" x="48" y="5" fill="rgba(66, 165, 245, 0.05)"/>
-        <use href="#gentle-wave" x="48" y="7" fill="rgba(66, 165, 245, 0.3)"/>
-      </g>
-    </svg>
-  </div>
-
-  <div class="hero-content">
-    <div class="hero-badge">Erode's Trusted Fish Trading and Biofloc Farming company</div>
-    <h1 class="hero-h1">
-      <span class="h1-blue">UZHAMAI</span>
-      <span class="h1-white">AQUANICS</span>
-    </h1>
-    <p class="hero-tagline">From the Bay of Bengal — to your table.</p>
-    <p class="hero-desc">Freshness Redefined: Sustainable Biofloc Farming & Strategic fish Trading. Sourcing daily from Ramanathapuram and Cuddalore to serve the heart of Erode. Your trusted partner for premium fish supply.</p>
-    <div class="hero-actions">
-      <a href="#products" class="btn-primary">Explore Products</a>
-      <a href="#contact" class="btn-ghost">Place an Order</a>
-    </div>
-    <div class="hero-stats">
-      <div class="sv"><div class="sn">33+</div><div class="sl">Fish Varieties</div></div>
-      <div class="sv"><div class="sn">20+</div><div class="sl">Clients</div></div>
-      <div class="sv"><div class="sn">1+</div><div class="sl">Years in fish industry</div></div>
-    </div>
-  </div>
-
-  <div class="hero-right">
-    <div class="hero-right-bg"></div>
-    <div class="light-rays"></div>
-    <div class="floating-particles" id="heroParticles"></div>
-    
-    <div class="hero-fish-canvas">
-      <!-- Rotating Badge Text -->
-      <div class="hero-badge-circle">
-        <svg viewBox="0 0 200 200">
-          <path id="circlePath" d="M 100, 100 m -88, 0 a 88,88 0 1,1 176,0 a 88,88 0 1,1 -176,0" fill="transparent"/>
-          <text>
-            <textPath href="#circlePath">
-          • FRESH FISH • QUALITY GUARANTEED • HEALTHY FOOD
-            </textPath>
-          </text>
-        </svg>
-      </div>
-
-      <!-- Enhanced Rings -->
-      <div class="ring" style="width:380px;height:380px;"></div>
-      <div class="ring dashed" style="width:420px;height:420px;animation-delay:0.5s;"></div>
-      <div class="ring" style="width:220px;height:220px;animation-delay:2s;"></div>
-      <div class="hero-swim-path">
-        <img src="lo2.png" alt="Uzhamai Aquanics" class="hero-logo-large">
-      </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- MARQUEE -->
-<div class="strip"><div class="strip-inner" id="stripEl"></div></div>
-
-<!-- PRODUCTS -->
-<section id="products">
-  <div class="prod-hd">
-    <div>
-      <span class="s-tag">Our Catalog</span>
-      <h2 class="s-title">Fresh <em>Seafood</em> Selection</h2>
-      <p class="s-desc">Sourced daily from coastal Tamil Nadu waters. Delivered fresh to your door.</p>
-    </div>
-    <div class="filters" id="filters">
-      <button class="fb active" data-cat="all">All (33)</button>
-      <button class="fb" data-cat="freshwater">🏞️ Freshwater (5)</button>
-      <button class="fb" data-cat="saltwater">🌊 Saltwater (24)</button>
-      <button class="fb" data-cat="shellfish">🦀 Shellfish (4)</button>
-      <button class="fb" data-cat="premium">⭐ Premium (4)</button>
-    </div>
-  </div>
-  <div class="prod-grid" id="prodGrid"></div>
-</section>
-
-<!-- FISH BENEFITS -->
-<section id="benefits">
-  <div class="ben-intro">
-    <div class="ben-intro-left">
-      <span class="s-tag">Health & Nutrition</span>
-      <h2 class="s-title">Why Eating <em>Fish</em><br>Changes Your Life</h2>
-      <p class="s-desc">Fish isn't just food — it's medicine. Packed with essential nutrients, proteins, and healthy fats that your body craves. Regular fish consumption is one of the best dietary choices you can make for a long, healthy life.</p>
-    </div>
-    <div class="ben-intro-right">
-      <span class="ben-fish-big">🐡</span>
-      <h3>Nature's Superfood</h3>
-      <p>Fish is one of the most nutrient-dense foods on Earth — rich in complete protein, vitamins D & B12, iodine, selenium, and the incredibly powerful Omega-3 fatty acids your body cannot produce on its own.</p>
-      <span class="omega-pill">⭐ Highest Natural Source of Omega-3</span>
-    </div>
-  </div>
-
-  <div class="ben-grid">
-    <div class="ben-card">
-      <div class="ben-num">01</div>
-      <span class="ben-icon">🧠</span>
-      <div class="ben-title">Boosts Brain Health</div>
-      <p class="ben-text">Omega-3 fatty acids (DHA and EPA) found abundantly in fish are critical for brain function, memory, and development. Regular consumption significantly reduces the risk of cognitive decline, depression, and anxiety disorders.</p>
-      <span class="ben-pill">DHA · EPA · Omega-3</span>
-    </div>
-    <div class="ben-card">
-      <div class="ben-num">02</div>
-      <span class="ben-icon">❤️</span>
-      <div class="ben-title">Protects Your Heart</div>
-      <p class="ben-text">Studies consistently show people who eat fish regularly have a much lower risk of heart attacks and strokes. Fish naturally reduces triglycerides, lowers blood pressure, and prevents arterial plaque buildup.</p>
-      <span class="ben-pill">Cardio Health · Omega-3</span>
-    </div>
-    <div class="ben-card">
-      <div class="ben-num">03</div>
-      <span class="ben-icon">💪</span>
-      <div class="ben-title">High-Quality Protein</div>
-      <p class="ben-text">Fish is loaded with complete, easily digestible protein containing all essential amino acids. A single 100g serving can provide up to 26g of protein — perfect for muscle growth, repair, and overall body function.</p>
-      <span class="ben-pill">Protein · Amino Acids</span>
-    </div>
-    <div class="ben-card">
-      <div class="ben-num">04</div>
-      <span class="ben-icon">☀️</span>
-      <div class="ben-title">Vitamin D Powerhouse</div>
-      <p class="ben-text">Fish is among the world's best dietary sources of Vitamin D, a nutrient most people are dangerously deficient in. Vitamin D is essential for calcium absorption, strong bones, immune function, and mood regulation.</p>
-      <span class="ben-pill">Vitamin D · Bone Strength</span>
-    </div>
-    <div class="ben-card">
-      <div class="ben-num">05</div>
-      <span class="ben-icon">👁️</span>
-      <div class="ben-title">Protects Your Vision</div>
-      <p class="ben-text">DHA, a type of omega-3 found in oily fish, is a major structural component of the retina. Regular fish consumption helps prevent age-related macular degeneration and keeps your eyesight sharp as you age.</p>
-      <span class="ben-pill">DHA · Retinal Health</span>
-    </div>
-    <div class="ben-card">
-      <div class="ben-num">06</div>
-      <span class="ben-icon">🌙</span>
-      <div class="ben-title">Improves Sleep Quality</div>
-      <p class="ben-text">Fish is a natural source of tryptophan (a sleep-inducing amino acid) and Vitamin D, both strongly linked to improved sleep quality. People who eat fish regularly report fewer sleep disorders and better rest.</p>
-      <span class="ben-pill">Tryptophan · Deep Sleep</span>
-    </div>
-  </div>
-
-  <!-- Daily intake facts -->
-  <div class="facts-row">
-    <div class="fact-card">
-      <span class="fact-icon">🐟</span>
-      <span class="fact-num">2–3×</span>
-      <span class="fact-lbl">Recommended per week (WHO)</span>
-    </div>
-    <div class="fact-card">
-      <span class="fact-icon">💊</span>
-      <span class="fact-num">26g</span>
-      <span class="fact-lbl">Protein per 100g of fish</span>
-    </div>
-    <div class="fact-card">
-      <span class="fact-icon">⚡</span>
-      <span class="fact-num">40%</span>
-      <span class="fact-lbl">Lower risk of heart disease</span>
-    </div>
-    <div class="fact-card">
-      <span class="fact-icon">🧬</span>
-      <span class="fact-num">83%</span>
-      <span class="fact-lbl">Daily Vitamin D in 100g fish</span>
-    </div>
-  </div>
-
-  <!-- Nutrient bars -->
-  <div class="nut-sec">
-    <h3 class="nut-title">
-      Nutritional Profile per 100g of <em>Fresh Fish</em>
-      <small style="display:block; font-size: 0.9rem; font-weight: normal; margin-top: 0.5rem; color: var(--text-dim);">(Data based on Rohu Fish)</small>
-    </h3>
-    <div class="nut-grid" id="nutGrid"></div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-grid">
-    <div>
-      <div class="about-num-grid">
-        <div class="num-card"><span class="n">33+</span><span class="l">Fish Species</span></div>
-        <div class="num-card"><span class="n">20+</span><span class="l">Clients</span></div>
-        <div class="num-card"><span class="n">1+</span><span class="l">Year Experience</span></div>
-        <div class="num-card"><span class="n">2T+</span><span class="l">Monthly Volume (kg)</span></div>
-      </div>
-    </div>
-    <div class="about-text">
-      <span class="s-tag">Our Story</span>
-      <h2 class="s-title">Rooted in <em>Uzhamai</em> — The Spirit of Hard Work</h2>
-      <p class="s-desc" style="margin-bottom:1.2rem;">Bringing fresh, healthy fish to your table through sustainable Biofloc farming and direct coastal sourcing.</p>
-      <p><strong>Uzhamai Aquanics</strong>, based in <strong>Erode</strong>, is more than just a trading partner. We are pioneers in <strong>Biofloc Fish Farming</strong>, a modern, eco-friendly method that produces healthy fish in a controlled, clean environment.</p>
-      <p>By combining our own farm-fresh production with a direct network from Chennai Kasimedu to Rameswaram, we offer unparalleled quality and variety. We supply <strong>restaurants, star hotels, caterers, supermarkets</strong>, and individual households every day.</p>
-      <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;">
-        <a href="#contact" class="btn-primary">Get in Touch</a>
-        <a href="#process" class="btn-ghost">Our Process</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOUNDER -->
-<section id="founder">
-  <div class="founder-grid">
-    <div class="founder-text">
-      <span class="s-tag">Leadership</span>
-      <div class="founder-name">HARI PRASATH S</div>
-      <div class="founder-title" style="margin-bottom: 1.5rem;">Founder | UZHAMAI AQUANICS</div>
-      <h2 class="s-title">Technical Precision in <em>Fishes</em></h2>
-      <p class="s-desc">Hari Prasath is an Agricultural Engineering graduate who founded Uzhamai Aquanics to bring technical precision to the seafood industry. By combining his academic background with practical expertise in aquaculture, he focuses on providing high-quality, transparent supply chain solutions.</p>
-      
-      <h3>Core Focus:</h3>
-      <ul>
-        <li>
-          <strong>Sustainable Farming:</strong> 
-          Implementing Biofloc technology for chemical-free and eco-friendly fish production.
-        </li>
-        <li>
-          <strong>Direct Sourcing:</strong> 
-          Establishing a direct link between the coastal docks (Rameswaram, Tuticorin, Chennai) and Erode to ensure daily freshness.
-        </li>
-        <li>
-          <strong>Ethical Standards:</strong> 
-          Ensuring accurate weights, traceability, transparent pricing, and rigorous quality checks led by technical knowledge.
-        </li>
-      </ul>
-
-      <h3>The Mission:</h3>
-      <p class="s-desc">To deliver fresh fish directly to households and the hospitality sector in Erode by integrating modern agricultural technology with traditional trading.</p>
-    </div>
-  </div>
-</section>
-
-<!-- WHY US -->
-<section id="why">
-  <div class="why-head">
-    <span class="s-tag">Why Choose Us</span>
-    <h2 class="s-title">Built on <em>Trust, Freshness & Speed</em></h2>
-    <p class="s-desc">For over a decade, the most reliable name in biofloc fish farming and trading across Erode and Tamil Nadu.</p>
-  </div>
-  <div class="why-cards">
-    <div class="wc">
-      <span class="wc-ico">🌊</span>
-      <div class="wc-title">01. Freshly Sourced</div>
-      <p class="wc-text">Directly sourced from coastal docks and our sustainable Biofloc farms to ensure peak freshness and natural taste in every catch.</p>
-    </div>
-    <div class="wc">
-      <span class="wc-ico">🔍</span>
-      <div class="wc-title">02. Full Traceability</div>
-      <p class="wc-text">We provide complete transparency on the origin of your fish. Know exactly where and when your seafood was caught or harvested.</p>
-    </div>
-    <div class="wc">
-      <span class="wc-ico">🔬</span>
-      <div class="wc-title">03. Scientific Grade Quality</div>
-      <p class="wc-text">Managed by an Agricultural Engineering professional, our supply chain follows strict technical standards to ensure chemical-free and safe seafood.</p>
-    </div>
-    <div class="wc">
-      <span class="wc-ico">⚡</span>
-      <div class="wc-title">04. Quick Delivery</div>
-      <p class="wc-text">Efficient logistics to ensure your order reaches your doorstep as fast as possible, preserving the quality and texture of the fish.</p>
-    </div>
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section id="process">
-  <div class="sec-c">
-    <span class="s-tag">How It Works</span>
-    <h2 class="s-title">From <em>Sea to You</em> in 3 Steps</h2>
-    <p class="s-desc">A transparent, traceable process ensuring every fish reaches you at peak freshness.</p>
-  </div>
-  <div class="ps-wrap">
-    <div class="ps"><div class="ps-circ">🚜</div><div class="ps-num">1</div><div class="ps-title">Farming & Sourcing</div><p class="ps-text">We grow premium fish in our own Biofloc tanks and source ocean-fresh varieties directly from coastal fishermen at dawn.</p></div>
-    <div class="ps"><div class="ps-circ">⚖️</div><div class="ps-num">2</div><div class="ps-title">Quality Inspection</div><p class="ps-text">Our quality team inspects freshness, weight, and food safety at our Erode facility before any dispatch.</p></div>
-    <div class="ps"><div class="ps-circ">🚚</div><div class="ps-num">3</div><div class="ps-title">Same-Day Delivery</div><p class="ps-text">Orders placed before 6 AM are delivered by noon across Erode and surrounding districts.</p></div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-wrap">
-    <div>
-      <span class="s-tag">Get in Touch</span>
-      <h2 class="s-title">Order <em>Fresh Fish</em> Today</h2>
-      <p class="s-desc">Whether you're a restaurant, hotel, caterer, or household — we supply fresh fish daily across Erode and surrounding areas.</p>
-      <div class="ci-list">
-        <div class="ci"><div class="ci-ico">📍</div><div><div class="ci-l">Location</div><div class="ci-v">Erode, Tamil Nadu, India</div></div></div>
-        <div class="ci"><div class="ci-ico">📞</div><div><div class="ci-l">Phone</div><div class="ci-v"><a href="tel:+919360985854">+91 93609 85854</a></div></div></div>
-        <div class="ci"><div class="ci-ico">✉️</div><div><div class="ci-l">Email</div><div class="ci-v"><a href="mailto:uzhamaiaquanics@gmail.com">uzhamaiaquanics@gmail.com</a></div></div></div>
-      </div>
-      <a class="wa-btn" href="https://wa.me/919360985854" target="_blank">
-        <span class="wi">💬</span>
-        <div><div class="wt">Order via WhatsApp</div><div class="ws">Quick, easy, instant confirmation</div></div>
-      </a>
-    </div>
-    <div class="c-form">
-      <h3>Place Your Order</h3>
-      <form id="orderForm">
-        <div class="frow">
-          <div class="fg"><label>First Name *</label><input type="text" id="fName" placeholder="Ramesh" required/></div>
-          <div class="fg"><label>Last Name</label><input type="text" id="lName" placeholder="Kumar"/></div>
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-logo">
+      <img src="lo2.png" alt="Logo" style="width: 40px; height: 40px; border-radius: 50%;">
+      <div class="brand-info">
+        <div class="brand-text">
+        UZHAMAI <span style="color: var(--cyan); font-size: inherit;">AQUANICS</span>
         </div>
-        <div class="fg"><label>Phone Number *</label><input type="tel" id="pNum" placeholder="+91 93609 85854" required/></div>
-        <div class="fg"><label>Email Address</label><input type="email" id="email" placeholder="you@example.com"/></div>
-        <div class="fg">
-          <label>Customer Type *</label>
-          <select id="cType" required>
-            <option value="">Select type</option>
-            <option>Restaurant / Hotel</option>
-            <option>Caterer / Event Organizer</option>
-            <option>Retail / Supermarket</option>
-            <option>Individual / Household</option>
-          </select>
-        </div>
-        <div class="fg"><label>Fish / Seafood Required</label><input type="text" id="fishReq" placeholder="e.g. 5kg Rohu, 2kg Prawns..."/></div>
-        <div class="fg"><label>Message / Special Requirements</label><textarea id="msg" placeholder="Delivery address, timing, cleaning preferences..."></textarea></div>
-        <button type="submit" class="fsub">🐟 Submit Order Enquiry</button>
-      </form>
-      <div class="fsuccess" id="fSuccess">
-        <span class="si">✅</span>
-        <h3>Order Received!</h3>
-        <p>Thank you! Our team will call you within 30 minutes to confirm your order.</p>
+        <span class="sub-logo">Business Dashboard</span>
       </div>
     </div>
+    <div class="header-date" id="headerDate"></div>
   </div>
-</section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="fg-grid">
-    <div class="fb-brand">
-      <div style="display:flex;align-items:center;gap:0.7rem;margin-bottom:0.3rem;">
-        <img src="lo2.png" alt="Logo" style="width:48px; height:48px; border-radius:0; object-fit:cover;">
-        <div>
-          <div style="font-family:var(--font-d);font-size:1.5rem;letter-spacing:3px;">UZHAMAI AQUANICS</div>
-          <div style="font-size:0.5rem;color:var(--sky);letter-spacing:4px;font-family:var(--font-b);">BIOFLOC FISH FARMING & TRADING · ERODE</div>
+  <!-- NAV -->
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+    <button class="nav-tab" onclick="showTab('orders')">Orders</button>
+    <button class="nav-tab" onclick="showTab('stock')">Stock</button>
+    <button class="nav-tab" onclick="showTab('customers')">Customers</button>
+    <button class="nav-tab" onclick="showTab('payments')">Payments</button>
+  </div>
+
+  <div class="main">
+
+    <!-- OVERVIEW -->
+    <div class="section active" id="sec-overview">
+      <div class="stats-row" id="overviewStats"></div>
+      <div class="card">
+        <div class="card-title">Today's Summary</div>
+        <div id="todaySummary"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Recent Orders</div>
+        <div id="recentOrders"></div>
+      </div>
+
+      <!-- STATISTICS INTEGRATED INTO OVERVIEW -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px" class="stats-grid">
+        <div class="card" style="grid-column:1/-1">
+          <div class="card-title">Monthly Revenue & Profit</div>
+          <div id="monthlyChart"></div>
+        </div>
+        <div class="card" style="grid-column:1/-1">
+          <div class="card-title">Last 7 Days Profit</div>
+          <div id="dailyChart"></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Top Selling Fish</div>
+          <div id="topFish"></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Top Customers</div>
+          <div id="topCustomers"></div>
+        </div>
+        <div class="card" style="grid-column:1/-1">
+          <div class="card-title">Payment Status Split</div>
+          <div id="paymentSplit"></div>
         </div>
       </div>
-      <p>Tamil Nadu's most trusted seafood supplier. Fresh, responsible, and delivered daily from coastal waters to your table.</p>
-      <div class="socials">
-        <a class="soc" href="https://www.facebook.com/share/1WckEykkfn/" target="_blank" title="Facebook">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96C18.34 21.21 22 17.06 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>
-        </a>
-        <a class="soc" href="https://www.instagram.com/uzhamai_aquanics?igsh=ajg4YXY1bjl1bjNw" target="_blank" title="Instagram">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/></svg>
-        </a>
-        <a class="soc" href="https://wa.me/919360985854" target="_blank" title="WhatsApp">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.04 2C6.5 2 2 6.5 2 12.04C2 13.81 2.46 15.53 3.33 17.04L2 22L7.13 20.65C8.59 21.44 10.27 21.86 12.03 21.86C17.56 21.86 22.06 17.36 22.06 11.82C22.06 9.14 21.01 6.64 19.12 4.75C17.23 2.86 14.72 1.82 12.04 2M11.5 5.25H12.5C13.88 5.25 15.25 5.5 16.5 6C18.75 6.9 20.35 8.95 20.35 11.35C20.35 13.15 19.85 14.85 18.9 16.3L19.4 18.15L17.55 17.65C16.1 18.5 14.4 19 12.6 19H12.55C10.75 19 9.05 18.5 7.55 17.6L5.7 18.1L6.2 16.25C5.25 14.8 4.75 13.1 4.75 11.35C4.75 7.95 7.45 5.25 10.75 5.25H11.5M16.1 10.15C15.9 10.1 14.85 9.6 14.65 9.55C14.45 9.5 14.3 9.45 14.15 9.65C14 9.85 13.55 10.4 13.4 10.55C13.25 10.7 13.1 10.75 12.9 10.65C12.7 10.55 12.05 10.35 11.25 9.65C10.65 9.1 10.25 8.4 10.15 8.2C10.05 8 10.15 7.9 10.25 7.8C10.35 7.7 10.45 7.6 10.55 7.5C10.65 7.4 10.7 7.35 10.75 7.25C10.8 7.15 10.75 7.05 10.7 6.95C10.65 6.85 10.2 5.75 10 5.25C9.8 4.75 9.6 4.8 9.45 4.8C9.3 4.8 9.15 4.8 9 4.8C8.85 4.8 8.6 4.85 8.4 5.05C8.2 5.25 7.65 5.8 7.65 6.9C7.65 8 8.45 9.05 8.55 9.2C8.65 9.35 10.15 11.65 12.45 12.65C13 12.85 13.4 13 13.7 13.1C14.25 13.25 14.75 13.25 15.15 13.15C15.6 13.1 16.5 12.6 16.7 12.1C16.9 11.6 16.9 11.15 16.85 11.05C16.8 10.95 16.65 10.9 16.45 10.8C16.25 10.7 16.1 10.15 16.1 10.15Z"/></svg>
-        </a>
-        <a class="soc" href="https://youtube.com/@uzhamaiaquanics?si=KcC8VfRYaT-P2KFa" target="_blank" title="YouTube">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M21.58,7.19C21.35,6.33,20.67,5.65,19.81,5.42C18.25,5,12,5,12,5s-6.25,0-7.81,0.42C3.33,5.65,2.65,6.33,2.42,7.19C2,8.75,2,12,2,12s0,3.25,0.42,4.81c0.23,0.86,0.91,1.54,1.77,1.77C5.75,19,12,19,12,19s6.25,0,7.81-0.42c0.86-0.23,1.54-0.91,1.77-1.77C22,15.25,22,12,22,12S22,8.75,21.58,7.19z M10,15V9l5.2,3L10,15z"/></svg>
-        </a>
+    </div>
+
+    <!-- ORDERS -->
+    <div class="section" id="sec-orders">
+      <div class="card">
+        <div class="card-title" id="orderFormTitle">New Order</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Order Date</label>
+            <input type="date" id="o-date">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Customer Name</label>
+            <input type="text" id="o-customer" placeholder="Hotel Name">
+          </div>
+          <div class="form-group">
+            <label>Fish Type</label>
+            <input type="text" id="o-fish" placeholder="e.g. Prawn, Vanjaram">
+          </div>
+        </div>
+        <div class="form-row-3">
+          <div class="form-group">
+            <label>Quantity (kg)</label>
+            <input type="number" id="o-qty" placeholder="0" step="0.5">
+          </div>
+          <div class="form-group">
+            <label>Buy Price (₹/kg)</label>
+            <input type="number" id="o-buy" placeholder="0">
+          </div>
+          <div class="form-group">
+            <label>Sell Price (₹/kg)</label>
+            <input type="number" id="o-sell" placeholder="0">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Payment Status</label>
+            <select id="o-payment">
+              <option value="pending">Pending</option>
+              <option value="advance">Advance Paid</option>
+              <option value="paid">Fully Paid</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Advance Amount (₹)</label>
+            <input type="number" id="o-advance" placeholder="0">
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:16px">
+          <label>Notes</label>
+          <input type="text" id="o-notes" placeholder="Optional notes">
+        </div>
+        <button class="btn btn-primary" id="orderBtn" onclick="addOrder()">Add Order</button>
+        <button class="btn btn-sm" id="cancelEditBtn" style="display:none; margin-left:10px; background:#cbd5e1" onclick="resetOrderForm()">Cancel</button>
+      </div>
+
+      <div class="card">
+        <div class="section-header">
+          <div class="card-title" style="margin:0">All Orders</div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <input type="date" id="filterDate" onchange="renderOrders()" style="padding:6px 10px;background:var(--navy);border:1px solid var(--border);border-radius:6px;color:var(--blue);font-size:12px;font-family:inherit;font-weight:600;">
+            <button class="btn btn-sm" style="background:var(--border);color:#7a9cc0" onclick="document.getElementById('filterDate').value='';renderOrders()">Clear</button>
+            <button class="btn btn-success btn-sm" onclick="downloadPDF()">Download PDF</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Customer</th>
+                <th>Fish</th>
+                <th>Qty</th>
+                <th>Revenue</th>
+                <th>Profit</th>
+                <th>Payment</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTable"></tbody>
+          </table>
+        </div>
       </div>
     </div>
-    <div class="fc">
-      <h4>Products</h4>
-      <ul>
-        <li><a href="#products">Saltwater Fish</a></li>
-        <li><a href="#products">Freshwater Fish</a></li>
-        <li><a href="#products">Shellfish & Prawns</a></li>
-        <li><a href="#products">Premium Varieties</a></li>
-        <li><a href="#products">Cleaned & Processed</a></li>
-      </ul>
-    </div>
-    <div class="fc">
-      <h4>Company</h4>
-      <ul>
-        <li><a href="#about">About Us</a></li>
-        <li><a href="#why">Why Choose Us</a></li>
-        <li><a href="#process">Our Process</a></li>
-        <li><a href="#benefits">Fish Benefits</a></li>
-      </ul>
-    </div>
-    <div class="fc">
-      <h4>Information</h4>
-      <ul>
-        <li><a href="#">Delivery Areas</a></li>
-        <li><a href="#">Wholesale Pricing</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Terms of Service</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="foot-bot">
-    <p>© 2025 Uzhamai Aquanics. All rights reserved. Erode, Tamil Nadu.</p>
-    <p>Clean Tech. Green Growth. Fresh Harvest</p>
-  </div>
-</footer>
 
-<button id="st">↑</button>
+    <!-- STOCK -->
+    <div class="section" id="sec-stock">
+      <div class="card">
+        <div class="card-title">Add Stock</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Fish Type</label>
+            <input type="text" id="s-fish" placeholder="e.g. Vanjaram">
+          </div>
+          <div class="form-group">
+            <label>Quantity (kg)</label>
+            <input type="number" id="s-qty" placeholder="0" step="0.5">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Buy Price (₹/kg)</label>
+            <input type="number" id="s-price" placeholder="0">
+          </div>
+          <div class="form-group">
+            <label>Supplier Name</label>
+            <input type="text" id="s-supplier" placeholder="Supplier name">
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="addStock()">Add Stock</button>
+      </div>
 
-<!-- PRODUCT MODAL -->
-<div class="modal-bg" id="modal">
-  <div class="modal-box">
-    <button class="mcl" id="mClose">✕</button>
-    <span class="mem" id="mEmoji"></span>
-    <h3 class="mname" id="mName"></h3>
-    <div class="mcat" id="mCat"></div>
-    <p class="mdesc" id="mDesc"></p>
-    <div class="mdets" id="mDets"></div>
-    <div class="mpr-row">
-      <div class="mpr" id="mPrice"></div>
-      <a href="#contact" class="btn-primary" onclick="document.getElementById('modal').classList.remove('open')">Order Now</a>
+      <div class="card">
+        <div class="card-title">Current Stock</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Fish</th><th>Available (kg)</th><th>Buy Price</th><th>Supplier</th><th>Added</th><th>Action</th></tr>
+            </thead>
+            <tbody id="stockTable"></tbody>
+          </table>
+        </div>
+      </div>
     </div>
+
+    <!-- CUSTOMERS -->
+    <div class="section" id="sec-customers">
+      <div class="card">
+        <div class="card-title">Add Customer</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Customer Name</label>
+            <input type="text" id="c-name" placeholder="Hotel Name">
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="text" id="c-phone" placeholder="9XXXXXXXXX">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Type</label>
+            <select id="c-type">
+              <option>Hotel</option>
+              <option>Restaurant</option>
+              <option>Mess</option>
+              <option>Catering</option>
+              <option>Individual</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Area</label>
+            <input type="text" id="c-area" placeholder="e.g. Erode Town">
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="addCustomer()">Add Customer</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Customer List</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Name</th><th>Type</th><th>Phone</th><th>Area</th><th>Orders</th><th>Total ₹</th><th>Action</th></tr>
+            </thead>
+            <tbody id="customersTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYMENTS -->
+    <div class="section" id="sec-payments">
+      <div class="card">
+        <div class="card-title">Record Payment</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Customer</label>
+            <select id="p-customer"></select>
+          </div>
+          <div class="form-group">
+            <label>Amount (₹)</label>
+            <input type="number" id="p-amount" placeholder="0">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Type</label>
+            <select id="p-type">
+              <option value="advance">Advance</option>
+              <option value="full">Full Payment</option>
+              <option value="partial">Partial</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Notes</label>
+            <input type="text" id="p-notes" placeholder="Order reference, etc.">
+          </div>
+        </div>
+        <button class="btn btn-success" onclick="addPayment()">Record Payment</button>
+      </div>
+
+      <div class="card">
+        <div class="section-header">
+          <div class="card-title" style="margin:0">Payment History</div>
+          <div>
+            <span style="color:var(--green);font-family:Syne;font-size:18px;font-weight:800" id="totalReceived">₹0</span>
+            <span style="color:#7a9cc0;font-size:12px"> total received</span>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Date</th><th>Customer</th><th>Amount</th><th>Type</th><th>Notes</th><th>Action</th></tr>
+            </thead>
+            <tbody id="paymentsTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
 <script>
-/* DATA */
-const products = [
-  // DAM FISHES (Freshwater)
-  {id:1,img:'Rohu.jpg',name:'ரோகு (Rohu)',cat:'freshwater',badge:'fresh',price:'₹190',unit:'kg',desc:'Labeo rohita - Fresh river fish, great for curry.',Origin:'River Farms',details:{Origin:'Dam/River',Scientific:'Labeo rohita'}},
-  {id:2,img:'Catla.avif',name:'கட்லா (Catla)',cat:'freshwater',badge:'fresh',price:'₹190',unit:'kg',desc:'Labeo catla - Large river carp, meaty texture.',details:{Origin:'Dam/River',Scientific:'Labeo catla'}},
-  {id:3,img:'rupchanda-fish.jpg',name:'பாறை (Roopchand)',cat:'freshwater',badge:'fresh',price:'₹180',unit:'kg',desc:'Piaractus brachypomus - Popular freshwater fish.',details:{Origin:'Freshwater',Scientific:'Piaractus brachypomus'}},
-  {id:4,img:'neimeen.jpeg',name:'நெய்மீன் (Nei Meen)',cat:'freshwater',badge:'fresh',price:'₹150',unit:'kg',desc:'Scomberomorus guttatus - Freshwater specialty.',details:{Origin:'River',Scientific:'Scomberomorus guttatus'}},
-  {id:5,img:'tilapia-fish-500x500.webp',name:'ஜிலேபி (Tilapia)',cat:'freshwater',badge:'fresh',price:'₹140',unit:'kg',desc:'Oreochromis niloticus - Budget friendly freshwater fish.',details:{Origin:'Freshwater',Scientific:'Oreochromis niloticus'}},
+const PASSWORD = "UAHP06";
 
-  // SEA FISHES (Saltwater)
-  {id:6,img:'saalai.jpeg',name:'சாலை (Saalai)',cat:'saltwater',badge:'fresh',price:'₹190',unit:'kg',desc:'Sardinella longiceps - Healthy oily fish.',details:{Origin:'Sea',Scientific:'Sardinella longiceps'}},
-  {id:7,img:'mathi-fish-500x500.webp',name:'சின்ன மத்தி (Chinna Maththi)',cat:'saltwater',badge:'fresh',price:'₹160',unit:'kg',desc:'Small sized sardines, rich in nutrients.',details:{Origin:'Sea',Scientific:'Sardinella longiceps'}},
-  {id:8,img:'ayilai.jpg',name:'அயிலை (Ayilai)',cat:'saltwater',badge:'hot',price:'₹310',unit:'kg',desc:'Rastrelliger kanagurta - Coastal favorite.',details:{Origin:'Sea',Scientific:'Rastrelliger kanagurta'}},
-  {id:9,img:'mural.webp',name:'பட்டை முரல் (Pattai Mural)',cat:'saltwater',badge:'fresh',price:'₹330',unit:'kg',desc:'Hemiramphus far - Unique sea variety.',details:{Origin:'Sea',Scientific:'Hemiramphus far'}},
-  {id:10,img:'periya nandu.webp',name:'பெரிய நண்டு (Periya Nandu)',cat:'shellfish',badge:'hot',price:'₹360',unit:'kg',desc:'Scylla serrata - Large meaty sea crabs.',details:{Origin:'Sea',Scientific:'Scylla serrata'}},
-  {id:11,img:'chinna nandu.jpg',name:'சின்ன நண்டு (Chinna Nandu)',cat:'shellfish',badge:'fresh',price:'₹310',unit:'kg',desc:'Barytelphusa cunicularis - Tasty small crabs.',details:{Origin:'Coast',Scientific:'Barytelphusa cunicularis'}},
-  {id:12,img:'thegaparai-1.webp',name:'தேங்கா பாறை (Thenga Paarai)',cat:'premium',badge:'fresh',price:'₹460',unit:'kg',desc:'Carangoides malabaricus - Premium sea fish.',details:{Origin:'Sea',Scientific:'Carangoides malabaricus'}},
-  {id:13,img:'ooli-barracuda-seela-500x500.webp',name:'ஊளி (Ooli)',cat:'saltwater',badge:'fresh',price:'₹410',unit:'kg',desc:'Sphyraena jello - Firm meat, great for fry.',details:{Origin:'Sea',Scientific:'Sphyraena jello'}},
-  {id:14,img:'Goan-Prawn-Molho-01.jpg',name:'இறால் (Iraal)',cat:'shellfish',badge:'hot',price:'₹460',unit:'kg',desc:'Dendrobranchiata - Fresh sea prawns.',details:{Origin:'Sea',Scientific:'Dendrobranchiata'}},
-  {id:15,img:'manja-paarai-yellow-trevally-500x500.webp',name:'மஞ்ச பாறை (Manja Paarai)',cat:'saltwater',badge:'fresh',price:'₹460',unit:'kg',desc:'Selaroides leptolepis - Tasty sea variety.',details:{Origin:'Sea',Scientific:'Selaroides leptolepis'}},
-  {id:16,img:'Sankara.png',name:'சங்கரா (Sankara)',cat:'saltwater',badge:'fresh',price:'₹410',unit:'kg',desc:'Lutjanus spp - Classic red snapper.',details:{Origin:'Sea',Scientific:'Lutjanus spp'}},
-  {id:17,img:'chinna kattaparai.jpeg',name:'சின்ன கட்டாபாறை (Chinna Katta Paarai)',cat:'saltwater',badge:'fresh',price:'₹210',unit:'kg',desc:'Small sized Malabar Trevally.',details:{Origin:'Sea',Scientific:'Carangoides malabaricus'}},
-  {id:18,img:'periya kattaparai.jpg',name:'பெரிய கட்டாபாறை (PeriyaKatta Paarai)',cat:'saltwater',badge:'hot',price:'₹410',unit:'kg',desc:'Large sized Malabar Trevally.',details:{Origin:'Deep Sea',Scientific:'Carangoides malabaricus'}},
-  {id:19,img:'kannadipaarai.jpg',name:'கண்ணாடி பாறை (Kannadi Paarai)',cat:'saltwater',badge:'new',price:'₹210',unit:'kg',desc:'Alectis indicus - Shiny mirror-like skin.',details:{Origin:'Sea',Scientific:'Alectis indicus'}},
-  {id:20,img:'68d79a5e-f016-42bb-aa91-9c1dd2a5d453.webp',name:'முட்டக்கண்ணி அயிலை (Muttakanni Ayilai)',cat:'saltwater',badge:'fresh',price:'₹310',unit:'kg',desc:'Large eye variety of Indian Mackerel.',details:{Origin:'Sea',Scientific:'Rastrelliger kanagurta'}},
-  {id:21,img:'vari soorai (2).jpg',name:'வரிச்சூரை (Vari Soorai)',cat:'saltwater',badge:'fresh',price:'₹260',unit:'kg',desc:'Katsuwonus pelamis - High protein tuna.',details:{Origin:'Deep Sea',Scientific:'Katsuwonus pelamis'}},
-  {id:22,img:'soorai-tuna-fish-500x500.webp',name:'சூரை (Soorai)',cat:'saltwater',badge:'fresh',price:'₹310',unit:'kg',desc:'Tolephorus indicus - Regular sea tuna.',details:{Origin:'Sea',Scientific:'Tolephorus indicus'}},
-  {id:23,img:'periya ettai.jpeg',name:'புலிமுருகன் (Puli Murugan)',cat:'saltwater',badge:'new',price:'₹260',unit:'kg',desc:'Unique regional sea fish variety.',details:{Origin:'Coast',Scientific:'Ziziphus oenoplia'}},
-  {id:24,img:'paral.jpg',name:'பரலா (Parla)',cat:'premium',badge:'fresh',price:'₹360',unit:'kg',desc:'Coryphaena hippurus - Premium sea fish.',details:{Origin:'Deep Sea',Scientific:'Coryphaena hippurus'}},
-  {id:25,img:'korai.webp',name:'கோரை (Korai)',cat:'saltwater',badge:'hot',price:'₹310',unit:'kg',desc:'Eleutheronema tetradactylum - High quality meat.',details:{Origin:'Sea',Scientific:'Eleutheronema tetradactylum'}},
-  {id:26,img:'karuppu-vaval-black-pomfret.jpg',name:'கருப்பு வாவல் (Karuppu Vaaval)',cat:'premium',badge:'hot',price:'₹610',unit:'kg',desc:'Parastromateus niger - Delicious flat fish.',details:{Origin:'Sea',Scientific:'Parastromateus niger'}},
-  {id:27,img:'vellai vaaval.jpeg',name:'வெள்ளை வாவல் (Vellai Vaaval)',cat:'premium',badge:'hot',price:'₹710',unit:'kg',desc:'Pampus argenteus - Elite white flat fish.',details:{Origin:'Sea',Scientific:'Pampus argenteus'}},
-  {id:28,img:'manja kili.webp',name:'மஞ்ச கிளி (Manja Kizhi)',cat:'saltwater',badge:'fresh',price:'₹310',unit:'kg',desc:'Lutjanus russellii - Bright yellow sea fish.',details:{Origin:'Sea',Scientific:'Lutjanus russellii'}},
-  {id:29,img:'medium kilangaan.webp',name:'மீடியம் கிழங்கான் (Medium Kilangaan)',cat:'saltwater',badge:'fresh',price:'₹160',unit:'kg',desc:'Sillago sihama - Soft and tasty meat.',details:{Origin:'Coast',Scientific:'Sillago sihama'}},
-  {id:30,img:'periya kilangaana.webp',name:'பெரிய கிழங்கான் (Periya Kilangaan)',cat:'saltwater',badge:'fresh',price:'₹210',unit:'kg',desc:'Large size Sillago sihama.',details:{Origin:'Sea',Scientific:'Sillago sihama'}},
-  {id:31,img:'ettai.jpeg',name:'ஏட்டை (Eattai)',cat:'saltwater',badge:'fresh',price:'₹260',unit:'kg',desc:'Plicofollis dussumieri - Sea catfish variety.',details:{Origin:'Sea',Scientific:'Plicofollis dussumieri'}},
-  {id:32,img:'periya eattai.jpeg',name:'பெரிய ஏட்டை (Periya Eattai)',cat:'saltwater',badge:'fresh',price:'₹360',unit:'kg',desc:'Large sea catfish, good for curry.',details:{Origin:'Sea',Scientific:'Plicofollis dussumieri'}},
-  {id:33,img:'kanava.jpg',name:'கணவாய் (Kanavai)',cat:'shellfish',badge:'fresh',price:'₹330',unit:'kg',desc:'Uroteuthis duvaucelii - Tender sea squid.',details:{Origin:'Sea',Scientific:'Uroteuthis duvaucelii'}},
-];
-const nutrients = [
-  {name:'Protein',val:'26g',pct:86},{name:'Omega-3 Fatty Acids',val:'1.8g',pct:72},
-  {name:'Vitamin D',val:'16.7 mcg',pct:83},{name:'Vitamin B12',val:'3.2 mcg',pct:93},
-  {name:'Selenium',val:'36.5 mcg',pct:66},{name:'Phosphorus',val:'228 mg',pct:55},
-  {name:'Potassium',val:'480 mg',pct:48},{name:'Iodine',val:'130 mcg',pct:60},
-];
-const strips = ['FRESH DAILY','QUALITY GUARANTEED','COLD-CHAIN ASSURED','WHOLESALE AVAILABLE','DIRECT FROM SEA','SAME DAY DELIVERY','ERODE BASED','ZERO PRESERVATIVES'];
+// DATA
+let data = {
+  orders: [],
+  stock: [],
+  customers: [],
+  payments: []
+};
+let editingOrderId = null;
 
-/* STRIP */
-const si = document.getElementById('stripEl');
-const sa = [...strips,...strips,...strips,...strips];
-si.innerHTML = sa.map(s=>`<span>${s}</span><span class="dot">◆</span>`).join('');
-
-/* BUBBLES */
-const bEl = document.getElementById('bubbles');
-for(let i=0;i<100;i++){
-  const b=document.createElement('div'); b.className='bub';
-  const sz=Math.random()*15+4;
-  const op=Math.random()*0.5 + 0.2;
-  b.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;opacity:${op};animation-duration:${10+Math.random()*20}s;animation-delay:${Math.random()*15}s;`;
-  bEl.appendChild(b);
+// Load from localStorage
+function loadData() {
+  const saved = localStorage.getItem('uzhamai_data');
+  if (saved) data = JSON.parse(saved);
 }
 
-/* HERO PARTICLES */
-const hp = document.getElementById('heroParticles');
-for(let i=0; i<15; i++) {
-  const p = document.createElement('div');
-  p.className = 'particle';
-  const s = Math.random() * 4 + 2;
-  p.style.width = s + 'px'; p.style.height = s + 'px';
-  p.style.left = Math.random() * 100 + '%';
-  p.style.top = Math.random() * 100 + '%';
-  p.style.setProperty('--d', (Math.random() * 5 + 5) + 's');
-  hp.appendChild(p);
+function saveData() {
+  localStorage.setItem('uzhamai_data', JSON.stringify(data));
 }
 
-/* PRODUCTS */
-function renderProducts(cat='all'){
-  const g=document.getElementById('prodGrid');
-  const list=cat==='all'?products:products.filter(p=>p.cat===cat);
-  g.innerHTML=list.map(p=>`
-    <div class="pc" onclick="openModal(${p.id})">
-      <div class="pi">
-        <div class="pi-bg"></div>
-        <span class="pbadge b${p.badge.charAt(0)}">${p.badge.toUpperCase()}</span>
-        ${p.img ? 
-          `<img src="${p.img}" class="pi-img" alt="${p.name}" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-           <span class="pi-em" style="display:none;">${p.emoji || '🐟'}</span>` : 
-          `<span class="pi-em">${p.emoji || '🐟'}</span>`
-        }
-      </div>
-      <div class="pinfo">
-        <div class="pcat">${p.cat}</div>
-        <div class="pname">${p.name}</div>
-        <div class="pdesc">${p.desc}</div>
-        <div class="pfoot">
-          <div class="pprice">${p.price} <span>/ ${p.unit}</span></div>
-          <button class="pbtn">View Details</button>
-        </div>
-      </div>
-    </div>
-  `).join('');
-}
-renderProducts();
-document.getElementById('filters').addEventListener('click',e=>{
-  const btn=e.target.closest('.fb'); if(!btn) return;
-  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active'); renderProducts(btn.dataset.cat);
-});
-
-/* NUTRIENTS */
-const ng=document.getElementById('nutGrid');
-ng.innerHTML=nutrients.map(n=>`
-  <div class="nut-item">
-    <div class="nut-top"><span class="nut-nm">${n.name}</span><span class="nut-vl">${n.val}</span></div>
-    <div class="nut-bar"><div class="nut-fill" data-pct="${n.pct}"></div></div>
-  </div>
-`).join('');
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting) document.querySelectorAll('.nut-fill').forEach(el=>{ el.style.width=el.dataset.pct+'%'; });
-  });
-},{threshold:0.2});
-obs.observe(ng);
-
-/* MODAL */
-function openModal(id){
-  const p=products.find(x=>x.id===id);
-  const mEmoji = document.getElementById('mEmoji');
-  if(p.img) {
-    mEmoji.innerHTML = `<img src="${p.img}" style="width:100%; height: 280px; object-fit:cover; border-radius:15px; margin-bottom:1.5rem; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.15));">`;
+// TOGGLE PASSWORD VISIBILITY
+function togglePassword() {
+  const pwInput = document.getElementById('pwInput');
+  const eyeIcon = document.getElementById('eyeIcon');
+  if (pwInput.type === 'password') {
+    pwInput.type = 'text';
+    eyeIcon.textContent = 'HIDE';
   } else {
-    mEmoji.textContent = p.emoji || '🐟';
+    pwInput.type = 'password';
+    eyeIcon.textContent = 'SHOW';
   }
-  document.getElementById('mName').textContent=p.name;
-  document.getElementById('mCat').textContent=p.cat;
-  document.getElementById('mDesc').textContent=p.desc;
-  document.getElementById('mPrice').textContent=p.price+' / '+p.unit;
-  document.getElementById('mDets').innerHTML=Object.entries(p.details).map(([k,v])=>`
-    <div class="mdet"><div class="dl">${k}</div><div class="dv">${v}</div></div>
-  `).join('');
-  document.getElementById('modal').classList.add('open');
-}
-document.getElementById('mClose').onclick=()=>document.getElementById('modal').classList.remove('open');
-document.getElementById('modal').addEventListener('click',e=>{ if(e.target===e.currentTarget) e.currentTarget.classList.remove('open'); });
-
-/* FORM */
-document.getElementById('orderForm').addEventListener('submit',e=>{
-  e.preventDefault();
-
-  // Get values from the form
-  const fName = document.getElementById('fName').value;
-  const lName = document.getElementById('lName').value;
-  const pNum = document.getElementById('pNum').value;
-  const email = document.getElementById('email').value;
-  const cType = document.getElementById('cType').value;
-  const fish = document.getElementById('fishReq').value;
-  const msg = document.getElementById('msg').value;
-
-  // Construct the WhatsApp message
-  const message = `*New Order Enquiry - Uzhamai Aquanics*%0A` +
-                  `-----------------------------------%0A` +
-                  `*Name:* ${fName} ${lName}%0A` +
-                  `*Phone:* ${pNum}%0A` +
-                  `*Email:* ${email}%0A` +
-                  `*Type:* ${cType}%0A` +
-                  `*Order:* ${fish}%0A` +
-                  `*Notes:* ${msg}`;
-
-  // Show success message UI
-  document.getElementById('orderForm').style.display='none';
-  document.getElementById('fSuccess').style.display='block';
-
-  // Redirect to WhatsApp
-  const whatsappURL = `https://wa.me/919360985854?text=${message}`;
-  window.open(whatsappURL, '_blank');
-});
-
-/* NAV + SCROLL TOP */
-const nav=document.getElementById('navbar');
-const st=document.getElementById('st');
-window.addEventListener('scroll',()=>{
-  nav.classList.toggle('scrolled',window.scrollY>50);
-  st.classList.toggle('show',window.scrollY>400);
-});
-st.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-
-/* MOBILE */
-document.getElementById('hamBtn').onclick=()=>document.getElementById('mobNav').classList.add('open');
-document.getElementById('mobClose').onclick=closeMob;
-function closeMob(){ document.getElementById('mobNav').classList.remove('open'); }
-
-/* SCHOOL OF FISH CURSOR */
-const fishEmojis = ['🐟', '🐠', '🐡', '🐟'];
-const fishCount = 6;
-const school = [];
-let mX = window.innerWidth / 2, mY = window.innerHeight / 2, cX = mX, cY = mY;
-let isActive = false;
-let idleTimer;
-
-// Initialize school
-for (let i = 0; i < fishCount; i++) {
-  const el = document.createElement('div');
-  el.className = 'swimming-fish';
-  el.innerHTML = fishEmojis[i % fishEmojis.length];
-  document.body.appendChild(el);
-  school.push({
-    el,
-    radius: 25,
-    angle: (i * Math.PI * 2) / fishCount,
-    orbitSpeed: 0.04,
-    speed: 0.1
-  });
 }
 
-window.addEventListener('mousemove', (e) => {
-  mX = e.clientX;
-  mY = e.clientY;
-  if (!isActive) {
-    isActive = true;
-    school.forEach(f => f.el.classList.add('active'));
+// LOGIN
+function doLogin() {
+  const pwInput = document.getElementById('pwInput');
+  const pw = pwInput.value;
+  
+  // Clear the field and reset type after attempt
+  pwInput.value = '';
+  pwInput.type = 'password';
+  document.getElementById('eyeIcon').textContent = 'SHOW';
+
+  if (pw === PASSWORD) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    loadData();
+    initDashboard();
+  } else {
+    document.getElementById('loginErr').style.display = 'block';
   }
-  clearTimeout(idleTimer);
-  idleTimer = setTimeout(() => {
-    isActive = false;
-    school.forEach(f => f.el.classList.remove('active'));
-  }, 2000);
-});
-
-window.addEventListener('mousedown', () => {
-  // Speed boost on click
-  school.forEach(f => { f.angle += 1.5; });
-});
-
-function animateSchool() {
-  // Smoothly move the center of the orbit towards the mouse
-  cX += (mX - cX) * 0.12;
-  cY += (mY - cY) * 0.12;
-
-  school.forEach(f => {
-    f.angle += f.orbitSpeed;
-
-    // Calculate perfect circular position relative to the smooth center
-    const x = cX + Math.cos(f.angle) * f.radius;
-    const y = cY + Math.sin(f.angle) * f.radius;
-
-    // Determine flip based on the horizontal direction of the orbit
-    const flip = -Math.sin(f.angle) > 0 ? 1 : -1;
-    f.el.style.transform = `translate(${x}px, ${y}px) scaleX(${flip})`;
-  });
-  requestAnimationFrame(animateSchool);
 }
-animateSchool();
+
+function initDashboard() {
+  // Set default order date to today
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('o-date').value = today;
+  document.getElementById('filterDate').value = today;
+  updateClock();
+  setInterval(updateClock, 1000);
+  renderAll();
+}
+
+function updateClock() {
+  const now = new Date();
+  const ist = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
+  const date = ist.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const time = ist.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+  document.getElementById('headerDate').innerHTML = `<span style="color:var(--blue);font-size:15px;font-weight:800;font-family:'Outfit'">${time}</span><br>${date}`;
+}
+
+function showTab(tab) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('sec-' + tab).classList.add('active');
+  event.target.classList.add('active');
+  if (tab === 'payments') populateCustomerSelect();
+  renderAll();
+}
+
+function renderAll() {
+  renderOverview();
+  renderOrders();
+  renderStock();
+  renderCustomers();
+  renderPayments();
+  renderStatistics();
+}
+
+// OVERVIEW
+function renderOverview() {
+  const today = new Date().toDateString();
+  const todayOrders = data.orders.filter(o => new Date(o.date).toDateString() === today);
+  const todayRevenue = todayOrders.reduce((s, o) => s + (o.qty * o.sell), 0);
+  const todayProfit = todayOrders.reduce((s, o) => s + (o.qty * (o.sell - o.buy)), 0);
+  const totalRevenue = data.orders.reduce((s, o) => s + (o.qty * o.sell), 0);
+  const totalProfit = data.orders.reduce((s, o) => s + (o.qty * (o.sell - o.buy)), 0);
+  const pending = data.orders.filter(o => o.payment === 'pending').length;
+
+  document.getElementById('overviewStats').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-val">₹${todayRevenue.toLocaleString('en-IN')}</div>
+      <div class="stat-label">Today Revenue</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" style="color:var(--green)">₹${todayProfit.toLocaleString('en-IN')}</div>
+      <div class="stat-label">Today Profit</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">₹${totalRevenue.toLocaleString('en-IN')}</div>
+      <div class="stat-label">Total Revenue</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" style="color:var(--green)">₹${totalProfit.toLocaleString('en-IN')}</div>
+      <div class="stat-label">Total Profit</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">${data.customers.length}</div>
+      <div class="stat-label">Customers</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" style="color:var(--orange)">${pending}</div>
+      <div class="stat-label">Pending Payments</div>
+    </div>
+  `;
+
+  // Today summary
+  if (todayOrders.length === 0) {
+    document.getElementById('todaySummary').innerHTML = '<div class="empty">No orders recorded today.</div>';
+  } else {
+    const totalKg = todayOrders.reduce((s, o) => s + o.qty, 0);
+    document.getElementById('todaySummary').innerHTML = `
+      <div class="summary-bar">
+        <div class="summary-item"><div class="val">${todayOrders.length}</div><div class="lbl">Orders</div></div>
+        <div class="summary-item"><div class="val">${totalKg}kg</div><div class="lbl">Total Sold</div></div>
+        <div class="summary-item"><div class="val">₹${todayRevenue.toLocaleString('en-IN')}</div><div class="lbl">Total Revenue</div></div>
+        <div class="summary-item"><div class="val" style="color:var(--green)">₹${todayProfit.toLocaleString('en-IN')}</div><div class="lbl">Net Profit</div></div>
+      </div>
+    `;
+  }
+
+  // Recent orders
+  const recent = [...data.orders].reverse().slice(0, 5);
+  if (recent.length === 0) {
+    document.getElementById('recentOrders').innerHTML = '<div class="empty">No orders yet.</div>';
+  } else {
+    document.getElementById('recentOrders').innerHTML = `
+      <div class="table-wrap"><table>
+        <thead><tr><th>Date</th><th>Customer</th><th>Fish</th><th>Qty</th><th>Profit</th><th>Status</th></tr></thead>
+        <tbody>${recent.map(o => `
+          <tr>
+            <td>${new Date(o.date).toLocaleDateString('en-IN')}</td>
+            <td>${o.customer}</td>
+            <td><span class="fish-tag">${o.fish}</span></td>
+            <td>${o.qty}kg</td>
+            <td class="${(o.qty*(o.sell-o.buy))>=0?'profit-positive':'profit-negative'}">₹${(o.qty*(o.sell-o.buy)).toLocaleString('en-IN')}</td>
+            <td><span class="badge ${o.payment==='paid'?'badge-green':o.payment==='advance'?'badge-orange':'badge-red'}">${o.payment}</span></td>
+          </tr>`).join('')}
+        </tbody>
+      </table></div>`;
+  }
+}
+
+// ORDERS
+function addOrder() {
+  const orderDate = document.getElementById('o-date').value;
+  const customer = document.getElementById('o-customer').value.trim();
+  const fish = document.getElementById('o-fish').value.trim();
+  const qty = parseFloat(document.getElementById('o-qty').value);
+  const buy = parseFloat(document.getElementById('o-buy').value);
+  const sell = parseFloat(document.getElementById('o-sell').value);
+  const payment = document.getElementById('o-payment').value;
+  const advance = parseFloat(document.getElementById('o-advance').value) || 0;
+  const notes = document.getElementById('o-notes').value.trim();
+
+  if (!orderDate || !customer || !fish || !qty || !buy || !sell) return alert('Fill all required fields!');
+
+  if (editingOrderId) {
+    const idx = data.orders.findIndex(o => o.id === editingOrderId);
+    if (idx !== -1) {
+      data.orders[idx] = { ...data.orders[idx], date: new Date(orderDate).toISOString(), customer, fish, qty, buy, sell, payment, advance, notes };
+    }
+    editingOrderId = null;
+    document.getElementById('orderBtn').textContent = 'Add Order';
+    document.getElementById('orderFormTitle').textContent = 'New Order';
+    document.getElementById('cancelEditBtn').style.display = 'none';
+  } else {
+    data.orders.push({ id: Date.now(), date: new Date(orderDate).toISOString(), customer, fish, qty, buy, sell, payment, advance, notes });
+  }
+  
+  saveData();
+  resetOrderForm();
+  renderAll();
+}
+
+function resetOrderForm() {
+  editingOrderId = null;
+  ['o-customer','o-fish','o-qty','o-buy','o-sell','o-advance','o-notes'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('o-date').value = new Date().toISOString().split('T')[0];
+  document.getElementById('o-payment').value = 'pending';
+  document.getElementById('orderBtn').textContent = 'Add Order';
+  document.getElementById('orderFormTitle').textContent = 'New Order';
+  document.getElementById('cancelEditBtn').style.display = 'none';
+}
+
+function editOrder(id) {
+  const o = data.orders.find(o => o.id === id);
+  if (!o) return;
+
+  editingOrderId = id;
+  document.getElementById('o-date').value = o.date.split('T')[0];
+  document.getElementById('o-customer').value = o.customer;
+  document.getElementById('o-fish').value = o.fish;
+  document.getElementById('o-qty').value = o.qty;
+  document.getElementById('o-buy').value = o.buy;
+  document.getElementById('o-sell').value = o.sell;
+  document.getElementById('o-payment').value = o.payment;
+  document.getElementById('o-advance').value = o.advance;
+  document.getElementById('o-notes').value = o.notes;
+
+  document.getElementById('orderBtn').textContent = 'Update Order';
+  document.getElementById('orderFormTitle').textContent = 'Edit Order';
+  document.getElementById('cancelEditBtn').style.display = 'inline-block';
+  
+  document.getElementById('sec-orders').scrollIntoView({ behavior: 'smooth' });
+}
+
+function renderOrders() {
+  const filterDate = document.getElementById('filterDate')?.value;
+  let orders = [...data.orders].reverse();
+  if (filterDate) orders = orders.filter(o => o.date.startsWith(filterDate));
+
+  if (orders.length === 0) {
+    document.getElementById('ordersTable').innerHTML = `<tr><td colspan="8"><div class="empty">No orders found.</div></td></tr>`;
+    return;
+  }
+
+  document.getElementById('ordersTable').innerHTML = orders.map(o => {
+    const profit = o.qty * (o.sell - o.buy);
+    const revenue = o.qty * o.sell;
+    return `<tr>
+      <td>${new Date(o.date).toLocaleDateString('en-IN')}</td>
+      <td>${o.customer}</td>
+      <td><span class="fish-tag">${o.fish}</span></td>
+      <td>${o.qty}kg</td>
+      <td>₹${revenue.toLocaleString('en-IN')}</td>
+      <td class="${profit>=0?'profit-positive':'profit-negative'}">₹${profit.toLocaleString('en-IN')}</td>
+      <td>
+        <span class="badge ${o.payment==='paid'?'badge-green':o.payment==='advance'?'badge-orange':'badge-red'}">${o.payment}</span>
+        ${o.advance > 0 ? `<br><small style="color:#7a9cc0">Adv: ₹${o.advance}</small>` : ''}
+      </td>
+      <td style="display:flex; gap:5px; flex-wrap:wrap">
+        <button class="btn btn-sm" style="background:var(--blue); color:white" onclick="editOrder(${o.id})">Edit</button>
+        <select onchange="updateOrderPayment(${o.id}, this.value)" style="padding:4px 8px;background:var(--navy);border:1px solid var(--border);border-radius:4px;color:white;font-size:11px;">
+          <option ${o.payment==='pending'?'selected':''} value="pending">Pending</option>
+          <option ${o.payment==='advance'?'selected':''} value="advance">Advance</option>
+          <option ${o.payment==='paid'?'selected':''} value="paid">Paid</option>
+        </select>
+        <button class="btn btn-danger btn-sm" style="margin-top:4px" onclick="deleteOrder(${o.id})">Delete</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function updateOrderPayment(id, val) {
+  const o = data.orders.find(o => o.id === id);
+  if (o) { o.payment = val; saveData(); renderAll(); }
+}
+
+function deleteOrder(id) {
+  if (!confirm('Delete this order?')) return;
+  data.orders = data.orders.filter(o => o.id !== id);
+  saveData(); renderAll();
+}
+
+// STOCK
+function addStock() {
+  const fish = document.getElementById('s-fish').value.trim();
+  const qty = parseFloat(document.getElementById('s-qty').value);
+  const price = parseFloat(document.getElementById('s-price').value);
+  const supplier = document.getElementById('s-supplier').value.trim();
+
+  if (!fish || !qty || !price) return alert('Fill all required fields!');
+
+  data.stock.push({ id: Date.now(), date: new Date().toISOString(), fish, qty, available: qty, price, supplier });
+  saveData();
+
+  ['s-fish','s-qty','s-price','s-supplier'].forEach(id => document.getElementById(id).value = '');
+  renderAll();
+}
+
+function renderStock() {
+  if (data.stock.length === 0) {
+    document.getElementById('stockTable').innerHTML = `<tr><td colspan="6"><div class="empty">No stock added yet.</div></td></tr>`;
+    return;
+  }
+  document.getElementById('stockTable').innerHTML = [...data.stock].reverse().map(s => `
+    <tr>
+      <td><span class="fish-tag">${s.fish}</span></td>
+      <td><strong style="color:${s.available>5?'var(--green)':s.available>0?'var(--orange)':'var(--red)'}">${s.available}kg</strong></td>
+      <td>₹${s.price}/kg</td>
+      <td>${s.supplier || '-'}</td>
+      <td>${new Date(s.date).toLocaleDateString('en-IN')}</td>
+      <td><button class="btn btn-danger btn-sm" onclick="deleteStock(${s.id})">Delete</button></td>
+    </tr>`).join('');
+}
+
+function deleteStock(id) {
+  if (!confirm('Delete stock?')) return;
+  data.stock = data.stock.filter(s => s.id !== id);
+  saveData(); renderAll();
+}
+
+// CUSTOMERS
+function addCustomer() {
+  const name = document.getElementById('c-name').value.trim();
+  const phone = document.getElementById('c-phone').value.trim();
+  const type = document.getElementById('c-type').value;
+  const area = document.getElementById('c-area').value.trim();
+
+  if (!name || !phone) return alert('Name and phone required!');
+  if (data.customers.find(c => c.phone === phone)) return alert('Customer already exists!');
+
+  data.customers.push({ id: Date.now(), name, phone, type, area });
+  saveData();
+
+  ['c-name','c-phone','c-area'].forEach(id => document.getElementById(id).value = '');
+  renderAll();
+}
+
+function renderCustomers() {
+  if (data.customers.length === 0) {
+    document.getElementById('customersTable').innerHTML = `<tr><td colspan="7"><div class="empty">No customers yet. Start visiting! 💪</div></td></tr>`;
+    return;
+  }
+  document.getElementById('customersTable').innerHTML = data.customers.map(c => {
+    const orders = data.orders.filter(o => o.customer === c.name);
+    const total = orders.reduce((s,o) => s + o.qty*o.sell, 0);
+    return `<tr>
+      <td><strong>${c.name}</strong></td>
+      <td><span class="badge badge-blue">${c.type}</span></td>
+      <td>${c.phone}</td>
+      <td>${c.area || '-'}</td>
+      <td>${orders.length}</td>
+      <td>₹${total.toLocaleString('en-IN')}</td>
+      <td><button class="btn btn-danger btn-sm" onclick="deleteCustomer(${c.id})">Delete</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function deleteCustomer(id) {
+  if (!confirm('Delete customer?')) return;
+  data.customers = data.customers.filter(c => c.id !== id);
+  saveData(); renderAll();
+}
+
+// PAYMENTS
+function populateCustomerSelect() {
+  const sel = document.getElementById('p-customer');
+  if (!sel) return;
+  sel.innerHTML = data.customers.length === 0
+    ? '<option>No customers yet</option>'
+    : data.customers.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+}
+
+function addPayment() {
+  const customer = document.getElementById('p-customer').value;
+  const amount = parseFloat(document.getElementById('p-amount').value);
+  const type = document.getElementById('p-type').value;
+  const notes = document.getElementById('p-notes').value.trim();
+
+  if (!customer || !amount) return alert('Fill all fields!');
+
+  data.payments.push({ id: Date.now(), date: new Date().toISOString(), customer, amount, type, notes });
+  saveData();
+
+  document.getElementById('p-amount').value = '';
+  document.getElementById('p-notes').value = '';
+  renderAll();
+}
+
+function renderPayments() {
+  const total = data.payments.reduce((s,p) => s+p.amount, 0);
+  const el = document.getElementById('totalReceived');
+  if (el) el.textContent = '₹' + total.toLocaleString('en-IN');
+
+  if (data.payments.length === 0) {
+    document.getElementById('paymentsTable').innerHTML = `<tr><td colspan="6"><div class="empty">No payments recorded yet.</div></td></tr>`;
+    return;
+  }
+
+  document.getElementById('paymentsTable').innerHTML = [...data.payments].reverse().map(p => `
+    <tr>
+      <td>${new Date(p.date).toLocaleDateString('en-IN')}</td>
+      <td>${p.customer}</td>
+      <td class="profit-positive">₹${p.amount.toLocaleString('en-IN')}</td>
+      <td><span class="badge ${p.type==='full'?'badge-green':p.type==='advance'?'badge-orange':'badge-blue'}">${p.type}</span></td>
+      <td>${p.notes || '-'}</td>
+      <td><button class="btn btn-danger btn-sm" onclick="deletePayment(${p.id})">Delete</button></td>
+    </tr>`).join('');
+}
+
+function deletePayment(id) {
+  if (!confirm('Delete payment record?')) return;
+  data.payments = data.payments.filter(p => p.id !== id);
+  saveData(); renderAll();
+}
+
+// STATISTICS
+function renderStatistics() {
+  renderMonthlyChart();
+  renderDailyChart();
+  renderTopFish();
+  renderTopCustomers();
+  renderPaymentSplit();
+}
+
+function renderMonthlyChart() {
+  const months = {};
+  data.orders.forEach(o => {
+    const d = new Date(o.date);
+    const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+    const label = d.toLocaleDateString('en-IN',{month:'short',year:'numeric'});
+    if (!months[key]) months[key] = { label, revenue: 0, profit: 0 };
+    months[key].revenue += o.qty * o.sell;
+    months[key].profit += o.qty * (o.sell - o.buy);
+  });
+  const sorted = Object.values(months).sort((a,b)=>a.label>b.label?1:-1).slice(-6);
+  const el = document.getElementById('monthlyChart');
+  if (!el) return;
+  if (sorted.length === 0) { el.innerHTML = '<div class="empty">No data yet. Add orders first!</div>'; return; }
+  const maxVal = Math.max(...sorted.map(m => m.revenue), 1);
+  el.innerHTML = `
+    <div style="display:flex;align-items:flex-end;gap:12px;height:180px;padding:0 8px">
+      ${sorted.map(m => `
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end">
+          <div style="font-size:10px;color:var(--cyan);font-weight:700">₹${(m.profit/1000).toFixed(1)}k</div>
+          <div style="width:100%;display:flex;gap:3px;align-items:flex-end;height:140px">
+            <div style="flex:1;background:linear-gradient(to top,var(--blue),var(--cyan));border-radius:4px 4px 0 0;height:${Math.max((m.revenue/maxVal)*100,4)}%;opacity:0.7"></div>
+            <div style="flex:1;background:linear-gradient(to top,var(--green),#34d399);border-radius:4px 4px 0 0;height:${Math.max((m.profit/maxVal)*100,2)}%"></div>
+          </div>
+          <div style="font-size:10px;color:#7a9cc0;text-align:center">${m.label}</div>
+        </div>`).join('')}
+    </div>
+    <div style="display:flex;gap:16px;margin-top:12px;justify-content:center">
+      <span style="font-size:11px;color:#7a9cc0"><span style="color:var(--cyan)">■</span> Revenue</span>
+      <span style="font-size:11px;color:#7a9cc0"><span style="color:var(--green)">■</span> Profit</span>
+    </div>`;
+}
+
+function renderDailyChart() {
+  const days = {};
+  const now = new Date();
+  for (let i=6;i>=0;i--) {
+    const d = new Date(now); d.setDate(d.getDate()-i);
+    const key = d.toISOString().split('T')[0];
+    const label = d.toLocaleDateString('en-IN',{weekday:'short'});
+    days[key] = { label, profit:0 };
+  }
+  data.orders.forEach(o => {
+    const key = o.date.split('T')[0];
+    if (days[key]) days[key].profit += o.qty*(o.sell-o.buy);
+  });
+  const arr = Object.values(days);
+  const el = document.getElementById('dailyChart');
+  if (!el) return;
+  const maxVal = Math.max(...arr.map(d=>d.profit),1);
+  el.innerHTML = `
+    <div style="display:flex;align-items:flex-end;gap:8px;height:160px;padding:0 8px">
+      ${arr.map(d=>`
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end">
+          ${d.profit>0?`<div style="font-size:9px;color:var(--green);font-weight:700">₹${d.profit}</div>`:''}
+          <div style="width:100%;background:${d.profit>0?'linear-gradient(to top,var(--green),#34d399)':'var(--border)'};border-radius:4px 4px 0 0;height:${Math.max((d.profit/maxVal)*100,4)}%;min-height:8px"></div>
+          <div style="font-size:10px;color:#7a9cc0">${d.label}</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+function renderTopFish() {
+  const fishMap = {};
+  data.orders.forEach(o => {
+    const f = o.fish.trim();
+    if (!fishMap[f]) fishMap[f] = {qty:0,profit:0};
+    fishMap[f].qty += o.qty;
+    fishMap[f].profit += o.qty*(o.sell-o.buy);
+  });
+  const sorted = Object.entries(fishMap).sort((a,b)=>b[1].qty-a[1].qty).slice(0,5);
+  const el = document.getElementById('topFish');
+  if (!el) return;
+  if (sorted.length===0){el.innerHTML='<div class="empty">No data yet.</div>';return;}
+  const maxQty = sorted[0][1].qty;
+  el.innerHTML = sorted.map(([fish,d],i)=>`
+    <div style="margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+        <span style="font-size:13px">${i+1}. <span class="fish-tag">${fish}</span></span>
+        <span style="font-size:12px;color:#7a9cc0">${d.qty}kg · <span style="color:var(--green)">₹${d.profit.toLocaleString('en-IN')}</span></span>
+      </div>
+      <div style="background:var(--navy);border-radius:4px;height:6px">
+        <div style="background:linear-gradient(to right,var(--blue),var(--cyan));height:100%;border-radius:4px;width:${(d.qty/maxQty)*100}%"></div>
+      </div>
+    </div>`).join('');
+}
+
+function renderTopCustomers() {
+  const custMap = {};
+  data.orders.forEach(o => {
+    if (!custMap[o.customer]) custMap[o.customer]={orders:0,revenue:0};
+    custMap[o.customer].orders++;
+    custMap[o.customer].revenue += o.qty*o.sell;
+  });
+  const sorted = Object.entries(custMap).sort((a,b)=>b[1].revenue-a[1].revenue).slice(0,5);
+  const el = document.getElementById('topCustomers');
+  if (!el) return;
+  if (sorted.length===0){el.innerHTML='<div class="empty">No data yet.</div>';return;}
+  const maxRev = sorted[0][1].revenue;
+  el.innerHTML = sorted.map(([name,d],i)=>`
+    <div style="margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+        <span style="font-size:13px">${i+1}. ${name}</span>
+        <span style="font-size:12px;color:#7a9cc0">${d.orders} orders · <span style="color:var(--cyan)">₹${d.revenue.toLocaleString('en-IN')}</span></span>
+      </div>
+      <div style="background:var(--navy);border-radius:4px;height:6px">
+        <div style="background:linear-gradient(to right,var(--blue),var(--cyan));height:100%;border-radius:4px;width:${(d.revenue/maxRev)*100}%"></div>
+      </div>
+    </div>`).join('');
+}
+
+function renderPaymentSplit() {
+  const paid = data.orders.filter(o=>o.payment==='paid').length;
+  const advance = data.orders.filter(o=>o.payment==='advance').length;
+  const pending = data.orders.filter(o=>o.payment==='pending').length;
+  const total = paid+advance+pending||1;
+  const el = document.getElementById('paymentSplit');
+  if (!el) return;
+  const paidPct=Math.round((paid/total)*100);
+  const advPct=Math.round((advance/total)*100);
+  const pendPct=Math.round((pending/total)*100);
+  el.innerHTML = `
+    <div style="display:flex;height:20px;border-radius:10px;overflow:hidden;margin-bottom:16px">
+      <div style="width:${paidPct}%;background:var(--green)"></div>
+      <div style="width:${advPct}%;background:var(--orange)"></div>
+      <div style="width:${pendPct}%;background:var(--red)"></div>
+    </div>
+    <div style="display:flex;gap:20px;flex-wrap:wrap">
+      <div><span style="color:var(--green);font-size:22px;font-weight:800;font-family:'Outfit'">${paid}</span><div style="font-size:11px;color:#7a9cc0">Fully Paid</div></div>
+      <div><span style="color:var(--orange);font-size:22px;font-weight:800;font-family:'Outfit'">${advance}</span><div style="font-size:11px;color:#7a9cc0">Advance</div></div>
+      <div><span style="color:var(--red);font-size:22px;font-weight:800;font-family:'Outfit'">${pending}</span><div style="font-size:11px;color:#7a9cc0">Pending</div></div>
+    </div>
+    <div style="margin-top:16px">
+      <div style="font-size:12px;color:#7a9cc0;margin-bottom:4px">Total Payments Received</div>
+      <div style="font-size:24px;font-weight:800;color:var(--green);font-family:'Outfit'">₹${data.payments.reduce((s,p)=>s+p.amount,0).toLocaleString('en-IN')}</div>
+    </div>`;
+}
+
+// PDF GENERATION
+async function downloadPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const filterDate = document.getElementById('filterDate').value;
+  
+  let orders = [...data.orders];
+  if (filterDate) orders = orders.filter(o => o.date.startsWith(filterDate));
+  
+  const reportTitle = filterDate ? `Report for ${new Date(filterDate).toLocaleDateString('en-IN')}` : "Full Sales Report";
+
+  // Logo
+  const img = new Image();
+  img.src = 'lo2.png';
+  
+  doc.setProperties({ title: 'Uzhamai Aquanics Report' });
+  
+  // Add Header
+  doc.addImage(img, 'PNG', 10, 10, 25, 25);
+  doc.setFontSize(20);
+  doc.setTextColor(26, 79, 160);
+  doc.text("UZHAMAI AQUANICS", 40, 22);
+  doc.setFontSize(10);
+  doc.setTextColor(100, 116, 139);
+  doc.text("Clean Tech. Green Growth. Fresh Harvest.", 40, 28);
+  doc.text(reportTitle, 40, 34);
+  
+  doc.line(10, 40, 200, 40);
+
+  const tableData = orders.map(o => [
+    new Date(o.date).toLocaleDateString('en-IN'),
+    o.customer,
+    o.fish,
+    o.qty + 'kg',
+    'Rs.' + (o.qty * o.sell),
+    'Rs.' + (o.qty * (o.sell - o.buy)),
+    o.payment
+  ]);
+
+  doc.autoTable({
+    startY: 45,
+    head: [['Date', 'Customer', 'Fish', 'Qty', 'Revenue', 'Profit', 'Status']],
+    body: tableData,
+    theme: 'striped',
+    headStyles: { fillColor: [26, 79, 160] }
+  });
+
+  const finalY = doc.lastAutoTable.finalY || 50;
+  doc.text(`Total Orders: ${orders.length}`, 14, finalY + 10);
+  doc.save(`Uzhamai_Report_${filterDate || 'All'}.pdf`);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if(document.getElementById('pwInput')) document.getElementById('pwInput').value = '';
+});
 </script>
 </body>
 </html>
