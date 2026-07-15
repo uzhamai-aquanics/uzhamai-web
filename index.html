@@ -1430,6 +1430,27 @@ window.addEventListener('mousemove', (e) => {
   }, 2000);
 });
 
+// Touch events for mobile
+window.addEventListener('touchstart', (e) => {
+  mouseX = e.touches[0].clientX;
+  mouseY = e.touches[0].clientY;
+  lastMouseX = mouseX; // Reset last position on new touch
+  isClicking = true;
+  isActive = true;
+  fishCursor.classList.add('active');
+  clearTimeout(idleTimer); // Prevent hiding while touching
+});
+
+window.addEventListener('touchmove', (e) => {
+  mouseX = e.touches[0].clientX;
+  mouseY = e.touches[0].clientY;
+});
+
+window.addEventListener('touchend', () => {
+  isClicking = false;
+  fishCursor.classList.remove('active');
+});
+
 window.addEventListener('mousedown', () => {
   isClicking = true;
 });
