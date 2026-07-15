@@ -1432,6 +1432,7 @@ window.addEventListener('mousemove', (e) => {
 
 // Touch events for mobile
 window.addEventListener('touchstart', (e) => {
+  e.preventDefault(); // Prevents other touch actions like scrolling
   mouseX = e.touches[0].clientX;
   mouseY = e.touches[0].clientY;
   lastMouseX = mouseX; // Reset last position on new touch
@@ -1439,7 +1440,7 @@ window.addEventListener('touchstart', (e) => {
   isActive = true;
   fishCursor.classList.add('active');
   clearTimeout(idleTimer); // Prevent hiding while touching
-});
+}, { passive: false });
 
 window.addEventListener('touchmove', (e) => {
   mouseX = e.touches[0].clientX;
