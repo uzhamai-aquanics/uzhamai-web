@@ -1445,6 +1445,10 @@ window.addEventListener('touchstart', (e) => {
 window.addEventListener('touchmove', (e) => {
   mouseX = e.touches[0].clientX;
   mouseY = e.touches[0].clientY;
+  // Directly update position on move for instant response
+  const flip = (mouseX > lastMouseX) ? 1 : -1;
+  const scale = isClicking ? 0.85 : 1;
+  fishCursor.style.transform = `translate(${mouseX - 12}px, ${mouseY - 12}px) scaleX(${flip}) scale(${scale})`;
 });
 
 window.addEventListener('touchend', () => {
