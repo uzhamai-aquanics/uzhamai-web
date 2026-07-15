@@ -32,7 +32,11 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { background: var(--navy); color: var(--white); font-family: var(--font-b); overflow-x: hidden; }
-    ::-webkit-scrollbar { width: 5px; }
+    body, a, button {
+      cursor: none !important; /* Hide default cursor */
+    }
+
+    ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: var(--navy); }
     ::-webkit-scrollbar-thumb { background: var(--cobalt); border-radius: 3px; }
 
@@ -244,13 +248,15 @@
 
     /* CURSOR FISH */
     .swimming-fish {
-      position: fixed; top: 0; left: 0; font-size: 0.6rem;
+      position: fixed; top: 0; left: 0; font-size: 1.5rem;
       pointer-events: none; z-index: 999; opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.5s ease, transform 0.1s linear;
       will-change: transform;
       filter: drop-shadow(0 3px 6px rgba(25,118,210,0.2));
+      transform-origin: center center;
     }
     .swimming-fish.active { opacity: 1; }
+    /* .swimming-fish.clicking is now handled by JS */
 
     .c-trail {
       position: fixed; pointer-events: none; z-index: 998;
@@ -309,7 +315,7 @@
     .prod-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px,1fr)); gap: 1.6rem; }
     .pc {
       background: var(--card-bg); border: 1px solid var(--card-bd); border-radius: 18px;
-      overflow: hidden; cursor: pointer;
+      overflow: hidden;
       transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
     }
     .pc:hover { transform: translateY(-7px); border-color: rgba(66,165,245,0.5); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
@@ -749,7 +755,7 @@
   <ul class="nav-links">
     <li><a href="#products">Products</a></li>
     <li><a href="#benefits">Fish Benefits</a></li>
-    <li><a href="#about">About</a></li>
+    <li><a href="#achievements">Achievements</a></li>
     <li><a href="#founder">Founder</a></li>
     <li><a href="#why">Why Us</a></li>
     <li><a href="#process">Process</a></li>
@@ -763,6 +769,7 @@
   <button class="mob-close" id="mobClose">✕</button>
   <a href="#products" onclick="closeMob()">Products</a>
   <a href="#benefits" onclick="closeMob()">Fish Benefits</a>
+  <a href="#achievements" onclick="closeMob()">Achievements</a>
   <a href="#about" onclick="closeMob()">About</a>
   <a href="#founder" onclick="closeMob()">Founder</a>
   <a href="#contact" onclick="closeMob()">Order Now</a>
@@ -974,6 +981,22 @@
         <a href="#process" class="btn-ghost">Our Process</a>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="sec-c" style="margin-bottom: 3rem;">
+    <span class="s-tag">Our Milestones</span>
+    <h2 class="s-title">Journey of <em>Growth</em> & Innovation</h2>
+  </div>
+
+  <div style="max-width: 700px; margin: 0 auto; text-align: center;">
+    <div class="founder-img-wrapper" style="border-width: 2px; border-radius: 18px; margin-bottom: 1.5rem;">
+       <img src="UAI.jpeg" alt="Uzhamai Aquanics incubated at ESEC Innovation and Incubation Foundation" class="founder-img" style="aspect-ratio: 4/3; border-radius: 16px;">
+    </div>
+    <h3 style="font-family: var(--font-h); font-size: 1.8rem; margin-bottom: 0.5rem;">Incubated at <em>ESEC Innovation Foundation</em></h3>
+    <p class="s-desc" style="font-size: 0.9rem; line-height: 1.7;">I am proud to announce that Uzhamai Aquanics is officially incubated at the <strong>ESEC Innovation and Incubation Foundation</strong>, Erode Sengunthar Engineering College. This milestone accelerates my mission to build innovative solutions for the aquaculture sector. My sincere gratitude to my mentors for their invaluable support.</p>
   </div>
 </section>
 
@@ -1380,66 +1403,54 @@ document.getElementById('mobClose').onclick=closeMob;
 function closeMob(){ document.getElementById('mobNav').classList.remove('open'); }
 
 /* SCHOOL OF FISH CURSOR */
-const fishEmojis = ['🐟', '🐠', '🐡', '🐟'];
-const fishCount = 6;
-const school = [];
-let mX = window.innerWidth / 2, mY = window.innerHeight / 2, cX = mX, cY = mY;
+const fishCursor = document.createElement('div');
+fishCursor.className = 'swimming-fish';
+fishCursor.innerHTML = '🐠'; // You can change this emoji
+document.body.appendChild(fishCursor);
+
+let mouseX = 0, mouseY = 0;
+let lastMouseX = 0;
+let isClicking = false;
 let isActive = false;
 let idleTimer;
 
-// Initialize school
-for (let i = 0; i < fishCount; i++) {
-  const el = document.createElement('div');
-  el.className = 'swimming-fish';
-  el.innerHTML = fishEmojis[i % fishEmojis.length];
-  document.body.appendChild(el);
-  school.push({
-    el,
-    radius: 25,
-    angle: (i * Math.PI * 2) / fishCount,
-    orbitSpeed: 0.04,
-    speed: 0.1
-  });
-}
-
 window.addEventListener('mousemove', (e) => {
-  mX = e.clientX;
-  mY = e.clientY;
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  
   if (!isActive) {
     isActive = true;
-    school.forEach(f => f.el.classList.add('active'));
+    fishCursor.classList.add('active');
   }
+  
   clearTimeout(idleTimer);
   idleTimer = setTimeout(() => {
     isActive = false;
-    school.forEach(f => f.el.classList.remove('active'));
+    fishCursor.classList.remove('active');
   }, 2000);
 });
 
 window.addEventListener('mousedown', () => {
-  // Speed boost on click
-  school.forEach(f => { f.angle += 1.5; });
+  isClicking = true;
+});
+window.addEventListener('mouseup', () => {
+  isClicking = false;
 });
 
-function animateSchool() {
-  // Smoothly move the center of the orbit towards the mouse
-  cX += (mX - cX) * 0.12;
-  cY += (mY - cY) * 0.12;
+function animateFishCursor() {
+  const flip = (mouseX > lastMouseX) ? 1 : -1;
+  let scale = 1;
 
-  school.forEach(f => {
-    f.angle += f.orbitSpeed;
-
-    // Calculate perfect circular position relative to the smooth center
-    const x = cX + Math.cos(f.angle) * f.radius;
-    const y = cY + Math.sin(f.angle) * f.radius;
-
-    // Determine flip based on the horizontal direction of the orbit
-    const flip = -Math.sin(f.angle) > 0 ? 1 : -1;
-    f.el.style.transform = `translate(${x}px, ${y}px) scaleX(${flip})`;
-  });
-  requestAnimationFrame(animateSchool);
+  if (isClicking) {
+    scale = 0.85; // Apply scale down effect on click
+  }
+  
+  fishCursor.style.transform = `translate(${mouseX - 12}px, ${mouseY - 12}px) scaleX(${flip}) scale(${scale})`;
+  
+  lastMouseX = mouseX;
+  requestAnimationFrame(animateFishCursor);
 }
-animateSchool();
+animateFishCursor();
 </script>
 </body>
 </html>
