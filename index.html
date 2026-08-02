@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>UZHAMAI AQUANICS — Fish Farming & Trading, Erode</title>
+  <title>UZHAMAI AQUANICS — Aquaculture Supply Chain, Erode</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600;700&family=Big+Shoulders+Display:wght@700;900&display=swap" rel="stylesheet"/>
@@ -28,6 +28,27 @@
       --font-d: 'Big Shoulders Display', sans-serif;
       --font-h: 'Philosopher', sans-serif;
       --font-b: 'Outfit', sans-serif;
+    }
+    body.dark-theme {
+      --navy:     #0A1929;
+      --deep:     #0B1A2C;
+      --ocean:    #0E2038;
+      --mid-blue: #0A1929;
+      --pure:     #ffffff;
+      --text-dark: #E0F2FF;
+      --text-dim: #A8B2D1;
+      --card-bg:  rgba(21, 101, 192, 0.08);
+      --card-bd:  rgba(66, 165, 245, 0.2);
+    }
+    body.dark-theme nav.scrolled {
+      background: rgba(10, 25, 41, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom-color: rgba(66, 165, 245, 0.2);
+    }
+    body.dark-theme .hero-bg {
+      background:
+        radial-gradient(circle at 50% -20%, rgba(66,165,245,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(21,101,192,0.05) 0%, transparent 50%);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -75,7 +96,18 @@
       font-weight: 700 !important; box-shadow: 0 4px 16px rgba(25,118,210,0.35);
       transition: box-shadow 0.2s, transform 0.2s !important;
     }
+    .theme-toggle-btn {
+      background: none; border: none; font-size: 1.3rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--sky); transition: transform 0.2s;
+    }
+      background: linear-gradient(135deg, var(--cobalt), var(--sky));
+      color: var(--pure) !important; padding: 0.6rem 1.5rem; border-radius: 8px;
+      font-weight: 700 !important; box-shadow: 0 4px 16px rgba(25,118,210,0.35);
+      transition: box-shadow 0.2s, transform 0.2s !important;
+    }
     .nav-btn:hover { box-shadow: 0 6px 24px rgba(66,165,245,0.5); transform: translateY(-1px); }
+    .theme-toggle-btn:hover { transform: scale(1.15) rotate(15deg); }
     .hamburger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; }
     .hamburger span { width: 26px; height: 2px; background: var(--sky); border-radius: 2px; }
     .mob-nav {
@@ -124,21 +156,6 @@
       background-size: 40px 40px;
       mask-image: radial-gradient(ellipse 55% 75% at 15% 50%, black 20%, transparent 70%);
     }
-    .bubbles { position: fixed; inset: 0; pointer-events: none; z-index: -1; }
-    .bub {
-      position: absolute; border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), rgba(66,165,245,0.15));
-      border: 1px solid rgba(255,255,255,0.3);
-      box-shadow: inset 0 0 10px rgba(255,255,255,0.2);
-      animation: bubUp linear infinite;
-    }
-    @keyframes bubUp {
-      0%   { transform: translateY(105vh) translateX(0) scale(0.3); opacity: 0; }
-      20%  { opacity: 0.6; transform: translateY(80vh) translateX(20px) scale(0.6); }
-      50%  { transform: translateY(50vh) translateX(-20px) scale(0.8); }
-      80%  { opacity: 0.3; transform: translateY(20vh) translateX(15px) scale(1); }
-      100% { transform: translateY(-15vh) translateX(0) scale(1.2); opacity: 0; }
-    }
     .hero-content { position: relative; z-index: 2; padding: 2.5rem 0 5rem; }
     .hero-badge {
       display: inline-flex; align-items: center; gap: 0.6rem;
@@ -159,7 +176,25 @@
     .h1-blue  { color: var(--sky); display: block; font-style: italic; }
     .h1-white { color: var(--text-dark); display: block; font-weight: 700; }
     .h1-outline { display: block; -webkit-text-stroke: 2px rgba(5,32,53,0.15); color: transparent; }
-    .hero-tagline { font-family: var(--font-h); font-size: clamp(1rem,2vw,1.3rem); font-style: italic; color: var(--cobalt); opacity: 0.8; margin-bottom: 1.4rem; animation: fadeUp 0.7s 0.2s ease both; }
+    .hero-tagline { 
+      font-family: var(--font-h);
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+      font-style: italic;
+      margin-bottom: 1.4rem;
+      font-weight: 700;
+      
+      /* Enhanced Animated Gradient Text */
+      background: linear-gradient(90deg, var(--royal), var(--sky), var(--ice), var(--sky), var(--royal));
+      background-size: 400% auto; /* Larger background for smoother flow */
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeUp 0.7s 0.2s ease both, textGradient 8s ease-in-out infinite; /* Longer duration for smoother animation */
+    }
+    @keyframes textGradient {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
     .hero-desc { font-size: 0.97rem; color: var(--text-dim); line-height: 1.78; max-width: 480px; margin-bottom: 2.5rem; animation: fadeUp 0.7s 0.3s ease both; }
     .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.7s 0.4s ease both; }
     .btn-primary {
@@ -185,7 +220,7 @@
     /* LARGE HERO LOGO ANIMATION */
     .hero-swim-path {
       width: 380px; height: 380px;
-      position: relative; overflow: hidden; border-radius: 8px;
+      position: relative; overflow: hidden; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
     }
     .hero-swim-path::after {
@@ -219,7 +254,7 @@
 
     .hero-badge-circle {
       position: absolute;
-      width: 580px; height: 580px;
+      width: 500px; height: 500px;
       z-index: 2;
       animation: rotateText 25s linear infinite;
       pointer-events: none;
@@ -274,7 +309,9 @@
     .sl { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; margin-top: 0.2rem; }
     .hero-right {
       position: relative; height: 100vh;
-      display: flex; align-items: center; justify-content: center; overflow: hidden;
+      display: flex; align-items: flex-start; justify-content: center; overflow: hidden;
+      padding-top: 18vh; /* Adjusted value to move the logo down slightly */
+      align-self: stretch; /* Ensures it takes up grid cell height */
     }
     .hero-right-bg {
       position: absolute; inset: 0;
@@ -527,6 +564,11 @@
     .wc-ico { font-size: 2.8rem; display: block; margin-bottom: 1.1rem; }
     .wc-title { font-family: var(--font-h); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
     .wc-text { font-size: 0.83rem; color: var(--text-dim); line-height: 1.6; }
+    body.dark-theme .wc {
+      background: rgba(10, 25, 41, 0.5);
+      border-color: rgba(66, 165, 245, 0.2);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
 
     /* PROCESS */
     #process { background: var(--navy); }
@@ -627,6 +669,10 @@
     .fsuccess h3 { font-family: var(--font-h); font-size: 1.8rem; color: var(--sky); margin-bottom: 0.5rem; }
     .fsuccess p { color: var(--text-dim); }
 
+    body.dark-theme .fg input, body.dark-theme .fg select, body.dark-theme .fg textarea {
+      background: rgba(10, 25, 41, 0.5);
+    }
+
     /* FOOTER */
     footer {
       background: var(--navy); border-top: 1px solid rgba(66,165,245,0.1);
@@ -645,7 +691,7 @@
     .fc h4 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: var(--sky); margin-bottom: 1.4rem; }
     .fc ul { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
     .fc ul li a { color: var(--text-dim); text-decoration: none; font-size: 0.87rem; transition: color 0.2s; }
-    .fc ul li a:hover { color: var(--white); }
+    .fc ul li a:hover { color: var(--text-dark); }
     .foot-bot {
       border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem;
       display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
@@ -740,9 +786,6 @@
 </head>
 <body>
 
-<!-- GLOBAL BUBBLES -->
-<div class="bubbles" id="bubbles"></div>
-
 <!-- NAVBAR -->
 <nav id="navbar">
   <a class="logo" href="#">
@@ -759,6 +802,7 @@
     <li><a href="#founder">Founder</a></li>
     <li><a href="#why">Why Us</a></li>
     <li><a href="#process">Process</a></li>
+    <li><button id="themeToggle" class="theme-toggle-btn">🌙</button></li>
     <li><a href="#contact" class="nav-btn">Order Now</a></li>
   </ul>
   <button class="hamburger" id="hamBtn"><span></span><span></span><span></span></button>
@@ -794,13 +838,13 @@
   </div>
 
   <div class="hero-content">
-    <div class="hero-badge">Erode's Trusted Fish Trading and Fish Farming company</div>
+    <div class="hero-badge">Transforming Aquaculture Supply Chains</div>
     <h1 class="hero-h1">
       <span class="h1-blue">UZHAMAI</span>
       <span class="h1-white">AQUANICS</span>
     </h1>
-    <p class="hero-tagline">Smart from the Start. Fresh to the Finish.</p>
-    <p class="hero-desc">Freshness Redefined: Sustainable Fish Farming & Strategic fish Trading. Sourcing daily from coastal docks to serve the heart of Erode. Your trusted partner for premium fish supply.</p>
+    <p class="hero-tagline">Beyond the Source.</p>
+    <p class="hero-desc">We are an aquaculture supply chain startup improving the journey of fish from farmer to consumer. We build efficient, transparent solutions for sourcing, quality, and distribution, supported by our expertise in fish production and farm automation.</p>
     <div class="hero-actions">
       <a href="#products" class="btn-primary">Explore Products</a>
       <a href="#contact" class="btn-ghost">Place an Order</a>
@@ -973,9 +1017,9 @@
     <div class="about-text">
       <span class="s-tag">Our Story</span>
       <h2 class="s-title">Rooted in <em>Uzhamai</em> — The Spirit of Hard Work</h2>
-      <p class="s-desc" style="margin-bottom:1.2rem;">Bringing fresh, healthy fish to your table through sustainable fish farming and direct coastal sourcing.</p>
-      <p><strong>Uzhamai Aquanics</strong>, based in <strong>Erode</strong>, is more than just a trading partner. We are pioneers in <strong>Fish Farming</strong>, a modern, eco-friendly method that produces healthy fish in a controlled, clean environment.</p>
-      <p>By combining our own farm-fresh production with a direct network from Chennai Kasimedu to Rameswaram, we offer unparalleled quality and variety. We supply <strong>restaurants, star hotels, caterers, supermarkets</strong>, and individual households every day.</p>
+      <p class="s-desc" style="margin-bottom:1.2rem;">We are an aquaculture supply chain startup dedicated to transforming the journey of fish from farm to consumer. Our focus is on building an efficient, transparent, and value-driven supply chain that benefits both farmers and consumers.</p>
+      <p>We improve every stage of the process, from <strong>sourcing</strong> and <strong>quality handling</strong> to <strong>market linkage</strong> and <strong>consumer delivery</strong>. By connecting farmers directly to markets, we reduce inefficiency and create a more sustainable aquaculture ecosystem.</p>
+      <p>To support this vision, we operate dedicated divisions in <strong>Fish Production</strong> and <strong>Farm Automation</strong>. These verticals strengthen the supply chain through better production practices and operational efficiency, helping us create value for every stakeholder.</p>
       <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;">
         <a href="#contact" class="btn-primary">Get in Touch</a>
         <a href="#process" class="btn-ghost">Our Process</a>
@@ -1007,27 +1051,27 @@
       <span class="s-tag">Leadership</span>
       <div class="founder-name">HARI PRASATH S</div>
       <div class="founder-title" style="margin-bottom: 1.5rem;">Founder | UZHAMAI AQUANICS</div>
-      <h2 class="s-title">Technical Precision in <em>Fishes</em></h2>
-      <p class="s-desc">Hari Prasath is an Agricultural Engineering graduate who founded Uzhamai Aquanics to bring technical precision to the seafood industry. By combining his academic background with practical expertise in aquaculture, he focuses on providing high-quality, transparent supply chain solutions.</p>
+      <h2 class="s-title">Engineering a Better <em>Aquaculture Supply Chain</em></h2>
+      <p class="s-desc">An Agricultural Engineering graduate, Hari Prasath founded Uzhamai Aquanics to solve the core challenges in the aquaculture supply chain. His mission is to apply technical precision and innovation to connect farmers directly with consumers, ensuring a fair and efficient ecosystem for everyone.</p>
       
-      <h3>Core Focus:</h3>
+      <h3 style="font-family: var(--font-h); font-size: 1.6rem; margin: 2.2rem 0 1rem; color: var(--sky); position: relative;">Core Focus</h3>
       <ul>
         <li>
-          <strong>Sustainable Farming:</strong> 
-          Implementing Fish Farming technology for chemical-free and eco-friendly fish production.
+          <strong>Supply Chain Development:</strong> 
+          Building an efficient, transparent supply chain to connect farmers with consumers, improve quality, and reduce post-harvest losses.
         </li>
         <li>
-          <strong>Direct Sourcing:</strong> 
-          Establishing a direct link between the coastal docks (Rameswaram, Tuticorin, Chennai) and Erode to ensure daily freshness.
+          <strong>Market Linkage & Distribution:</strong> 
+          Strengthening the journey from farm to table through efficient sourcing, quality handling, and organized distribution.
         </li>
         <li>
-          <strong>Ethical Standards:</strong> 
-          Ensuring accurate weights, traceability, transparent pricing, and rigorous quality checks led by technical knowledge.
+          <strong>Fish Production & Farm Automation:</strong> 
+          Supporting the ecosystem with sustainable fish production and modern farm automation technologies to improve efficiency.
         </li>
       </ul>
 
-      <h3>The Mission:</h3>
-      <p class="s-desc">To deliver fresh fish directly to households and the hospitality sector in Erode by integrating modern agricultural technology with traditional trading.</p>
+      <h3 style="font-family: var(--font-h); font-size: 1.6rem; margin: 2.2rem 0 1rem; color: var(--sky); position: relative;">Mission</h3>
+      <p class="s-desc">To build a smarter, sustainable aquaculture supply chain by connecting farmers to consumers through efficient, quality-focused distribution, while supporting the ecosystem with our own fish production and farm automation.</p>
     </div>
   </div>
 </section>
@@ -1037,7 +1081,7 @@
   <div class="why-head">
     <span class="s-tag">Why Choose Us</span>
     <h2 class="s-title">Built on <em>Trust, Freshness & Speed</em></h2>
-    <p class="s-desc">For over a decade, the most reliable name in fish farming and trading across Erode and Tamil Nadu.</p>
+    <p class="s-desc">We are your partners in building a modern, reliable, and transparent aquaculture supply chain across Erode and Tamil Nadu.</p>
   </div>
   <div class="why-cards">
     <div class="wc">
@@ -1134,10 +1178,10 @@
         <img src="lo2.png" alt="Logo" style="width:48px; height:48px; border-radius:0; object-fit:cover;">
         <div>
           <div style="font-family:var(--font-d);font-size:1.5rem;letter-spacing:3px;">UZHAMAI AQUANICS</div>
-          <div style="font-size:0.5rem;color:var(--sky);letter-spacing:4px;font-family:var(--font-b);">FISH FARMING & TRADING · ERODE</div>
+          <div style="font-size:0.5rem;color:var(--sky);letter-spacing:4px;font-family:var(--font-b);">AQUACULTURE SUPPLY CHAIN · ERODE</div>
         </div>
       </div>
-      <p>Tamil Nadu's most trusted seafood supplier. Fresh, responsible, and delivered daily from coastal waters to your table.</p>
+      <p>Improving the aquaculture supply chain from farmer to consumer. Fresh, responsible, and delivered daily.</p>
       <div class="socials">
         <a class="soc" href="https://www.facebook.com/share/1AjmJdD1dv/" target="_blank" title="Facebook">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96C18.34 21.21 22 17.06 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>
@@ -1187,7 +1231,7 @@
   </div>
   <div class="foot-bot">
     <p>© 2025 Uzhamai Aquanics. All rights reserved. Erode, Tamil Nadu.</p>
-    <p>Smart from the Start. Fresh to the Finish</p>
+    <p>Beyond the Source.</p>
   </div>
 </footer>
 
@@ -1208,6 +1252,10 @@
     </div>
   </div>
 </div>
+
+<!-- AUDIO ELEMENTS -->
+<audio id="audio-click" src="sounds/click.mp3" preload="auto"></audio>
+<audio id="audio-success" src="sounds/success.mp3" preload="auto"></audio>
 
 <script>
 /* DATA */
@@ -1262,16 +1310,6 @@ const strips = ['FRESH DAILY','QUALITY GUARANTEED','COLD-CHAIN ASSURED','WHOLESA
 const si = document.getElementById('stripEl');
 const sa = [...strips,...strips,...strips,...strips];
 si.innerHTML = sa.map(s=>`<span>${s}</span><span class="dot">◆</span>`).join('');
-
-/* BUBBLES */
-const bEl = document.getElementById('bubbles');
-for(let i=0;i<100;i++){
-  const b=document.createElement('div'); b.className='bub';
-  const sz=Math.random()*15+4;
-  const op=Math.random()*0.5 + 0.2;
-  b.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;opacity:${op};animation-duration:${10+Math.random()*20}s;animation-delay:${Math.random()*15}s;`;
-  bEl.appendChild(b);
-}
 
 /* HERO PARTICLES */
 const hp = document.getElementById('heroParticles');
@@ -1382,6 +1420,7 @@ document.getElementById('orderForm').addEventListener('submit',e=>{
   // Show success message UI
   document.getElementById('orderForm').style.display='none';
   document.getElementById('fSuccess').style.display='block';
+  playSound('success', 0.3); // Play success sound
 
   // Redirect to WhatsApp
   const whatsappURL = `https://wa.me/919360985854?text=${message}`;
@@ -1401,6 +1440,43 @@ st.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 document.getElementById('hamBtn').onclick=()=>document.getElementById('mobNav').classList.add('open');
 document.getElementById('mobClose').onclick=closeMob;
 function closeMob(){ document.getElementById('mobNav').classList.remove('open'); }
+
+/* THEME TOGGLE */
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+
+function setTeam(theme) {
+  if (theme === 'dark') {
+    body.classList.add('dark-theme');
+    themeToggle.textContent = '☀️';
+    localStorage.setItem('theme', 'dark');
+  } else {
+    body.classList.remove('dark-theme');
+    themeToggle.textContent = '🌙';
+    localStorage.setItem('theme', 'light');
+  }
+}
+
+themeToggle.addEventListener('click', () => {
+  const isDark = body.classList.contains('dark-theme');
+  setTeam(isDark ? 'light' : 'dark');
+});
+
+const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+setTeam(savedTheme);
+
+/* SOUND EFFECTS */
+function playSound(type, volume = 0.2) {
+  try {
+    const audio = document.getElementById(`audio-${type}`);
+    if (audio) {
+      audio.volume = volume;
+      audio.currentTime = 0; // Rewind to start
+      audio.play().catch(e => {}); // Ignore autoplay errors
+    }
+  } catch (e) { console.error("Sound error:", e); }
+}
+
 
 /* SCHOOL OF FISH CURSOR */
 const fishCursor = document.createElement('div');
@@ -1476,6 +1552,22 @@ function animateFishCursor() {
   requestAnimationFrame(animateFishCursor);
 }
 animateFishCursor();
+
+/* ATTACH SOUNDS TO INTERACTIONS */
+document.addEventListener('DOMContentLoaded', () => {
+  // Generic click sound for links and buttons
+  document.body.addEventListener('click', (e) => {
+    if (e.target.matches('a, button, .pc, .fb, .wc, .ps, .tc')) {
+      // Exclude theme toggle to give it a unique sound
+      if (!e.target.closest('#themeToggle')) {
+        playSound('click');
+      }
+    }
+  });
+
+  // Special sound for theme toggle
+  document.getElementById('themeToggle').addEventListener('click', () => playSound('click', 0.4));
+});
 </script>
 </body>
 </html>
