@@ -777,8 +777,8 @@
 
     /* RESPONSIVE */
     @media (max-width: 1100px) {
-      #hero { grid-template-columns: 1fr; text-align: center; padding-left: 0; padding: 0 5% 40px; min-height: auto; display: flex; flex-direction: column; align-items: center; overflow: hidden; padding-top: 135px; }
-      .hero-content { padding: 0; margin-top: 35px; display: flex; flex-direction: column; align-items: center; }
+      #hero { grid-template-columns: 1fr; text-align: center; padding-left: 0; padding: 20px 5% 40px; min-height: auto; display: flex; flex-direction: column; align-items: center; overflow: hidden; }
+      .hero-content { padding: 0; margin-top: 110px; display: flex; flex-direction: column; align-items: center; }
       .hero-right { display: flex; height: 320px; order: -1; margin-bottom: 10px; overflow: visible; width: 100%; justify-content: center; }
       
       /* Scaling down logo elements for mobile */
@@ -802,20 +802,8 @@
       .ps-wrap { grid-template-columns: 1fr 1fr; }
       .ps-wrap::before { display: none; }
       .fg-grid { grid-template-columns: 1fr 1fr; }
-      .nav-links { display: none; } /* Hide original nav links */
-      .hamburger { display: none; } /* Hide hamburger */
-      .mobile-scroll-nav { 
-        display: block; /* Show scrollable nav */
-        position: absolute;
-        top: 70px; /* Position below the main nav */
-        left: 0;
-        right: 0;
-        z-index: 10;
-      }
-      .mobile-scroll-nav .nav-links { display: flex; gap: 1.5rem; }
-      .mobile-scroll-nav .nav-links a { font-size: 0.8rem; }
-      .mobile-scroll-nav .theme-toggle-btn { display: none; } /* Hide theme toggle in this bar */
-      #hero { padding-top: 120px; } /* Add padding to hero to push content down */
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
     }
     @media (max-width: 600px) {
       section { padding: 5rem 5%; }
@@ -851,25 +839,21 @@
     <li><button id="themeToggle" class="theme-toggle-btn">🌙</button></li>
     <li><a href="#contact" class="nav-btn">Order Now</a></li>
   </ul>
-  <!-- Hamburger removed -->
+  <button class="hamburger" id="hamBtn"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- MOBILE SCROLL NAV -->
-<div class="mobile-scroll-nav">
-  <ul class="nav-links">
-    <li><a href="#products">Products</a></li>
-    <li><a href="#benefits">Benefits</a></li>
-    <li><a href="#achievements">Achievements</a></li>
-    <li><a href="#founder">Founder</a></li>
-    <li><a href="#why">Why Us</a></li>
-    <li><a href="#process">Process</a></li>
-    <li><button id="mobileScrollThemeToggle" class="theme-toggle-btn">🌙</button></li>
-    <li><a href="#contact" class="nav-btn">Order</a></li>
-    <div class="nav-indicator"></div>
-  </ul>
+<!-- MOBILE NAV -->
+<div class="mob-nav" id="mobNav">
+  <button class="mob-close" id="mobClose">✕</button>
+  <a href="#products" onclick="closeMob()">Products</a>
+  <a href="#benefits" onclick="closeMob()">Fish Benefits</a>
+  <a href="#achievements" onclick="closeMob()">Achievements</a>
+  <a href="#about" onclick="closeMob()">About</a>
+  <a href="#founder" onclick="closeMob()">Founder</a>
+  <button id="mobThemeToggle" class="theme-toggle-btn" style="font-size: 1.5rem; margin-top: 1rem; border: 1px solid var(--card-bd); padding: 0.5rem 1.5rem; border-radius: 50px;"></button>
+  <a href="#contact" onclick="closeMob()">Order Now</a>
 </div>
 
-<!-- Old MOBILE NAV removed -->
 
 <!-- HERO -->
 <section id="hero">
@@ -1488,21 +1472,33 @@ window.addEventListener('scroll',()=>{
 });
 st.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 
+/* MOBILE NAV TOGGLE */
+const hamBtn = document.getElementById('hamBtn');
+const mobNav = document.getElementById('mobNav');
+const mobClose = document.getElementById('mobClose');
+
+hamBtn.onclick = () => { mobNav.classList.add('open'); document.body.classList.add('mob-open'); playSound('click'); };
+function closeMob() { 
+  mobNav.classList.remove('open'); 
+  document.body.classList.remove('mob-open'); 
+}
+mobClose.onclick = closeMob;
+
 /* THEME TOGGLE */
 const themeToggle = document.getElementById('themeToggle');
 const body = document.body;
-const mobileScrollThemeToggle = document.getElementById('mobileScrollThemeToggle');
+const mobThemeToggle = document.getElementById('mobThemeToggle');
 
 function setTheme(theme) {
   if (theme === 'dark') {
     body.classList.add('dark-theme');
-    if(themeToggle) themeToggle.innerHTML = '☀️';
-    if(mobileScrollThemeToggle) mobileScrollThemeToggle.innerHTML = '☀️';
+    themeToggle.innerHTML = '☀️'; // Desktop icon
+    mobThemeToggle.textContent = 'Light Theme'; // Mobile text
     localStorage.setItem('theme', 'dark');
   } else {
     body.classList.remove('dark-theme');
-    if(themeToggle) themeToggle.innerHTML = '🌙';
-    if(mobileScrollThemeToggle) mobileScrollThemeToggle.innerHTML = '🌙';
+    themeToggle.innerHTML = '🌙'; // Desktop icon
+    mobThemeToggle.textContent = 'Dark Theme'; // Mobile text
     localStorage.setItem('theme', 'light');
   }
 }
@@ -1510,11 +1506,10 @@ function setTheme(theme) {
 const toggleAction = () => {
   const isDark = body.classList.contains('dark-theme');
   setTheme(isDark ? 'light' : 'dark');
-  playSound('success', 0.3);
 };
 
-if(themeToggle) themeToggle.addEventListener('click', toggleAction);
-if(mobileScrollThemeToggle) mobileScrollThemeToggle.addEventListener('click', toggleAction);
+themeToggle.addEventListener('click', toggleAction);
+mobThemeToggle.addEventListener('click', toggleAction);
 
 const savedTheme = localStorage.getItem('theme') || 'light';
 setTheme(savedTheme);
@@ -1612,7 +1607,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Generic click sound for links and buttons
   document.body.addEventListener('click', (e) => {
     if (e.target.matches('a, button, .pc, .fb, .wc, .ps, .tc')) {
-      if (!e.target.closest('.theme-toggle-btn')) {
+      // Exclude theme toggle to give it a unique sound
+      if (!e.target.closest('#themeToggle')) {
         playSound('click');
       }
     }
@@ -1620,66 +1616,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Special sound for theme toggle
   document.querySelectorAll('.theme-toggle-btn').forEach(btn => btn.addEventListener('click', () => playSound('success', 0.3)));
-
-  // Mobile Scroll Nav Indicator
-  const mobileScrollNav = document.querySelector('.mobile-scroll-nav');
-  if (mobileScrollNav) {
-    const mobileScrollNavLinks = mobileScrollNav.querySelectorAll('.nav-links a, .mobile-scroll-nav .theme-toggle-btn');
-    const navIndicator = mobileScrollNav.querySelector('.nav-indicator');
-
-    if (navIndicator && mobileScrollNavLinks.length > 0) {
-      function updateIndicator(targetElement) {
-        if (!targetElement) return;
-        const navLinksContainer = mobileScrollNav.querySelector('.nav-links');
-        const containerRect = navLinksContainer.getBoundingClientRect();
-        const targetRect = targetElement.getBoundingClientRect();
-
-        navIndicator.style.left = `${targetRect.left - containerRect.left}px`;
-        navIndicator.style.width = `${targetRect.width}px`;
-      }
-
-      let activeElement = mobileScrollNav.querySelector('a'); // Default to first link
-      mobileScrollNavLinks.forEach(el => el.classList.remove('active-nav-link'));
-      if(activeElement) activeElement.classList.add('active-nav-link');
-      updateIndicator(activeElement);
-
-      mobileScrollNavLinks.forEach(element => {
-        element.addEventListener('click', (e) => {
-          mobileScrollNavLinks.forEach(el => el.classList.remove('active-nav-link'));
-          e.currentTarget.classList.add('active-nav-link');
-          updateIndicator(e.currentTarget);
-        });
-      });
-
-      const sections = document.querySelectorAll('section[id]');
-      const observerOptions = { root: null, rootMargin: '-40% 0px -60% 0px', threshold: 0 };
-
-      const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const sectionId = `#${entry.target.id}`;
-            const correspondingLink = Array.from(mobileScrollNavLinks).find(el => el.getAttribute('href') === sectionId);
-            if (correspondingLink) {
-              mobileScrollNavLinks.forEach(el => el.classList.remove('active-nav-link'));
-              correspondingLink.classList.add('active-nav-link');
-              updateIndicator(correspondingLink);
-              
-              const linkCenter = correspondingLink.offsetLeft + (correspondingLink.offsetWidth / 2);
-              const containerCenter = mobileScrollNav.offsetWidth / 2;
-              mobileScrollNav.scrollLeft = linkCenter - containerCenter;
-            }
-          }
-        });
-      }, observerOptions);
-
-      sections.forEach(section => sectionObserver.observe(section));
-
-      window.addEventListener('resize', () => {
-        const currentActive = document.querySelector('.mobile-scroll-nav .active-nav-link');
-        updateIndicator(currentActive || activeElement);
-      });
-    }
-  }
 });
 </script>
 </body>
