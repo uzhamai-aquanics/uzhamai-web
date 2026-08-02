@@ -1452,7 +1452,7 @@ const hamBtn = document.getElementById('hamBtn');
 const mobNav = document.getElementById('mobNav');
 const mobClose = document.getElementById('mobClose');
 
-hamBtn.onclick = () => { mobNav.classList.add('open'); document.body.classList.add('mob-open'); };
+hamBtn.onclick = () => { mobNav.classList.add('open'); document.body.classList.add('mob-open'); playSound('click'); };
 function closeMob() { 
   mobNav.classList.remove('open'); 
   document.body.classList.remove('mob-open'); 
@@ -1464,7 +1464,7 @@ const themeToggle = document.getElementById('themeToggle');
 const body = document.body;
 const mobThemeToggle = document.getElementById('mobThemeToggle');
 
-function setTeam(theme) {
+function setTheme(theme) {
   if (theme === 'dark') {
     body.classList.add('dark-theme');
     themeToggle.innerHTML = '☀️'; // Desktop icon
@@ -1480,14 +1480,14 @@ function setTeam(theme) {
 
 const toggleAction = () => {
   const isDark = body.classList.contains('dark-theme');
-  setTeam(isDark ? 'light' : 'dark');
+  setTheme(isDark ? 'light' : 'dark');
 };
 
 themeToggle.addEventListener('click', toggleAction);
 mobThemeToggle.addEventListener('click', toggleAction);
 
 const savedTheme = localStorage.getItem('theme') || 'light';
-setTeam(savedTheme);
+setTheme(savedTheme);
 
 /* SOUND EFFECTS */
 function playSound(type, volume = 0.2) {
@@ -1590,7 +1590,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Special sound for theme toggle
-  document.querySelectorAll('.theme-toggle-btn').forEach(btn => btn.addEventListener('click', () => playSound('click', 0.4)));
+  document.querySelectorAll('.theme-toggle-btn').forEach(btn => btn.addEventListener('click', () => playSound('success', 0.3)));
 });
 </script>
 </body>
